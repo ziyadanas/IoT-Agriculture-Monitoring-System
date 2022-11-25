@@ -23,7 +23,6 @@ A simple IoT project for Software Engineering course (SKEL413) on a weather moni
       - [Code Sample](#code-sample)
     + [Cloud Platform](#cloud-platform)
     + [Dashboard](#dashboard)
-  * [Sending Data from Device to Server (Milestone3)](#sending-data-from-device-to-server--milestone3-)
    
 ## IoT Agriculture Monitoring System (Milestone2)
 
