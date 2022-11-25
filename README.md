@@ -9,6 +9,17 @@ storage     - heroku
 
 Dashboard   - Grafana
 
+problem statement - ammar
+
+system architecture - afiq
+
+sensor - ziyad
+
+cloud plaform - ziyad
+
+dashboard - ziyad
+
+
 # IoTproject
 A simple IoT project for Software Engineering course (SKEL413) on a weather monitoring system using M5stickC with DHT11 sensor to obtain the data
 
