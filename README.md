@@ -22,18 +22,10 @@ dashboard - ziyad
 
 - [Stage 2: IoT Agriculture Monitoring System](#stage-2-iot-agriculture-monitoring-system)
   * [Problem Statement](#problem-statement)
-    + [Use Case Description - Report Weather](#use-case-description---report-weather)
   * [System Architecture](#system-architecture)
   * [Sensor](#sensor)
-    + [NodeMCU ESP8266](#nodemcu-esp8266)
-    + [LDR Sensor Module](#ldr-sensor-module)
-    + [Soil Moisture Sensor Module](#soil-moisture-sensor-module)
-    + [Hyper-Text-Transfer-Protocol (HTTP)](#hyper-text-transfer-protocol-http)
   * [Cloud Platform](#cloud-platform)
-    + [Flask Web Framework](#flask-web-framework)
-    + [Heroku Cloud Database](#heroku-cloud-database)
   * [Dashboard](#dashboard)
-    + [Grafana Visualization Web Application](#grafana-visualization-web-application)
 ## Stage 2: IoT Agriculture Monitoring System
 
 ### Problem Statement
@@ -65,24 +57,12 @@ Here are the general overview of the system architecture of our IoT weather moni
 ![system architecture](https://i.ibb.co/RvBLGVK/Capture2.jpg)
 
 ### Sensor
+Propose data transmission protocol is **Hyper-Text-Transfer-Protocol (HTTP)**. Propose device for this project are:
+ - NodeMCU ESP8266
+ - Soil Moisture Sensor Module
+ - LDR Sensor Module
 
-#### NodeMCU ESP8266
-
-![NodeMCU ESP8266 Pinout](https://hackster.imgix.net/uploads/attachments/944050/node-mcu_nRId0HmElJ.jpg?auto=compress%2Cformat&w=1280&h=960&fit=max)
-
-#### LDR Sensor Module
-
-![LDR Sensor Module](https://cdn.shopify.com/s/files/1/0559/1970/6265/files/Untitleddesign_480x480.jpg?v=1666679399)
-
-#### Soil Moisture Sensor Module
-
-![Soil Moisture Sensor Module](https://components101.com/sites/default/files/component_pin/Moisture-Sensor-Module-Pinout.jpg)
-
-#### Hyper-Text-Transfer-Protocol (HTTP)
 ### Cloud Platform
-#### Flask Web Framework
-#### Heroku Cloud Database
-
 Backend Framework: Flask
 
 Cloud Hosting Platform: Heroku
@@ -92,7 +72,6 @@ URL of our Flask App: https://weather-m3.herokuapp.com/
 This is the [video](https://www.youtube.com/watch?v=0j9s8jk-LtA&ab_channel=MOHDHAFEEZSHAHRIL) of how we deploy Flask app to Heroku
 
 ### Dashboard
-#### Grafana Visualization Web Application
 This is the prototype dashboard that we will be creating later using Google Data Studio. It will display the temperature, humidity and heat index and also simple data like date and day.
 
 ![Dashboard](https://i.ibb.co/LSsG0yz/dashboard.jpg)
