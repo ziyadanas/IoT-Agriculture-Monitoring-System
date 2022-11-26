@@ -1,5 +1,5 @@
 # IoT-Project
-A simple IoT project for Software Engineering course (SKEL413) on a Agriculture Monitoring System using NodeMCU ESP8266 with Soil Moistures and PH Sensors for data acquisition.
+IoT project for course skel4213
 
 Sensor      - ph sensor, soil moisture sensor, nodemcu esp8266
 
@@ -19,36 +19,33 @@ cloud plaform - ziyad
 
 dashboard - ziyad
 
-## Table of Contents
-- [Stage 2: IoT Agriculture Monitoring System](#stage-2:-iot-agriculture-monitoring-system)
-  * [Problem Statement](#problem-statement)
-    + [Use Case Description - Report Weather](#use-case-description---report-weather)
-  * [System Architecture](#system-architecture)
-    + [Sub-sub-heading](#sub-sub-heading-1)
-  * [Sensor](#sensor)
-    + [Proposed Device: M5STICKC](#proposed-device--m5stickc)
-    + [Proposed Data Transmission Protocol : HTTP](#proposed-data-transmission-protocol---http)
-    + [Code Sample](#code-sample)
-  * [Cloud Platform](#cloud-platform)
-  * [Dashboard](#dashboard)
+
+# IoTproject
+A simple IoT project for Software Engineering course (SKEL413) on a weather monitoring system using M5stickC with soil moisture sensor and Ph sensor to obtain the related data
+
+### Table of Contents
+
 - [IoTproject](#iotproject)
     + [Table of Contents](#table-of-contents)
-  * [IoT Agriculture Monitoring System (Milestone2)](#iot-agriculture-monitoring-system--milestone2-)
+  * [IoT Weather Monitoring System (Milestone2)](#iot-weather-monitoring-system--milestone2-)
     + [Problem Statement](#problem-statement)
-      - [Use Case Description - Report Weather](#use-case-description---report-weather)
+      - [Use Case Description - Notify crops condition](#use-case-description---report-weather)
     + [System Architecture](#system-architecture)
     + [Sensor](#sensor)
       - [Proposed Device: M5STICKC](#proposed-device--m5stickc)
       - [Proposed Data Transmission Protocol : HTTP](#proposed-data-transmission-protocol---http)
       - [Code Sample](#code-sample)
     + [Cloud Platform](#cloud-platform)
-    + [Dashboard](#dashboard)  
-## Stage 2: IoT Agriculture Monitoring System
+    + [Dashboard](#dashboard)
+   
+## IoT Agriculture Monitoring System (Stage 2)
+
 ### Problem Statement
 
-Weather conditions have an impact on human activity, and weather monitoring can aid in activity control. It is critical to keep an eye on and monitor the weather patterns in the area. Users have limited access to weather information such as temperature, humidity, and heat index. Users will not be notified about  heat waves, or any other weather-related emergency if they do not have access to a weather station.
+Agriculture is one of the important aspect of life. It contributes to most of the world's food, one of the human's basic need of life. Hence, explains the importance of maintaining the quality of the crops. Cultivation of soil for the growth of crops has become the attention of all farmers. Frequent monitoring is required to ensure a healthy growth of plants.
 
-Furthermore, producing weather forecasts without data is challenging. When a person uses a weather station, they can also view the information's history. The trends in the measurements can be determined by the user. The user will be able to examine patterns more effectively as a result of this.
+There are a few parameters that need to be monitored which includes soil humidity and soil acidity. A soil which is too humid could catalyst the growth of mold and bacteria that cause plants to become wilt and unhealthy. 
+
 
 ![Case Diagram](https://i.ibb.co/mt1dCW2/image1.jpg)
 
@@ -57,12 +54,12 @@ Furthermore, producing weather forecasts without data is challenging. When a per
 
 |        | Description |
 | ------- | ---------------|
-| System | Weather Station |
-| Use Case | Report Weather |
-| Actors | Weather Station, User that retrieve information |
-| Data | The weather station sends summary of weather data that has been collected from the sensors. The data will be covering on the temperature, humidity and heat index |
-| Stimulus | The weather station establish communication link with the user to send requested transmission of the data |
-| Response | The summarized data are sent to the user |
+| System | Farms or nursery |
+| Use Case | Notify plant condition |
+| Actors | Farms or nursery, Farmers |
+| Data | Farms or nursery sends summary of collected data from the sensors such as soil humidity and acidity |
+| Stimulus | Farms (Sensor location) establish communication link with the user to send and update requested data |
+| Response | The summarized data are sent and displayed to the user for data analysis and to take action accordingly |
 | Comments | Weather station usually asked to report once per hour but the frequency may differ from one station to another and may be modified in the future |
 
 ### System Architecture
@@ -72,12 +69,106 @@ Here are the general overview of the system architecture of our IoT weather moni
 ![system architecture](https://i.ibb.co/RvBLGVK/Capture2.jpg)
 
 ### Sensor
+
+#### Proposed Device: M5STICKC
+
+![M5](https://images-na.ssl-images-amazon.com/images/I/51ykxk9ZYoL.jpg)
+
 #### Proposed Data Transmission Protocol : HTTP
-#### Proposed Device: NodeMCU ESP8266
 
-![M5](https://hackster.imgix.net/uploads/attachments/944050/node-mcu_nRId0HmElJ.jpg?auto=compress%2Cformat&w=1280&h=960&fit=max)
+#### Code Sample
 
+<details>
+  <summary>Click to expand!</summary>
 
+```
+
+#include <WiFi.h>
+#include "DHT.h"
+#include <HTTPClient.h>
+#define DHTPIN 26     // DHT sensor pin
+float h = 0;
+float t = 0;
+// Replace with your network credentials
+const char* ssid     = "YOUR SSID NAME";
+const char* password = "YOUR NETWORK PASSWORD";
+
+#define DHTTYPE DHT11   // DHT 11
+
+DHT dht(DHTPIN, DHTTYPE);
+
+// Set web server port number to 80
+WiFiServer server(80);
+
+// Variable to store the HTTP request
+String header;
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(4,OUTPUT);
+  pinMode(2,OUTPUT);
+  dht.begin();
+  // Connect to Wi-Fi network with SSID and password
+  Serial.print("Connecting to ");
+  Serial.println(ssid);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  // Print local IP address and start web server
+  Serial.println("");
+  Serial.println("WiFi connected.");
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());
+  server.begin();
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  if (isnan(h) || isnan(t)) {
+    h = random(60,78);
+    t = random(28,31);
+  } else {
+    h = dht.readHumidity();
+    t = dht.readTemperature();
+  }
+
+  HTTPClient http;
+  //send channel data with data reference name and data for example: temp=32
+  //You can send multiple data separated by & for example: temp=32$hum=67
+  //dont forget to include api(api key) and id (device id)
+  
+  //Example url for channel data and controllers data both can be requested at the same http request url
+  //replace API_KEY and DEVICE_ID with your own at io.circuits.my 
+  //any api request will be using api.circuits.my
+
+  String api_key = "Put your API key";
+  String device_id = "Put your device ID";
+
+  //For display data only without control.
+
+  HTTPClient http;
+  String httpData = "http://api.circuits.my/request.php?api=" + api_key + "&id=" + device_id + "&temp=" + String(t) + "&hum=" + String(h);
+  http.begin(httpData); //Specify the URL
+  int httpResponsCode = http.GET(); //Make the request
+  if (httpResponsCode > 0) { //Check for the returning code
+    String payload = http.getString();
+    Serial.println(httpResponsCode);
+    Serial.println(payload);
+  }
+
+  else {
+    Serial.println("Error on HTTP request");
+  }
+  http.end(); //Free the resources
+  delay(3000);
+}
+
+```
+</details>
+  
+<img src="https://i.ibb.co/1m4fcFt/Whats-App-Image-2021-12-15-at-20-33-40.jpg" alt="sample" width="400"/> 
   
 ### Cloud Platform
 
