@@ -30,12 +30,14 @@ dashboard - ziyad
 
 ### Problem Statement
 
-Agriculture is one of the important aspect of life. It contributes to most of the world's food, one of the human's basic need of life. Hence, explains the importance of maintaining the quality of the crops. Cultivation of soil for the growth of crops has become the attention of all farmers. Frequent monitoring is required to ensure a healthy growth of plants.
+Food security has been listed in the 17 Sustainable Development Growth (17 SDGs) under 'Zero Hunger'. Agriculture is an important aspect of life as it could source an adequate foodstuff. It contributes to most of the world's food, one of the human's basic need of life. Hence, explains the importance of maintaining the quality of the crops. Cultivation of soil for the growth of crops has become the attention of all farmers. Frequent monitoring is required to ensure plants to grow healthily.
 
-There are a few parameters that need to be monitored which includes soil humidity and soil acidity. A soil which is too humid could catalyst the growth of mold and bacteria that cause plants to become wilt and unhealthy. 
+There are a few parameters that need to be monitored in growing a healthy crops which includes soil humidity and light intensity. A soil which is too humid could catalyst the growth of mold and bacteria that cause plants to wilt and become unhealthy whereas plants that does not receive enough lights will also become wilt and eventualy dies.
+
+The intervention of Internet of Things (IoT) technology in agriculture could facilitate farmers in managing their crops by a proper schedule of plant monitoring. They need not to worry about the condition of their crops as the sensor will aid them to monitor the plants. The sensor senses the changes happen to the crops and immediately notify them for any changes occur and they can take action accordingly. This project will focus on the development of IoT-based agriculture monitoring system. 
 
 
-![Case Diagram](https://i.ibb.co/mt1dCW2/image1.jpg)
+![Use case diagram](https://user-images.githubusercontent.com/117179191/204078717-975225ce-d453-486c-a0b9-196c8b93746e.JPG)
 
 #### Use Case Description - Report and Notify Plant Condition
 
