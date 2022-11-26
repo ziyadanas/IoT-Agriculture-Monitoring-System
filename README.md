@@ -25,24 +25,13 @@ dashboard - ziyad
     + [Use Case Description - Report Weather](#use-case-description---report-weather)
   * [System Architecture](#system-architecture)
   * [Sensor](#sensor)
-    + [Sub-sub-heading](#sub-sub-heading-1)
-  * [](#sub-heading-2)
+    + [NodeMCU ESP8266](#nodemcu-esp8266)
+    + [LDR Sensor Module](#ldr-sensor-module)
+    + [Soil Moisture Sensor Module](#soil-moisture-sensor-module)
+    + [Hyper-Text-Transfer-Protocol (HTTP)](#hyper-text-transfer-protocol-http)
+  * [Cloud Platform](#cloud-platform)
     + [Sub-sub-heading](#sub-sub-heading-2)
-
-
-- [IoTproject](#iotproject)
-    + [Table of Contents](#table-of-contents)
-  * [IoT Weather Monitoring System (Milestone2)](#iot-weather-monitoring-system--milestone2-)
-    + [Problem Statement](#problem-statement)
-      - [Use Case Description - Notify crops condition](#use-case-description---report-weather)
-    + [System Architecture](#system-architecture)
-    + [Sensor](#sensor)
-      - [Proposed Device: M5STICKC](#proposed-device--m5stickc)
-      - [Proposed Data Transmission Protocol : HTTP](#proposed-data-transmission-protocol---http)
-      - [Code Sample](#code-sample)
-    + [Cloud Platform](#cloud-platform)
-    + [Dashboard](#dashboard)
-   
+  * [Dashboard](#dashboard) 
 ## Stage 2: IoT Agriculture Monitoring System
 
 ### Problem Statement
@@ -75,11 +64,13 @@ Here are the general overview of the system architecture of our IoT weather moni
 
 ### Sensor
 
-#### Proposed Device: M5STICKC
+#### NodeMCU ESP8266
 
 ![M5](https://images-na.ssl-images-amazon.com/images/I/51ykxk9ZYoL.jpg)
 
-#### Proposed Data Transmission Protocol : HTTP  
+#### LDR Sensor Module
+#### Soil Moisture Sensor Module
+#### Hyper-Text-Transfer-Protocol (HTTP)
 ### Cloud Platform
 
 Backend Framework: Flask
