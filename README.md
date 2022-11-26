@@ -61,6 +61,105 @@ Propose data transmission protocol is **Hyper-Text-Transfer-Protocol (HTTP)**. P
  - NodeMCU ESP8266
  - Soil Moisture Sensor Module
  - LDR Sensor Module
+ - CD4051B Multiplexer
+ 
+ ![image](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/IMG_0133.jpg)
+ 
+ <details>
+  <summary>Code for NodeMCU ESP8266
+
+```
+
+#include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
+#include <WiFiClient.h>
+
+//setting I/O sensor nodemcu
+#define moisturepin A0
+#define ldrpin A0
+#define modepin 10
+
+//WiFi detail
+const char* ssid = "insert SSID";
+const char* password = "insert password";
+String serverName =  "http://api.circuits.my/request.php";
+
+//global variable
+float mp = 0;       //moisture percentage
+float li = 0;       //light intensity
+int sensormode = 0; //swap sensor
+
+//setup wifi port - http
+WiFiServer server(80);
+
+void wificlient(){
+  WiFiClient client;
+  HTTPClient http;
+  String api_key = "Put your API key";
+  String device_id = "Put your device ID";
+  String httpData = serverName + "?api=" + api_key + "&id=" + device_id + "&mp=" + String(mp) + "&li=" + String(li);
+  http.begin(client, httpData); //Specify the URL
+  int httpResponseCode = http.GET(); //Make the request
+  if (httpResponseCode > 0) { //Check for the returning code
+    String payload = http.getString();
+    Serial.println(httpResponseCode);
+    Serial.println(payload);
+  }
+  else {
+    Serial.print("Error Code: ");
+    Serial.println(httpResponseCode);
+  }
+  http.end(); //Free the resources
+}
+
+void setup(){
+  Serial.begin(115200);
+  // Setup pinmode-----------------------------
+  pinMode(moisturepin, INPUT);
+  pinMode(ldrpin, INPUT);
+  pinMode(modepin, OUTPUT);
+  // Connect to WiFi network-------------------
+  Serial.println();
+  Serial.println();
+  Serial.print("Connecting to ");
+  Serial.println(ssid);
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("");
+  Serial.println("WiFi connected");
+  // Start the server-------------------------
+  server.begin();
+  Serial.println("Server started");
+  // Print the IP address---------------------
+  Serial.print("Network IP Address: ");
+  Serial.print("http://");
+  Serial.print(WiFi.localIP());
+  Serial.println("/");
+  //------------------------------------------
+}
+
+void loop(){
+  
+  sensormode = 0;
+  mp = ( 100.00 - ( (analogRead(moisturepin)/1023.00) * 100.00 ) );
+  Serial.print("Soil Moisture (%) = "); Serial.print(mp); Serial.println("%");
+  delay(200);
+  
+  sensormode = 1;
+  li = (analogRead(ldrpin)/1023.00) * 100.00 ;
+  Serial.print("Light Intensity (%) = "); Serial.print(li); Serial.println("%");
+  delay(200);
+
+  if(WiFi.status() == WL_CONNECTED) wificlient();
+  else Serial.println("WiFi Disconnected");
+  delay(600);
+}
+
+```
+</details>
 
 ### Cloud Platform
 Backend Framework: Flask
