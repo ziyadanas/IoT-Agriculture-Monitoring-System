@@ -58,10 +58,10 @@ Here are the general overview of the system architecture of our IoT weather moni
 
 ### Sensor
 Propose data transmission protocol is **Hyper-Text-Transfer-Protocol (HTTP)**. Propose device for this project are:
- - NodeMCU ESP8266
- - Soil Moisture Sensor Module
- - LDR Sensor Module
- - CD4051B Multiplexer
+ - NodeMCU ESP8266             - Control, process sensor input and transmit data to web framework using HTTP data transmission
+ - Soil Moisture Sensor Module - To check moisture level of soil
+ - LDR Sensor Module           - To detect change of light intensity with light dependent resistor
+ - CD4051B Multiplexer         - NodeMCU ESP8266 has only 1 ADC pinout. Soil mositure and LDR sensor need to share pin via multiplexer CD40518
  
  ![image](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/IMG_0133.jpg)
  
@@ -143,12 +143,12 @@ void setup(){
 
 void loop(){
   
-  sensormode = 0;
+  digitalWrite(sensormode, LOW);
   mp = ( 100.00 - ( (analogRead(moisturepin)/1023.00) * 100.00 ) );
   Serial.print("Soil Moisture (%) = "); Serial.print(mp); Serial.println("%");
   delay(200);
   
-  sensormode = 1;
+  digitalWrite(sensormode, HIGH);
   li = (analogRead(ldrpin)/1023.00) * 100.00 ;
   Serial.print("Light Intensity (%) = "); Serial.print(li); Serial.println("%");
   delay(200);
