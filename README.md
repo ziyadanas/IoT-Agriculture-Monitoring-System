@@ -1,5 +1,5 @@
 # IoT-Project
-IoT project for course skel4213
+A simple IoT project for Software Engineering course (SKEL413) on a Agriculture Monitoring System using NodeMCU ESP8266 with Soil Moistures and PH Sensors for data acquisition.
 
 Sensor      - ph sensor, soil moisture sensor, nodemcu esp8266
 
@@ -19,15 +19,21 @@ cloud plaform - ziyad
 
 dashboard - ziyad
 
-
-# IoTproject
-A simple IoT project for Software Engineering course (SKEL413) on a weather monitoring system using M5stickC with DHT11 sensor to obtain the data
-
-### Table of Contents
-
+## Table of Contents
+- [Stage 2: IoT Agriculture Monitoring System](#stage-2--iot-agriculture-monitoring-system)
+  * [Problem Statement](#problem-statement)
+    + [Use Case Description - Report Weather](#use-case-description---report-weather)
+  * [System Architecture](#system-architecture)
+    + [Sub-sub-heading](#sub-sub-heading-1)
+  * [Sensor](#sensor)
+    + [Proposed Device: M5STICKC](#proposed-device--m5stickc)
+    + [Proposed Data Transmission Protocol : HTTP](#proposed-data-transmission-protocol---http)
+    + [Code Sample](#code-sample)
+  * [Cloud Platform](#cloud-platform)
+  * [Dashboard](#dashboard)
 - [IoTproject](#iotproject)
     + [Table of Contents](#table-of-contents)
-  * [IoT Weather Monitoring System (Milestone2)](#iot-weather-monitoring-system--milestone2-)
+  * [IoT Agriculture Monitoring System (Milestone2)](#iot-agriculture-monitoring-system--milestone2-)
     + [Problem Statement](#problem-statement)
       - [Use Case Description - Report Weather](#use-case-description---report-weather)
     + [System Architecture](#system-architecture)
@@ -36,10 +42,8 @@ A simple IoT project for Software Engineering course (SKEL413) on a weather moni
       - [Proposed Data Transmission Protocol : HTTP](#proposed-data-transmission-protocol---http)
       - [Code Sample](#code-sample)
     + [Cloud Platform](#cloud-platform)
-    + [Dashboard](#dashboard)
-   
-## IoT Agriculture Monitoring System (Milestone2)
-
+    + [Dashboard](#dashboard)  
+## Stage 2: IoT Agriculture Monitoring System
 ### Problem Statement
 
 Weather conditions have an impact on human activity, and weather monitoring can aid in activity control. It is critical to keep an eye on and monitor the weather patterns in the area. Users have limited access to weather information such as temperature, humidity, and heat index. Users will not be notified about  heat waves, or any other weather-related emergency if they do not have access to a weather station.
@@ -68,106 +72,12 @@ Here are the general overview of the system architecture of our IoT weather moni
 ![system architecture](https://i.ibb.co/RvBLGVK/Capture2.jpg)
 
 ### Sensor
-
-#### Proposed Device: M5STICKC
-
-![M5](https://images-na.ssl-images-amazon.com/images/I/51ykxk9ZYoL.jpg)
-
 #### Proposed Data Transmission Protocol : HTTP
+#### Proposed Device: NodeMCU ESP8266
 
-#### Code Sample
+![M5](https://hackster.imgix.net/uploads/attachments/944050/node-mcu_nRId0HmElJ.jpg?auto=compress%2Cformat&w=1280&h=960&fit=max)
 
-<details>
-  <summary>Click to expand!</summary>
 
-```
-
-#include <WiFi.h>
-#include "DHT.h"
-#include <HTTPClient.h>
-#define DHTPIN 26     // DHT sensor pin
-float h = 0;
-float t = 0;
-// Replace with your network credentials
-const char* ssid     = "YOUR SSID NAME";
-const char* password = "YOUR NETWORK PASSWORD";
-
-#define DHTTYPE DHT11   // DHT 11
-
-DHT dht(DHTPIN, DHTTYPE);
-
-// Set web server port number to 80
-WiFiServer server(80);
-
-// Variable to store the HTTP request
-String header;
-
-void setup() {
-  Serial.begin(115200);
-  pinMode(4,OUTPUT);
-  pinMode(2,OUTPUT);
-  dht.begin();
-  // Connect to Wi-Fi network with SSID and password
-  Serial.print("Connecting to ");
-  Serial.println(ssid);
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  // Print local IP address and start web server
-  Serial.println("");
-  Serial.println("WiFi connected.");
-  Serial.println("IP address: ");
-  Serial.println(WiFi.localIP());
-  server.begin();
-}
-
-void loop() {
-  // put your main code here, to run repeatedly:
-  if (isnan(h) || isnan(t)) {
-    h = random(60,78);
-    t = random(28,31);
-  } else {
-    h = dht.readHumidity();
-    t = dht.readTemperature();
-  }
-
-  HTTPClient http;
-  //send channel data with data reference name and data for example: temp=32
-  //You can send multiple data separated by & for example: temp=32$hum=67
-  //dont forget to include api(api key) and id (device id)
-  
-  //Example url for channel data and controllers data both can be requested at the same http request url
-  //replace API_KEY and DEVICE_ID with your own at io.circuits.my 
-  //any api request will be using api.circuits.my
-
-  String api_key = "Put your API key";
-  String device_id = "Put your device ID";
-
-  //For display data only without control.
-
-  HTTPClient http;
-  String httpData = "http://api.circuits.my/request.php?api=" + api_key + "&id=" + device_id + "&temp=" + String(t) + "&hum=" + String(h);
-  http.begin(httpData); //Specify the URL
-  int httpResponsCode = http.GET(); //Make the request
-  if (httpResponsCode > 0) { //Check for the returning code
-    String payload = http.getString();
-    Serial.println(httpResponsCode);
-    Serial.println(payload);
-  }
-
-  else {
-    Serial.println("Error on HTTP request");
-  }
-  http.end(); //Free the resources
-  delay(3000);
-}
-
-```
-</details>
-  
-<img src="https://i.ibb.co/1m4fcFt/Whats-App-Image-2021-12-15-at-20-33-40.jpg" alt="sample" width="400"/> 
   
 ### Cloud Platform
 
