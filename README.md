@@ -1,7 +1,7 @@
 # IoT-Project
-IoT project for course skel4213
+A simple IoT project for Software Engineering course (SKEL413) on a Agriculture Monitoring System using NodeMCU ESP8266 with Soil Moisture and LDR Sensor Module for data acquisition.
 
-Sensor      - ph sensor, soil moisture sensor, nodemcu esp8266
+Sensor      - ldr sensor module, soil moisture sensor, nodemcu esp8266
 
 data ingest - Flask
 
@@ -18,27 +18,23 @@ sensor - ziyad
 cloud plaform - ziyad
 
 dashboard - ziyad
+## Table of Contents
 
-
-# IoTproject
-A simple IoT project for Software Engineering course (SKEL413) on a weather monitoring system using M5stickC with soil moisture sensor and Ph sensor to obtain the related data
-
-### Table of Contents
-
-- [IoTproject](#iotproject)
-    + [Table of Contents](#table-of-contents)
-  * [IoT Weather Monitoring System (Milestone2)](#iot-weather-monitoring-system--milestone2-)
-    + [Problem Statement](#problem-statement)
-      - [Use Case Description - Notify crops condition](#use-case-description---report-weather)
-    + [System Architecture](#system-architecture)
-    + [Sensor](#sensor)
-      - [Proposed Device: M5STICKC](#proposed-device--m5stickc)
-      - [Proposed Data Transmission Protocol : HTTP](#proposed-data-transmission-protocol---http)
-      - [Code Sample](#code-sample)
-    + [Cloud Platform](#cloud-platform)
-    + [Dashboard](#dashboard)
-   
-## IoT Agriculture Monitoring System (Stage 2)
+- [Stage 2: IoT Agriculture Monitoring System](#stage-2-iot-agriculture-monitoring-system)
+  * [Problem Statement](#problem-statement)
+    + [Use Case Description - Report Weather](#use-case-description---report-weather)
+  * [System Architecture](#system-architecture)
+  * [Sensor](#sensor)
+    + [NodeMCU ESP8266](#nodemcu-esp8266)
+    + [LDR Sensor Module](#ldr-sensor-module)
+    + [Soil Moisture Sensor Module](#soil-moisture-sensor-module)
+    + [Hyper-Text-Transfer-Protocol (HTTP)](#hyper-text-transfer-protocol-http)
+  * [Cloud Platform](#cloud-platform)
+    + [Flask Web Framework](#flask-web-framework)
+    + [Heroku Cloud Database](#heroku-cloud-database)
+  * [Dashboard](#dashboard)
+    + [Grafana Visualization Web Application](#grafana-visualization-web-application)
+## Stage 2: IoT Agriculture Monitoring System
 
 ### Problem Statement
 
@@ -70,107 +66,22 @@ Here are the general overview of the system architecture of our IoT weather moni
 
 ### Sensor
 
-#### Proposed Device: M5STICKC
+#### NodeMCU ESP8266
 
-![M5](https://images-na.ssl-images-amazon.com/images/I/51ykxk9ZYoL.jpg)
+![NodeMCU ESP8266 Pinout](https://hackster.imgix.net/uploads/attachments/944050/node-mcu_nRId0HmElJ.jpg?auto=compress%2Cformat&w=1280&h=960&fit=max)
 
-#### Proposed Data Transmission Protocol : HTTP
+#### LDR Sensor Module
 
-#### Code Sample
+![LDR Sensor Module](https://cdn.shopify.com/s/files/1/0559/1970/6265/files/Untitleddesign_480x480.jpg?v=1666679399)
 
-<details>
-  <summary>Click to expand!</summary>
+#### Soil Moisture Sensor Module
 
-```
+![Soil Moisture Sensor Module](https://components101.com/sites/default/files/component_pin/Moisture-Sensor-Module-Pinout.jpg)
 
-#include <WiFi.h>
-#include "DHT.h"
-#include <HTTPClient.h>
-#define DHTPIN 26     // DHT sensor pin
-float h = 0;
-float t = 0;
-// Replace with your network credentials
-const char* ssid     = "YOUR SSID NAME";
-const char* password = "YOUR NETWORK PASSWORD";
-
-#define DHTTYPE DHT11   // DHT 11
-
-DHT dht(DHTPIN, DHTTYPE);
-
-// Set web server port number to 80
-WiFiServer server(80);
-
-// Variable to store the HTTP request
-String header;
-
-void setup() {
-  Serial.begin(115200);
-  pinMode(4,OUTPUT);
-  pinMode(2,OUTPUT);
-  dht.begin();
-  // Connect to Wi-Fi network with SSID and password
-  Serial.print("Connecting to ");
-  Serial.println(ssid);
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  // Print local IP address and start web server
-  Serial.println("");
-  Serial.println("WiFi connected.");
-  Serial.println("IP address: ");
-  Serial.println(WiFi.localIP());
-  server.begin();
-}
-
-void loop() {
-  // put your main code here, to run repeatedly:
-  if (isnan(h) || isnan(t)) {
-    h = random(60,78);
-    t = random(28,31);
-  } else {
-    h = dht.readHumidity();
-    t = dht.readTemperature();
-  }
-
-  HTTPClient http;
-  //send channel data with data reference name and data for example: temp=32
-  //You can send multiple data separated by & for example: temp=32$hum=67
-  //dont forget to include api(api key) and id (device id)
-  
-  //Example url for channel data and controllers data both can be requested at the same http request url
-  //replace API_KEY and DEVICE_ID with your own at io.circuits.my 
-  //any api request will be using api.circuits.my
-
-  String api_key = "Put your API key";
-  String device_id = "Put your device ID";
-
-  //For display data only without control.
-
-  HTTPClient http;
-  String httpData = "http://api.circuits.my/request.php?api=" + api_key + "&id=" + device_id + "&temp=" + String(t) + "&hum=" + String(h);
-  http.begin(httpData); //Specify the URL
-  int httpResponsCode = http.GET(); //Make the request
-  if (httpResponsCode > 0) { //Check for the returning code
-    String payload = http.getString();
-    Serial.println(httpResponsCode);
-    Serial.println(payload);
-  }
-
-  else {
-    Serial.println("Error on HTTP request");
-  }
-  http.end(); //Free the resources
-  delay(3000);
-}
-
-```
-</details>
-  
-<img src="https://i.ibb.co/1m4fcFt/Whats-App-Image-2021-12-15-at-20-33-40.jpg" alt="sample" width="400"/> 
-  
+#### Hyper-Text-Transfer-Protocol (HTTP)
 ### Cloud Platform
+#### Flask Web Framework
+#### Heroku Cloud Database
 
 Backend Framework: Flask
 
@@ -181,7 +92,7 @@ URL of our Flask App: https://weather-m3.herokuapp.com/
 This is the [video](https://www.youtube.com/watch?v=0j9s8jk-LtA&ab_channel=MOHDHAFEEZSHAHRIL) of how we deploy Flask app to Heroku
 
 ### Dashboard
-
+#### Grafana Visualization Web Application
 This is the prototype dashboard that we will be creating later using Google Data Studio. It will display the temperature, humidity and heat index and also simple data like date and day.
 
 ![Dashboard](https://i.ibb.co/LSsG0yz/dashboard.jpg)
