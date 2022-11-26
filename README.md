@@ -20,7 +20,7 @@ cloud plaform - ziyad
 dashboard - ziyad
 
 ## Table of Contents
-- [Stage 2: IoT Agriculture Monitoring System](#stage-2--iot-agriculture-monitoring-system)
+- [Stage 2: IoT Agriculture Monitoring System](#stage-2:-iot-agriculture-monitoring-system)
   * [Problem Statement](#problem-statement)
     + [Use Case Description - Report Weather](#use-case-description---report-weather)
   * [System Architecture](#system-architecture)
