@@ -30,8 +30,10 @@ dashboard - ziyad
     + [Soil Moisture Sensor Module](#soil-moisture-sensor-module)
     + [Hyper-Text-Transfer-Protocol (HTTP)](#hyper-text-transfer-protocol-http)
   * [Cloud Platform](#cloud-platform)
-    + [Sub-sub-heading](#sub-sub-heading-2)
-  * [Dashboard](#dashboard) 
+    + [Flask Web Framework](#flask-web-framework)
+    + [Heroku Cloud Database](#heroku-cloud-database)
+  * [Dashboard](#dashboard)
+    + [Grafana Visualization Web Application](#grafana-visualization-web-application)
 ## Stage 2: IoT Agriculture Monitoring System
 
 ### Problem Statement
@@ -66,12 +68,20 @@ Here are the general overview of the system architecture of our IoT weather moni
 
 #### NodeMCU ESP8266
 
-![M5](https://images-na.ssl-images-amazon.com/images/I/51ykxk9ZYoL.jpg)
+![NodeMCU ESP8266 Pinout](https://hackster.imgix.net/uploads/attachments/944050/node-mcu_nRId0HmElJ.jpg?auto=compress%2Cformat&w=1280&h=960&fit=max)
 
 #### LDR Sensor Module
+
+![LDR Sensor Module](https://cdn.shopify.com/s/files/1/0559/1970/6265/files/Untitleddesign_480x480.jpg?v=1666679399)
+
 #### Soil Moisture Sensor Module
+
+![Soil Moisture Sensor Module](https://components101.com/sites/default/files/component_pin/Moisture-Sensor-Module-Pinout.jpg)
+
 #### Hyper-Text-Transfer-Protocol (HTTP)
 ### Cloud Platform
+#### Flask Web Framework
+#### Heroku Cloud Database
 
 Backend Framework: Flask
 
@@ -82,7 +92,7 @@ URL of our Flask App: https://weather-m3.herokuapp.com/
 This is the [video](https://www.youtube.com/watch?v=0j9s8jk-LtA&ab_channel=MOHDHAFEEZSHAHRIL) of how we deploy Flask app to Heroku
 
 ### Dashboard
-
+#### Grafana Visualization Web Application
 This is the prototype dashboard that we will be creating later using Google Data Studio. It will display the temperature, humidity and heat index and also simple data like date and day.
 
 ![Dashboard](https://i.ibb.co/LSsG0yz/dashboard.jpg)
