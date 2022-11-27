@@ -153,6 +153,7 @@ void loop(){
  ![image](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/nodemcu-pinout.png)
 
 ### Cloud Platform
+
 This [video](https://youtu.be/_i5_W27mgAI) shows the result of integrated [PythonAnywhere Web Hosting](https://www.pythonanywhere.com/) with the [Flask Web Framework](https://flask.palletsprojects.com/en/2.2.x/) where the web-app link can be found [here](http://mohdafiqazizi.pythonanywhere.com/).
 
 [click here to return to the table of contents](#table-of-contents)
