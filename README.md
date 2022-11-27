@@ -32,7 +32,7 @@ The intervention of Internet of Things (IoT) technology in agriculture could fac
 | System | Farms or nursery |
 | Use Case | Report and notify plant condition |
 | Actors | Farms or nursery, Farmers |
-| Data | Farms or nursery sends summary of collected data from the sensors such as soil humidity and acidity |
+| Data | Farms or nursery sends summary of collected data from the sensors such as soil humidity and light intensity |
 | Stimulus | Farms (Sensor location) establish communication link with the user to send and update requested data |
 | Response | The summarized data are sent and displayed to the user for data analysis and user may take action accordingly based on the analyzed data |
 | Comments | The plant's conditions need to be monitored every day. |
