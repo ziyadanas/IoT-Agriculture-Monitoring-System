@@ -152,7 +152,7 @@ void loop(){
 
  [click here to return to the table of contents](#table-of-contents)
  
- ![image](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/hardware-diagram.jpg)
+ ![image](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/hardware-diagram.png)
  ![image](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/nodemcu-pinout.png)
 
 ### Cloud Platform
