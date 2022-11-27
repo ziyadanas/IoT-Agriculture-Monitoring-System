@@ -32,7 +32,7 @@ The intervention of Internet of Things (IoT) technology in agriculture could fac
 | System | Farms or nursery |
 | Use Case | Report and notify plant condition |
 | Actors | Farms or nursery, Farmers |
-| Data | Farms or nursery sends summary of collected data from the sensors such as soil humidity and acidity |
+| Data | Farms or nursery sends summary of collected data from the sensors such as soil humidity and light intensity |
 | Stimulus | Farms (Sensor location) establish communication link with the user to send and update requested data |
 | Response | The summarized data are sent and displayed to the user for data analysis and user may take action accordingly based on the analyzed data |
 | Comments | The plant's conditions need to be monitored every day. |
@@ -153,7 +153,7 @@ void loop(){
  ![image](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/nodemcu-pinout.png)
 
 ### Cloud Platform
-This [video](https://www.google.com/) and [links](http://mohdafiqazizi.pythonanywhere.com/) shows the result of integrated [PythonAnywhere Web Hoisting](https://www.pythonanywhere.com/) with the [Flask Web Framework](https://flask.palletsprojects.com/en/2.2.x/).
+This [video](https://youtu.be/_i5_W27mgAI) shows the result of integrated [PythonAnywhere Web Hosting](https://www.pythonanywhere.com/) with the [Flask Web Framework](https://flask.palletsprojects.com/en/2.2.x/) where the web-app link can be found [here](http://mohdafiqazizi.pythonanywhere.com/).
 
 [click here to return to the table of contents](#table-of-contents)
 
