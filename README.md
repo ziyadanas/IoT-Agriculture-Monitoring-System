@@ -36,7 +36,7 @@ The intervention of Internet of Things (IoT) technology in agriculture could fac
 
 ### System Architecture
 
-This section present an overview of the system architecture of IoT Agriculture Monitoring System. This project use NodeMCU ESP8266 to control, process and transmit moisture and light intensity data received from soil moisture and ldr sensor. NodeMCU will communicate using HTTP data protocol transmission to Flask Web Framework for data ingestion. Then, Flask will store the data to Pythonanywhere Cloud platform and finally update to simple dashboard using Grafana Web Application.
+This section present an overview of the system architecture of IoT Agriculture Monitoring System. This project use NodeMCU ESP8266 to control, process and transmit moisture and light intensity data received from soil moisture and ldr sensor. NodeMCU will communicate using HTTP data protocol transmission to Flask Web Framework for data ingestion. Then, Flask will store the data to PythonAnywhere Web Hoisting platform and finally update to simple dashboard using Grafana Web Application.
 
 ![system architecture](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/architechture-stage2-v5.png)
 
@@ -148,13 +148,7 @@ void loop(){
 </details>
 
 ### Cloud Platform
-Backend Framework: Flask
-
-Cloud Hosting Platform: Heroku
-
-URL of our Flask App: https://weather-m3.herokuapp.com/
-
-This is the [video](https://www.youtube.com/watch?v=0j9s8jk-LtA&ab_channel=MOHDHAFEEZSHAHRIL) of how we deploy Flask app to Heroku
+This [video](https://www.youtube.com/watch?v=0j9s8jk-LtA&ab_channel=MOHDHAFEEZSHAHRIL) shows how  we integrated [PythonAnywhere Web Hoisting](https://www.pythonanywhere.com/) with the development of [Flask Web Framework](https://weather-m3.herokuapp.com/).
 
 ### Dashboard
 The prototype dashboard will developed using Grafana Web Application. The dashboard mainly focus on **Graphical-User-Interface (GUI)** approach consist element of:
