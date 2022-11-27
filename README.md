@@ -4,6 +4,7 @@ A simple IoT project for Software Engineering course (SKEL413) on a Agriculture 
 
 - [Stage 2: IoT Agriculture Monitoring System](#stage-2-iot-agriculture-monitoring-system)
   * [Problem Statement](#problem-statement)
+    + [Use Case Description - Report and Notify Plant Condition](#use-case-description---report-and-notify-plant-condition)
   * [System Architecture](#system-architecture)
   * [Sensor](#sensor)
   * [Cloud Platform](#cloud-platform)
@@ -18,13 +19,15 @@ There are a few parameters that need to be monitored in growing a healthy crops 
 
 The intervention of Internet of Things (IoT) technology in agriculture could facilitate farmers in managing their crops by a proper schedule of plant monitoring. They need not to worry about the condition of their crops as the sensor will aid them to monitor the plants. The sensor senses the changes happen to the crops and immediately notify them for any changes occur and they can take action accordingly. This project will focus on the development of IoT-based agriculture monitoring system. 
 
+[click here to return to the table of contents](#table-of-contents)
 
-![Use case diagram](https://user-images.githubusercontent.com/117179191/204078717-975225ce-d453-486c-a0b9-196c8b93746e.JPG)
+![Use case diagram](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/case-diagram-v2.jpg)
 
 #### Use Case Description - Report and Notify Plant Condition
 
+[click here to return to the table of contents](#table-of-contents)
 
-|        | Description |
+| Elements | Description |
 | ------- | ---------------|
 | System | Farms or nursery |
 | Use Case | Report and notify plant condition |
@@ -38,6 +41,7 @@ The intervention of Internet of Things (IoT) technology in agriculture could fac
 
 This section present an overview of the system architecture of IoT Agriculture Monitoring System. This project use NodeMCU ESP8266 to control, process and transmit moisture and light intensity data received from soil moisture and ldr sensor. NodeMCU will communicate using HTTP data protocol transmission to Flask Web Framework for data ingestion. Then, Flask will store the data to PythonAnywhere Web Hoisting platform and finally update to simple dashboard using Grafana Web Application.
 
+[click here to return to the table of contents](#table-of-contents)
 ![system architecture](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/architechture-stage2-v5.png)
 
 ### Sensor
@@ -50,10 +54,9 @@ Propose data transmission protocol is **Hyper-Text-Transfer-Protocol (HTTP)**. P
 | LDR Sensor Module | To detect change of light intensity with light dependent resistor |
 | CD4051B Multiplexer  | Soil moisture and LDR sensor need to share ADC pin via multiplexer since NodeMCU 8266 has only one ADC pinout|
  
- ![image](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/IMG_0133.jpg)
+ <details>
+  <summary>Click to show the code for NodeMCU ESP8266</summary>
  
-Code for NodeMCU ESP8266
-
 ```
 
 #include <ESP8266WiFi.h>
@@ -147,8 +150,14 @@ void loop(){
 ```
 </details>
 
+ [click here to return to the table of contents](#table-of-contents)
+ 
+  ![image](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/IMG_0133.jpg)
+
 ### Cloud Platform
 This [video](https://www.youtube.com/watch?v=0j9s8jk-LtA&ab_channel=MOHDHAFEEZSHAHRIL) shows how  we integrated [PythonAnywhere Web Hoisting](https://www.pythonanywhere.com/) with the development of [Flask Web Framework](https://weather-m3.herokuapp.com/).
+
+[click here to return to the table of contents](#table-of-contents)
 
 ### Dashboard
 The prototype dashboard will developed using Grafana Web Application. The dashboard mainly focus on **Graphical-User-Interface (GUI)** approach consist element of:
@@ -156,4 +165,6 @@ The prototype dashboard will developed using Grafana Web Application. The dashbo
 - cursor - as interactive between GUI element
 - menu - information or data group together and placed at visible place
 
+[click here to return to the table of contents](#table-of-contents)
+ 
 ![Dashboard](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/dashboard.png)
