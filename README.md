@@ -1,23 +1,5 @@
 # IoT-Project
 A simple IoT project for Software Engineering course (SKEL413) on a Agriculture Monitoring System using NodeMCU ESP8266 with Soil Moisture and LDR Sensor Module for data acquisition.
-
-Sensor      - ldr sensor module, soil moisture sensor, nodemcu esp8266
-
-data ingest - Flask
-
-storage     - heroku
-
-Dashboard   - Grafana
-
-problem statement - ammar
-
-system architecture - afiq
-
-sensor - ziyad
-
-cloud plaform - ziyad
-
-dashboard - ziyad
 ## Table of Contents
 
 - [Stage 2: IoT Agriculture Monitoring System](#stage-2-iot-agriculture-monitoring-system)
@@ -70,8 +52,7 @@ Propose data transmission protocol is **Hyper-Text-Transfer-Protocol (HTTP)**. P
  
  ![image](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/IMG_0133.jpg)
  
- <details>
-  <summary>Code for NodeMCU ESP8266
+Code for NodeMCU ESP8266
 
 ```
 
