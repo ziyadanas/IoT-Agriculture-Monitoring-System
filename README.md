@@ -63,23 +63,20 @@ Propose data transmission protocol is **Hyper-Text-Transfer-Protocol (HTTP)**. P
 #include <ESP8266HTTPClient.h>
 #include <WiFiClient.h>
 
-//setting I/O sensor nodemcu
-#define moisturepin A0
-#define ldrpin A0
+// setup I/O sensor nodemcu---------------------------------
+#define sensorpin A0
 #define modepin 10
-
-//WiFi detail
+// WiFi detail----------------------------------------------
 const char* ssid = "insert SSID";
 const char* password = "insert password";
 String serverName =  "http://api.circuits.my/request.php";
-
-//global variable
+// global variable------------------------------------------
 float mp = 0;       //moisture percentage
 float li = 0;       //light intensity
 int sensormode = 0; //swap sensor
-
-//setup wifi port - http
+// setup wifi port - http-----------------------------------
 WiFiServer server(80);
+//----------------------------------------------------------
 
 void wificlient(){
   WiFiClient client;
@@ -104,8 +101,7 @@ void wificlient(){
 void setup(){
   Serial.begin(115200);
   // Setup pinmode-----------------------------
-  pinMode(moisturepin, INPUT);
-  pinMode(ldrpin, INPUT);
+  pinMode(sensorpin, INPUT);
   pinMode(modepin, OUTPUT);
   // Connect to WiFi network-------------------
   Serial.println();
@@ -131,20 +127,21 @@ void setup(){
 }
 
 void loop(){
-  
+  // read soil moisture sensor input---------------------------------------------
   digitalWrite(sensormode, LOW);
-  mp = ( 100.00 - ( (analogRead(moisturepin)/1023.00) * 100.00 ) );
+  mp = ( 100.00 - ( (analogRead(sensorpin)/1023.00) * 100.00 ) );
   Serial.print("Soil Moisture (%) = "); Serial.print(mp); Serial.println("%");
   delay(200);
-  
+  // read ldr sensor input-------------------------------------------------------
   digitalWrite(sensormode, HIGH);
-  li = (analogRead(ldrpin)/1023.00) * 100.00 ;
+  li = (analogRead(sensorpin)/1023.00) * 100.00 ;
   Serial.print("Light Intensity (%) = "); Serial.print(li); Serial.println("%");
   delay(200);
-
+  // check WiFi connection-------------------------------------------------------
   if(WiFi.status() == WL_CONNECTED) wificlient();
   else Serial.println("WiFi Disconnected");
   delay(600);
+  //-----------------------------------------------------------------------------
 }
 
 ```
