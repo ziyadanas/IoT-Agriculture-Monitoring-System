@@ -36,7 +36,7 @@ The intervention of Internet of Things (IoT) technology in agriculture could fac
 
 ### System Architecture
 
-This section present and overview of the system architecture of IoT Agriculture Monitoring System. This project use NodeMCU ESP8266 to control, process and transmit moisture and light intensity data received from soil moisture and ldr sensor. NodeMCU will communicate using HTTP data protocol transmission to Flask Web Framework to ingest the data. Then, Flask will store the data to Pythonanywhere Cloud platform and finally update to simple dashboard app using Grafana.
+This section present an overview of the system architecture of IoT Agriculture Monitoring System. This project use NodeMCU ESP8266 to control, process and transmit moisture and light intensity data received from soil moisture and ldr sensor. NodeMCU will communicate using HTTP data protocol transmission to Flask Web Framework for data ingestion. Then, Flask will store the data to Pythonanywhere Cloud platform and finally update to simple dashboard using Grafana Web Application.
 
 ![system architecture](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/architechture-stage2-v5.png)
 
