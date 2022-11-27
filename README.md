@@ -155,7 +155,7 @@ void loop(){
   ![image](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/hardware-diagram.jpg)
 
 ### Cloud Platform
-This [video](https://www.youtube.com/watch?v=0j9s8jk-LtA&ab_channel=MOHDHAFEEZSHAHRIL) shows how  we integrated [PythonAnywhere Web Hoisting](https://www.pythonanywhere.com/) with the development of [Flask Web Framework](https://weather-m3.herokuapp.com/).
+This [video](https://www.google.com/) and [links](https://www.google.com/) shows the result of integrated [PythonAnywhere Web Hoisting](https://www.pythonanywhere.com/) with the [Flask Web Framework](https://flask.palletsprojects.com/en/2.2.x/).
 
 [click here to return to the table of contents](#table-of-contents)
 
