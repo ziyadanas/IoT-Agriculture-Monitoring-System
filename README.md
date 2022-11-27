@@ -153,7 +153,7 @@ void loop(){
  ![image](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/nodemcu-pinout.png)
 
 ### Cloud Platform
-This [video](https://www.google.com/) and [links](https://www.google.com/) shows the result of integrated [PythonAnywhere Web Hoisting](https://www.pythonanywhere.com/) with the [Flask Web Framework](https://flask.palletsprojects.com/en/2.2.x/).
+This [video](https://www.google.com/) and [links](http://mohdafiqazizi.pythonanywhere.com/) shows the result of integrated [PythonAnywhere Web Hoisting](https://www.pythonanywhere.com/) with the [Flask Web Framework](https://flask.palletsprojects.com/en/2.2.x/).
 
 [click here to return to the table of contents](#table-of-contents)
 
