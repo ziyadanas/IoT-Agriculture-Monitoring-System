@@ -157,6 +157,9 @@ URL of our Flask App: https://weather-m3.herokuapp.com/
 This is the [video](https://www.youtube.com/watch?v=0j9s8jk-LtA&ab_channel=MOHDHAFEEZSHAHRIL) of how we deploy Flask app to Heroku
 
 ### Dashboard
-This is the prototype dashboard that we will be creating later using Google Data Studio. It will display the temperature, humidity and heat index and also simple data like date and day.
+The prototype dashboard will developed using Grafana Web Application. The dashboard mainly focus on **Graphical-User-Interface (GUI)** approach consist element of:
+- icon - small picture represent sub-application
+- cursor - as interactive between GUI element
+- menu - information or data group together and placed at visible place
 
-![Dashboard](https://i.ibb.co/LSsG0yz/dashboard.jpg)
+![Dashboard](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/dashboard.png)
