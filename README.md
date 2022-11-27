@@ -54,9 +54,9 @@ The intervention of Internet of Things (IoT) technology in agriculture could fac
 
 ### System Architecture
 
-Here are the general overview of the system architecture of our IoT weather monitoring system. For this project we will be using the M5STICKC for the device and it will be connected to DHT11 sensor to obtain temperature, humidity, and heat index data. The device will communicate using HTTP data protocol transmission for the data transmission and it will send the data to Heroku Cloud platform and finally update the data on our simple dashboard app which we will be using google web dashboard that we will create later.
+This section present and overview of the system architecture of IoT Agriculture Monitoring System. This project use NodeMCU ESP8266 to control, process and transmit moisture and light intensity data received from soil moisture and ldr sensor. NodeMCU will communicate using HTTP data protocol transmission to Flask Web Framework to ingest the data. Then, Flask will store the data to Pythonanywhere Cloud platform and finally update to simple dashboard app using Grafana.
 
-![system architecture](https://i.ibb.co/RvBLGVK/Capture2.jpg)
+![system architecture](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/architechture-stage2-v5.png)
 
 ### Sensor
 Propose data transmission protocol is **Hyper-Text-Transfer-Protocol (HTTP)**. Propose device for this project are:
