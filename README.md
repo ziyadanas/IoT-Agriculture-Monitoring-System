@@ -63,7 +63,7 @@ Propose data transmission protocol is **Hyper-Text-Transfer-Protocol (HTTP)**. P
 
 | Devices | Function |
 | ------- | ---------------|
-| NodeMCU ESP8266 | Control, process sensor input and transmit data to web framework using HTTP data transmission |
+| NodeMCU ESP8266 | Control, process and transmit data to web framework using HTTP data transmission |
 | Soil Moisture Sensor | To check moisture level of soil |
 | LDR Sensor Module | To detect change of light intensity with light dependent resistor |
 | CD4051B Multiplexer  | Soil moisture and LDR sensor need to share ADC pin via multiplexer since NodeMCU 8266 has only one ADC pinout|
