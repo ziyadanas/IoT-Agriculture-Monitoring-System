@@ -54,8 +54,7 @@ Propose data transmission protocol is **Hyper-Text-Transfer-Protocol (HTTP)**. P
 | LDR Sensor Module | To detect change of light intensity with light dependent resistor |
 | CD4051B Multiplexer  | Soil moisture and LDR sensor need to share ADC pin via multiplexer since NodeMCU 8266 has only one ADC pinout|
  
- <details>
-  <summary>Click to show the code for NodeMCU ESP8266</summary>
+Code for NodeMCU ESP8266 using Arduino IDE
  
 ```
 
