@@ -63,32 +63,34 @@ Code for NodeMCU ESP8266 using Arduino IDE
 #include <WiFiClient.h>
 
 // setup I/O sensor nodemcu---------------------------------
-#define sensorpin A0
-#define modepin 10
+#define ldr_sensor A0
+#define sm_sensor 5
+// global variable------------------------------------------
+int ms = 0;       //moisture percentage
+int ldr = 0;       //light intensity
+unsigned long lastTime = 0;
+unsigned long timerDelay = 5000; //set timer to 5s
 // WiFi detail----------------------------------------------
+WiFiServer server(80);
 const char* ssid = "insert SSID";
 const char* password = "insert password";
-String serverName =  "http://api.circuits.my/request.php";
-// global variable------------------------------------------
-float mp = 0;       //moisture percentage
-float li = 0;       //light intensity
-int sensormode = 0; //swap sensor
-// setup wifi port - http-----------------------------------
-WiFiServer server(80);
+String serverName = "http://mohdafiqazizi.pythonanywhere.com/sensor";
 //----------------------------------------------------------
 
 void wificlient(){
   WiFiClient client;
   HTTPClient http;
-  String api_key = "Put your API key";
-  String device_id = "Put your device ID";
-  String httpData = serverName + "?api=" + api_key + "&id=" + device_id + "&mp=" + String(mp) + "&li=" + String(li);
-  http.begin(client, httpData); //Specify the URL
-  int httpResponseCode = http.GET(); //Make the request
+ 
+  http.begin(client, serverName); //Specify the URL
+  String httpData = "&ms=" + String(ms) + "&ldr=" + String(ldr);
+  
+  int httpResponseCode = http.POST(); //post http request
   if (httpResponseCode > 0) { //Check for the returning code
     String payload = http.getString();
     Serial.println(httpResponseCode);
     Serial.println(payload);
+    Serial.print("Moisture: ");Serial.println(ms);
+    Serial.print("Light Intensity: ");Serial.print(ldr);Serial.println("%");
   }
   else {
     Serial.print("Error Code: ");
@@ -100,8 +102,8 @@ void wificlient(){
 void setup(){
   Serial.begin(115200);
   // Setup pinmode-----------------------------
-  pinMode(sensorpin, INPUT);
-  pinMode(modepin, OUTPUT);
+  pinMode(ldr_sensor, INPUT);
+  pinMode(sm_sensor, INPUT);
   // Connect to WiFi network-------------------
   Serial.println();
   Serial.println();
@@ -126,20 +128,15 @@ void setup(){
 }
 
 void loop(){
-  // read soil moisture sensor input---------------------------------------------
-  digitalWrite(sensormode, LOW);
-  mp = ( 100.00 - ( (analogRead(sensorpin)/1023.00) * 100.00 ) );
-  Serial.print("Soil Moisture (%) = "); Serial.print(mp); Serial.println("%");
-  delay(200);
-  // read ldr sensor input-------------------------------------------------------
-  digitalWrite(sensormode, HIGH);
-  li = (analogRead(sensorpin)/1023.00) * 100.00 ;
-  Serial.print("Light Intensity (%) = "); Serial.print(li); Serial.println("%");
-  delay(200);
+  // read input sensor-----------------------------------------------------------
+  ms = digitalRead(ms_sensor);
+  ldr = (analogRead(ldr_sensor)/1023)*100;
   // check WiFi connection-------------------------------------------------------
-  if(WiFi.status() == WL_CONNECTED) wificlient();
-  else Serial.println("WiFi Disconnected");
-  delay(600);
+  if((millis() - lastTime) > timerDelay){
+    if(WiFi.status() == WL_CONNECTED) wificlient();
+    else Serial.println("WiFi Disconnected");
+  }
+  lastTime = millis();
   //-----------------------------------------------------------------------------
 }
 
