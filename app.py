@@ -10,12 +10,16 @@ headers = {"accept": "application/json","authorization": "Bearer rnd_nwKoQQOWPHs
 response = requests.get(url, headers=headers)
 
 print(response.text)
-    
-@app.route('/',methods = ['POST', 'GET'])
+
+@app.route('/')
 def home():
+	return "<h2>This is Agriculture monitoring system</h2>"
+		    
+@app.route('/reading',methods = ['POST', 'GET'])
+def reading():
 	if request.method == 'POST':
-		sm = request.args.get['sm']
-		ldr = request.args.get['ldr']
+		sm = request.get_json['sm']
+		ldr = request.get_json['ldr']
 		return render_template('sensor.html', sm=sm, ldr=ldr)
 	else:
 		return "<h2>ERROR</h2>"

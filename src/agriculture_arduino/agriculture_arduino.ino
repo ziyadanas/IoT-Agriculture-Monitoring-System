@@ -62,27 +62,24 @@ void httpclient(){
   HTTPClient https;
   Serial.print("[HTTP] begin...\n");
 
-  if(http.begin(*client, serverName)){
-    //http.addHeader("Accept", "application/x-www-form-urlencoded");
-    http.addHeader("Accept", "application/x-www-form-urlencoded");
-    http.addHeader("Authorization", "Bearer " + String(api));
+  if(https.begin(*client, serverName)){
+    http.addHeader("Accept", "application/application/json");
+    //https.addHeader("Accept", "application/x-www-form-urlencoded");
+    https.addHeader("Authorization", "Bearer " + String(api));
     Serial.print("[HTTP] POST...\n");
-    int httpResponseCode = http.POST("{\"sm\":\"12\",\"ldr\":\"98\"}");
-    //String httpData = "&sm="+String(sm)+"&ldr="+String(ldr);
+    int httpResponseCode = https.POST("{\"sm\":\"12\",\"ldr\":\"98\"}");
+    //String httpData = "sm="+String(sm)+"&ldr="+String(ldr);
+    int httpResponseCode = https.POST(httpData);
     if (httpResponseCode > 0) { //Check for the returning code
-      String payload = http.getString();
-      Serial.println("[HTTP] POST URL encode  : "+String(httpData));
+      String payload = https.getString();
       Serial.println("[HTTP] POST HTTP code   : "+String(httpResponseCode));
       Serial.println("[HTTP] Moisture         : "+String(sm)+"%");
       Serial.println("[HTTP] Light Intensity  : "+String(ldr)+"%");
       Serial.println("[HTTP]\n\n"+payload+"\n");
     }
-  else {
-    Serial.print("[HTTP] Error Code: "+String(httpResponseCode));
+    else {
+      Serial.print("[HTTP] Error Code: "+String(httpResponseCode));
+    }
   }
-  }
-  
-  
-  
-  http.end(); //Free the resources
+  https.end(); //Free the resources
 }
