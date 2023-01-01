@@ -56,8 +56,7 @@ void httpclient(){
   Serial.print("[HTTP] begin...\n");
   http.begin(client, serverName); //Specify the URL
   http.addHeader("Content-Type", "application/x-www-form-urlencoded");
-  
-  String httpData = "api_key=rnd_YH6R9nJJMLeZKFDBSmiyScX36xAB&sm="+String(sm)+"&ldr="+String(ldr);
+  String httpData = "&sm="+String(sm)+"&ldr="+String(ldr);
   Serial.print("[HTTP] POST...\n");
   int httpResponseCode = http.POST(httpData); //post http request
   if (httpResponseCode > 0) { //Check for the returning code
