@@ -11,7 +11,6 @@ int ldr = 0;       //light intensity
 unsigned long lastTime = 0;
 unsigned long timerDelay = 5000; //set timer to 5s
 // WiFi detail----------------------------------------------
-WiFiServer server(80);
 const char* ssid = "Mi 10T";
 const char* password = "ziyadanas";
 const char* serverName = "https://agriculture-iot.onrender.com/reading";
@@ -36,7 +35,7 @@ void wificlient(){
     Serial.print("Error Code: ");
     Serial.println(httpResponseCode);
   }
-  http.end(); //Free the resources
+  //http.end(); //Free the resources
 }
 
 void setup(){
@@ -47,8 +46,7 @@ void setup(){
   // Connect to WiFi network-------------------
   Serial.println();
   Serial.println();
-  Serial.print("Connecting to ");
-  Serial.println(ssid);
+  Serial.println("Connecting to "+String(ssid));
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
@@ -56,9 +54,6 @@ void setup(){
   }
   Serial.println("");
   Serial.println("WiFi connected");
-  // Start the server-------------------------
-  server.begin();
-  Serial.println("Server started");
   // Print the IP address---------------------
   Serial.print("Network IP Address: ");
   Serial.print("http://");
