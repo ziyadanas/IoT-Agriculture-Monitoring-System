@@ -17,4 +17,4 @@ def reading():
 		return "<h2>ERROR</h2>"
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    app.run(host='https://agriculture-iot.onrender.com')
