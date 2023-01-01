@@ -7,7 +7,7 @@
 // setup -------------------------------------------------------
 //#define ldr_sensor A0
 //#define sm_sensor 5
-#define serverName "https://agriculture-iot.onrender.com/"
+#define serverName "https://api.render.com/v1/services?limit=20"
 #define api "rnd_YH6R9nJJMLeZKFDBSmiyScX36xAB"
 #ifndef ssid
 #define ssid "Mi 10T"
@@ -63,23 +63,26 @@ void httpclient(){
   Serial.print("[HTTP] begin...\n");
 
   if(http.begin(*client, serverName)){
-    http.addHeader("Content-Type", "application/x-www-form-urlencoded");
-    http.addHeader("authorization: Bearer ", String(api));
-  }
-  
-  String httpData = "&sm="+String(sm)+"&ldr="+String(ldr);
-  Serial.print("[HTTP] POST...\n");
-  int httpResponseCode = http.POST(httpData); //post http request
-  if (httpResponseCode > 0) { //Check for the returning code
-    String payload = http.getString();
-    Serial.println("[HTTP] POST URL encode  : "+String(httpData));
-    Serial.println("[HTTP] POST HTTP code   : "+String(httpResponseCode));
-    Serial.println("[HTTP] Moisture         : "+String(sm)+"%");
-    Serial.println("[HTTP] Light Intensity  : "+String(ldr)+"%");
-    Serial.println("[HTTP]\n\n"+payload+"\n");
-  }
+    //http.addHeader("Accept", "application/x-www-form-urlencoded");
+    http.addHeader("Accept", "application/x-www-form-urlencoded");
+    http.addHeader("Authorization", "Bearer " + String(api));
+    Serial.print("[HTTP] POST...\n");
+    int httpResponseCode = http.POST("{\"sm\":\"12\",\"ldr\":\"98\"}");
+    //String httpData = "&sm="+String(sm)+"&ldr="+String(ldr);
+    if (httpResponseCode > 0) { //Check for the returning code
+      String payload = http.getString();
+      Serial.println("[HTTP] POST URL encode  : "+String(httpData));
+      Serial.println("[HTTP] POST HTTP code   : "+String(httpResponseCode));
+      Serial.println("[HTTP] Moisture         : "+String(sm)+"%");
+      Serial.println("[HTTP] Light Intensity  : "+String(ldr)+"%");
+      Serial.println("[HTTP]\n\n"+payload+"\n");
+    }
   else {
     Serial.print("[HTTP] Error Code: "+String(httpResponseCode));
   }
+  }
+  
+  
+  
   http.end(); //Free the resources
 }

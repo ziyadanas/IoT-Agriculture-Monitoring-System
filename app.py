@@ -14,8 +14,8 @@ print(response.text)
 @app.route('/',methods = ['POST', 'GET'])
 def home():
 	if request.method == 'POST':
-		sm = request.form.get['sm']
-		ldr = request.form.get['ldr']
+		sm = request.args.get['sm']
+		ldr = request.args.get['ldr']
 		return render_template('sensor.html', sm=sm, ldr=ldr)
 	else:
 		return "<h2>ERROR</h2>"
