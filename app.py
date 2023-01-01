@@ -3,6 +3,13 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 
 app = Flask(__name__,template_folder='templates')
+
+url = "https://api.render.com/v1/services?limit=20"
+headers = {"accept": "application/json","authorization": "Bearer rnd_nwKoQQOWPHs8Ap924QS19XVHx0ff"}
+
+response = requests.get(url, headers=headers)
+
+print(response.text)
     
 @app.route('/',methods = ['POST', 'GET'])
 def home():
