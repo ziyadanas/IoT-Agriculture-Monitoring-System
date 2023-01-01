@@ -6,6 +6,7 @@
 //#define ldr_sensor A0
 //#define sm_sensor 5
 #define serverName "https://agriculture-iot.onrender.com/"
+#define api "rnd_YH6R9nJJMLeZKFDBSmiyScX36xAB"
 #ifndef ssid
 #define ssid "Mi 10T"
 #define password "ziyadanas"
@@ -21,23 +22,18 @@ void setup(){
   // Setup pinmode-----------------------------
   //pinMode(ldr_sensor, INPUT);
   //pinMode(sm_sensor, INPUT);
-  // Connect to WiFi network-------------------
+  // Connect to WiFi network--------------------
   Serial.println();
   Serial.println();
-  Serial.println("Connecting to "+String(ssid));
+  Serial.println("[SETUP] Connecting to "+String(ssid));
   WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("");
-  Serial.println("WiFi connected");
-  // Print the IP address---------------------
-  Serial.print("Network IP Address: ");
-  Serial.print("http://");
-  Serial.print(WiFi.localIP());
-  Serial.println("/");
-  //------------------------------------------
+  Serial.print("[SETUP] ");
+  while (WiFi.status() != WL_CONNECTED) {delay(500);Serial.print(".");}
+  Serial.println();
+  Serial.println("[SETUP] WiFi connected");
+  Serial.print("[SETUP] IP Address: ");
+  Serial.println(WiFi.localIP());
+  // -------------------------------------------
 }
 
 void loop(){
@@ -47,11 +43,9 @@ void loop(){
   //ldr = (analogRead(ldr_sensor)/1023)*100;
   ldr = random(0,100);
   // check WiFi connection-------------------------------------------------------
-  if((millis() - lastTime) > timerDelay){
-    if(WiFi.status() == WL_CONNECTED) httpclient();
-    else Serial.println("WiFi Disconnected");
-  }
-  lastTime = millis();
+  if((WiFi.status() == WL_CONNECTED)) httpclient();
+  else Serial.println("[SETUP] WiFi Disconnected");
+  delay(10000);
   //-----------------------------------------------------------------------------
 }
 
@@ -59,21 +53,23 @@ void httpclient(){
   WiFiClient client;
   HTTPClient http;
  
+  Serial.print("[HTTP] begin...\n");
   http.begin(client, serverName); //Specify the URL
-  http.addHeader("Content-Type", "application/x-www/form-urlencoded");
-  //String httpData = "sm="+String(sm)+"&ldr="+String(ldr);
+  http.addHeader("Content-Type", "application/x-www-form-urlencoded");
   
-  int httpResponseCode = http.POST("sm="+String(sm)+"&ldr="+String(ldr)); //post http request
+  String httpData = "api_key=rnd_YH6R9nJJMLeZKFDBSmiyScX36xAB&sm="+String(sm)+"&ldr="+String(ldr);
+  Serial.print("[HTTP] POST...\n");
+  int httpResponseCode = http.POST(httpData); //post http request
   if (httpResponseCode > 0) { //Check for the returning code
     String payload = http.getString();
-    Serial.println(httpResponseCode);
-    Serial.println(payload+"\n");
-    Serial.println("Moisture        : "+String(sm)+"%");
-    Serial.println("Light Intensity : "+String(ldr)+"%");
+    Serial.println("[HTTP] POST URL encode  : "+String(httpData));
+    Serial.println("[HTTP] POST HTTP code   : "+String(httpResponseCode));
+    Serial.println("[HTTP] Moisture         : "+String(sm)+"%");
+    Serial.println("[HTTP] Light Intensity  : "+String(ldr)+"%");
+    Serial.println("[HTTP]\n\n"+payload+"\n");
   }
   else {
-    Serial.print("Error Code: ");
-    Serial.println(httpResponseCode);
+    Serial.print("[HTTP] Error Code: "+String(httpResponseCode));
   }
   http.end(); //Free the resources
 }

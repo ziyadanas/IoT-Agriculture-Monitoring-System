@@ -14,4 +14,4 @@ def home():
 		return "<h2>ERROR</h2>"
 
 if __name__ == "__main__":
-    app.run(host="https://agriculture-iot.onrender.com", port=80, debug=True)
+    app.run(host="https://agriculture-iot.onrender.com")
