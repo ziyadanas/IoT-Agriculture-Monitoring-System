@@ -8,7 +8,7 @@
 //#define ldr_sensor A0
 //#define sm_sensor 5
 #define serverName "https://api.render.com/v1/services?limit=20"
-#define api "rnd_YH6R9nJJMLeZKFDBSmiyScX36xAB"
+#define api "Bearer rnd_YH6R9nJJMLeZKFDBSmiyScX36xAB"
 #ifndef ssid
 #define ssid "Mi 10T"
 #define password "ziyadanas"
@@ -59,27 +59,27 @@ void loop(){
 void httpclient(){
   std::unique_ptr<BearSSL::WiFiClientSecure>client(new BearSSL::WiFiClientSecure);
   client->setInsecure();
-  HTTPClient https;
+  HTTPClient http;
   Serial.print("[HTTP] begin...\n");
 
-  if(https.begin(*client, serverName)){
-    http.addHeader("Accept", "application/application/json");
-    //https.addHeader("Accept", "application/x-www-form-urlencoded");
-    https.addHeader("Authorization", "Bearer " + String(api));
+  if(http.begin(*client, serverName)){
     Serial.print("[HTTP] POST...\n");
-    int httpResponseCode = https.POST("{\"sm\":\"12\",\"ldr\":\"98\"}");
+    http.addHeader("Authorization", String(api));
+    http.addHeader("Accept", "application/application/json");
+    //http.addHeader("Accept", "application/x-www-form-urlencoded");
+    String httpData = "{\"sm\":\"12\",\"ldr\":\"98\"}";
     //String httpData = "sm="+String(sm)+"&ldr="+String(ldr);
-    int httpResponseCode = https.POST(httpData);
+    int httpResponseCode = http.POST(httpData);
     if (httpResponseCode > 0) { //Check for the returning code
-      String payload = https.getString();
+      String payload = http.getString();
       Serial.println("[HTTP] POST HTTP code   : "+String(httpResponseCode));
       Serial.println("[HTTP] Moisture         : "+String(sm)+"%");
       Serial.println("[HTTP] Light Intensity  : "+String(ldr)+"%");
       Serial.println("[HTTP]\n\n"+payload+"\n");
     }
     else {
-      Serial.print("[HTTP] Error Code: "+String(httpResponseCode));
+      Serial.println("[HTTP] Error Code: "+String(httpResponseCode));
     }
   }
-  https.end(); //Free the resources
+  http.end(); //Free the resources
 }
