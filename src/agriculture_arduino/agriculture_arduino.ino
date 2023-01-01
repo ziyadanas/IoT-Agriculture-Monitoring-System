@@ -2,41 +2,19 @@
 #include <ESP8266HTTPClient.h>
 #include <WiFiClient.h>
 
-// setup I/O sensor nodemcu---------------------------------
-#define ldr_sensor A0
-#define sm_sensor 5
+// setup -------------------------------------------------------
+//#define ldr_sensor A0
+//#define sm_sensor 5
+#define serverName "https://agriculture-iot.onrender.com/"
+#ifndef ssid
+#define ssid "Mi 10T"
+#define password "ziyadanas"
+#endif
 // global variable------------------------------------------
 int sm = 0;       //moisture percentage
 int ldr = 0;       //light intensity
 unsigned long lastTime = 0;
 unsigned long timerDelay = 5000; //set timer to 5s
-// WiFi detail----------------------------------------------
-const char* ssid = "Mi 10T";
-const char* password = "ziyadanas";
-const char* serverName = "https://agriculture-iot.onrender.com/reading";
-//----------------------------------------------------------
-
-void wificlient(){
-  WiFiClient client;
-  HTTPClient http;
- 
-  http.begin(client, serverName); //Specify the URL
-  String httpData = "&sm="+String(sm)+"&ldr="+String(ldr);
-  
-  int httpResponseCode = http.POST(httpData); //post http request
-  if (httpResponseCode > 0) { //Check for the returning code
-    String payload = http.getString();
-    Serial.println(httpResponseCode);
-    Serial.println(payload+"\n");
-    Serial.println("Moisture        : "+String(sm)+"%");
-    Serial.println("Light Intensity : "+String(ldr)+"%");
-  }
-  else {
-    Serial.print("Error Code: ");
-    Serial.println(httpResponseCode);
-  }
-  //http.end(); //Free the resources
-}
 
 void setup(){
   Serial.begin(115200);
@@ -70,9 +48,32 @@ void loop(){
   ldr = random(0,100);
   // check WiFi connection-------------------------------------------------------
   if((millis() - lastTime) > timerDelay){
-    if(WiFi.status() == WL_CONNECTED) wificlient();
+    if(WiFi.status() == WL_CONNECTED) httpclient();
     else Serial.println("WiFi Disconnected");
   }
   lastTime = millis();
   //-----------------------------------------------------------------------------
+}
+
+void httpclient(){
+  WiFiClient client;
+  HTTPClient http;
+ 
+  http.begin(client, serverName); //Specify the URL
+  http.addHeader("Content-Type", "application/x-www/form-urlencoded");
+  //String httpData = "sm="+String(sm)+"&ldr="+String(ldr);
+  
+  int httpResponseCode = http.POST("sm="+String(sm)+"&ldr="+String(ldr)); //post http request
+  if (httpResponseCode > 0) { //Check for the returning code
+    String payload = http.getString();
+    Serial.println(httpResponseCode);
+    Serial.println(payload+"\n");
+    Serial.println("Moisture        : "+String(sm)+"%");
+    Serial.println("Light Intensity : "+String(ldr)+"%");
+  }
+  else {
+    Serial.print("Error Code: ");
+    Serial.println(httpResponseCode);
+  }
+  http.end(); //Free the resources
 }
