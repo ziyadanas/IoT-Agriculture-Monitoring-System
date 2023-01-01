@@ -1,6 +1,8 @@
 #include <ESP8266WiFi.h>
+#include <ESP8266WiFiMulti.h>
 #include <ESP8266HTTPClient.h>
 #include <WiFiClient.h>
+#include <WiFiClientSecureBearSSL.h>
 
 // setup -------------------------------------------------------
 //#define ldr_sensor A0
@@ -16,6 +18,7 @@ int sm = 0;       //moisture percentage
 int ldr = 0;       //light intensity
 unsigned long lastTime = 0;
 unsigned long timerDelay = 5000; //set timer to 5s
+ESP8266WiFiMulti WiFiMulti;
 
 void setup(){
   Serial.begin(115200);
@@ -27,9 +30,13 @@ void setup(){
   Serial.println();
   Serial.println("[SETUP] Connecting to "+String(ssid));
   WiFi.begin(ssid, password);
-  Serial.print("[SETUP] ");
-  while (WiFi.status() != WL_CONNECTED) {delay(500);Serial.print(".");}
-  Serial.println();
+  for (uint8_t t = 4; t > 0; t--) {
+    Serial.printf("[SETUP] WAIT %d...\n", t);
+    Serial.flush();
+    delay(1000);
+  }
+  WiFi.mode(WIFI_STA);
+  WiFiMulti.addAP(ssid, password);
   Serial.println("[SETUP] WiFi connected");
   Serial.print("[SETUP] IP Address: ");
   Serial.println(WiFi.localIP());
@@ -43,19 +50,23 @@ void loop(){
   //ldr = (analogRead(ldr_sensor)/1023)*100;
   ldr = random(0,100);
   // check WiFi connection-------------------------------------------------------
-  if((WiFi.status() == WL_CONNECTED)) httpclient();
+  if((WiFiMulti.run() == WL_CONNECTED)) httpclient();
   else Serial.println("[SETUP] WiFi Disconnected");
   delay(10000);
   //-----------------------------------------------------------------------------
 }
 
 void httpclient(){
-  WiFiClient client;
-  HTTPClient http;
- 
+  std::unique_ptr<BearSSL::WiFiClientSecure>client(new BearSSL::WiFiClientSecure);
+  client->setInsecure();
+  HTTPClient https;
   Serial.print("[HTTP] begin...\n");
-  http.begin(client, serverName); //Specify the URL
-  http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+
+  if(http.begin(*client, serverName)){
+    http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+    http.addHeader("authorization: Bearer ", String(api));
+  }
+  
   String httpData = "&sm="+String(sm)+"&ldr="+String(ldr);
   Serial.print("[HTTP] POST...\n");
   int httpResponseCode = http.POST(httpData); //post http request
