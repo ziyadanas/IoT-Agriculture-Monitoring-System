@@ -1,26 +1,53 @@
 from flask import Flask, redirect, url_for, request, render_template
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+from pytz import timezone
+import time
+import requests
 
-app = Flask(__name__,template_folder='templates',static_folder='static')
+if response.status_code == 200:
+    print('CPU quota info:')
+    print(response.content)
+else:
+    print('Got unexpected status code {}: {!r}'.format(response.status_code, response.content))
+
+app = Flask(__name__)
+app.config["DEBUG"] = True
+
+SQLALCHEMY_DATABASE_URI = "mysql://{username}:{password}@{hostname}/{databasename}".format(
+    username="mohdafiqazizi",
+    password="saya0000",
+    hostname="mohdafiqazizi.mysql.pythonanywhere-services.com",
+    databasename="mohdafiqazizi$agriculture",
+)
+app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
+app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db = SQLAlchemy(app)
+
+class data(db.Model):
+    id      = db.Column(db.Integer, primary_key=True)
+    ldr     = db.Column(db.String(100))
+    Sm      = db.Column(db.String(100))
+    t	    = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+    def __init__(self,ldr,sm,t):
+    	self.ldr	= ldr
+    	self.sm		= sm
+    	self.t	    = t
+
 
 @app.route('/')
 def home():
-	return render_template('login.html')
-   
-@app.route('/success/<name>')
-def success(name):
-	return render_template('index.html', p1=name)
-   #return 'welcome %s' % name
+	return "<h2>home page Jaunty Jaguar</h2>"
 
-@app.route('/login',methods = ['POST', 'GET'])
-def login():
-   if request.method == 'POST':
-      name = request.form['nm']
-      pswd = request.form['pw']
-      return redirect(url_for('success',name = name))
-   else:
-      username = request.args.get('nm')
-      return redirect(url_for('success',name = name))
-
-if __name__ == '__main__':
-   app.run(debug = True)
-
+@app.route('/reading',methods = ['POST', 'GET'])
+def reading():
+	if request.method == 'POST':
+		sm = request.form['sm']
+		ldr = request.form['ldr']
+		sensor = data(sm = request.form['sm'],ldr = request.form['ldr'] )
+		db.session.add(sensor)
+		db.session.commit()
+		return render_template('sensor.html', sm=sm, ldr=sm)
