@@ -12,9 +12,9 @@ unsigned long lastTime = 0;
 unsigned long timerDelay = 5000; //set timer to 5s
 // WiFi detail----------------------------------------------
 WiFiServer server(80);
-const char* ssid = "insert SSID";
-const char* password = "insert password";
-String serverName = "http://mohdafiqazizi.pythonanywhere.com/sensor";
+const char* ssid = "Mi 10T";
+const char* password = "ziyadanas";
+const char* serverName = "https://agriculture-iot.onrender.com/reading";
 //----------------------------------------------------------
 
 void wificlient(){
@@ -22,18 +22,15 @@ void wificlient(){
   HTTPClient http;
  
   http.begin(client, serverName); //Specify the URL
-  String httpData = "&sm=" + String(sm) + "&ldr=" + String(ldr);
+  String httpData = "&sm="+String(sm)+"&ldr="+String(ldr);
   
   int httpResponseCode = http.POST(httpData); //post http request
   if (httpResponseCode > 0) { //Check for the returning code
     String payload = http.getString();
     Serial.println(httpResponseCode);
-    Serial.println(payload);
-    Serial.print("Moisture: ");
-    Serial.println(sm);
-    Serial.print("Light Intensity: ");
-    Serial.print(ldr);
-    Serial.println("%");
+    Serial.println(payload+"\n");
+    Serial.println("Moisture        : "+String(sm)+"%");
+    Serial.println("Light Intensity : "+String(ldr)+"%");
   }
   else {
     Serial.print("Error Code: ");
@@ -45,8 +42,8 @@ void wificlient(){
 void setup(){
   Serial.begin(115200);
   // Setup pinmode-----------------------------
-  pinMode(ldr_sensor, INPUT);
-  pinMode(sm_sensor, INPUT);
+  //pinMode(ldr_sensor, INPUT);
+  //pinMode(sm_sensor, INPUT);
   // Connect to WiFi network-------------------
   Serial.println();
   Serial.println();
@@ -72,8 +69,10 @@ void setup(){
 
 void loop(){
   // read input sensor-----------------------------------------------------------
-  sm = digitalRead(sm_sensor);
-  ldr = (analogRead(ldr_sensor)/1023)*100;
+  //sm = digitalRead(sm_sensor);
+  sm = random(0,100);
+  //ldr = (analogRead(ldr_sensor)/1023)*100;
+  ldr = random(0,100);
   // check WiFi connection-------------------------------------------------------
   if((millis() - lastTime) > timerDelay){
     if(WiFi.status() == WL_CONNECTED) wificlient();

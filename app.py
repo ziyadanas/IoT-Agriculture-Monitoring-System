@@ -10,8 +10,8 @@ def home():
 @app.route('/reading',methods = ['POST', 'GET'])
 def reading():
 	if request.method == 'POST':
-		sm = request.form['sm']
-		ldr = request.form['ldr']
+		sm = request.args.get['sm']
+		ldr = request.args.get['ldr']
 		return render_template('sensor.html', sm=sm, ldr=sm)
 	else:
 		return "<h2>ERROR</h2>"
