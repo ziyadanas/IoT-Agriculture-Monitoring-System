@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-	return render_template('form.html')
+	return '<h2>Jaunty Jaugar</h2>'
 
 @app.route('/sensor', methods = ['POST', 'GET'])
 def sensor():
