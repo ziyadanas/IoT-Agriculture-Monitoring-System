@@ -7,7 +7,7 @@
 // setup -------------------------------------------------------
 //#define ldr_sensor A0
 //#define sm_sensor 5
-#define serverName "https://agriculture-iot.onrender.com/reading"
+#define serverName "http://mohdafiqazizi.pythonanywhere.com/sensor"
 #define api "Token c217ccce9190ef8cb800aff0235fdaee7f8ebcda"
 #ifndef ssid
 #define ssid "Mi 10T"
@@ -71,11 +71,10 @@ void httpclient(){
     String httpData = "sm="+String(sm)+"&ldr="+String(ldr);
     int httpResponseCode = http.POST(httpData);
     if (httpResponseCode > 0) { //Check for the returning code
-      String payload = http.getString();
       Serial.println("[HTTP] POST HTTP code   : "+String(httpResponseCode));
       Serial.println("[HTTP] Moisture         : "+String(sm)+"%");
       Serial.println("[HTTP] Light Intensity  : "+String(ldr)+"%");
-      Serial.println("[HTTP]\n\n"+payload+"\n");
+      String payload = http.getString();Serial.println("[HTTP]\n\n"+payload+"\n");
     }
     else {
       Serial.println("[HTTP] Error Code: "+String(httpResponseCode));
