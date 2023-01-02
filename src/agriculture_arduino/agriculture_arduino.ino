@@ -7,8 +7,8 @@
 // setup -------------------------------------------------------
 //#define ldr_sensor A0
 //#define sm_sensor 5
-#define serverName "https://api.render.com/v1/services?limit=20"
-#define api "Bearer rnd_YH6R9nJJMLeZKFDBSmiyScX36xAB"
+#define serverName "http://mohdafiqazizi.pythonanywhere.com/reading"
+#define api "Token c217ccce9190ef8cb800aff0235fdaee7f8ebcda"
 #ifndef ssid
 #define ssid "Mi 10T"
 #define password "ziyadanas"
@@ -57,18 +57,18 @@ void loop(){
 }
 
 void httpclient(){
-  std::unique_ptr<BearSSL::WiFiClientSecure>client(new BearSSL::WiFiClientSecure);
-  client->setInsecure();
+  WiFiClient client;
   HTTPClient http;
   Serial.print("[HTTP] begin...\n");
 
-  if(http.begin(*client, serverName)){
+  if(http.begin(client, serverName)){
     Serial.print("[HTTP] POST...\n");
-    http.addHeader("Authorization", String(api));
-    http.addHeader("Accept", "application/application/json");
-    //http.addHeader("Accept", "application/x-www-form-urlencoded");
-    String httpData = "{\"sm\":\"12\",\"ldr\":\"98\"}";
-    //String httpData = "sm="+String(sm)+"&ldr="+String(ldr);
+    //http.addHeader("Authorization", String(api));
+    //http.addHeader("Host", "http://mohdafiqazizi.pythonanywhere.com");
+    //http.addHeader("Content-Type", "application/json");
+    http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+    //String httpData = "{\"sm\":\"12\",\"ldr\":\"98\"}";
+    String httpData = "sm="+String(sm)+"&ldr="+String(ldr);
     int httpResponseCode = http.POST(httpData);
     if (httpResponseCode > 0) { //Check for the returning code
       String payload = http.getString();
