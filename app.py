@@ -3,18 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 import requests
 
-username = 'mohdafiqazizi'
-token = 'c217ccce9190ef8cb800aff0235fdaee7f8ebcda'
-
-response = requests.get(
-    'https://www.pythonanywhere.com/api/v0/user/{username}/always_on/'.format(
-        username=username
-    ),
-    headers={'Authorization': 'Token {token}'.format(token=token)}
-)
-print('Response code: ',response.status_code)
-
-# Web body-------------------------------------------------------------------------------------
 app = Flask(__name__,template_folder='templates')
 
 @app.route('/')
@@ -26,8 +14,8 @@ def reading():
 	if request.method == 'POST':
 		sm = request.form.get('sm')
 		ldr = request.form.get('ldr')
-		#return render_template('sensor.html', sm=sm, ldr=ldr)
-		return "success receive data"
+		return render_template('sensor.html', sm=sm, ldr=ldr)
+		#return "success receive data"
 #	else:
 #		return "<h2>ERROR</h2>"
 

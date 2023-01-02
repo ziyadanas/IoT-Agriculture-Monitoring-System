@@ -7,7 +7,7 @@
 // setup -------------------------------------------------------
 //#define ldr_sensor A0
 //#define sm_sensor 5
-#define serverName "http://mohdafiqazizi.pythonanywhere.com/reading"
+#define serverName "https://agriculture-iot.onrender.com/reading"
 #define api "Token c217ccce9190ef8cb800aff0235fdaee7f8ebcda"
 #ifndef ssid
 #define ssid "Mi 10T"
