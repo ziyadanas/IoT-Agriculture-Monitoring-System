@@ -13,15 +13,7 @@ def sensor():
 	if request.method == 'POST':
 		sm = request.form.get('sm')
 		ldr = request.form.get('ldr')
-		return redirect(url_for("data",sm=sm,ldr=ldr))
-		#return "success receive data"
-#	else:
-#		return "<h2>ERROR</h2>"
-
-@app.route('/data')
-def data(sm,ldr):
-	return f"<h1>SM:{sm}</h1><h1>LDR:{ldr}</h1>"
-		
+		return f"<h1>SM:{sm}</h1><h1>LDR:{ldr}</h1>"
 		#return "success receive data"
 #	else:
 #		return "<h2>ERROR</h2>"
