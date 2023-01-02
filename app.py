@@ -13,10 +13,9 @@ def sensor():
 	if request.method == 'POST':
 		sm = request.form.get('sm')
 		ldr = request.form.get('ldr')
-		return f"<h1>SM:{sm}</h1><h1>LDR:{ldr}</h1>"
-		#return "success receive data"
-#	else:
-#		return "<h2>ERROR</h2>"
+		return render_template('sensor.html', sm=sm, ldr=ldr)
+	else:
+		return "<h2>ERROR</h2>"
 
 if __name__ == "__main__":
     port = os.environ.get("PORT", 5000)# Get port number of env at runtime, else use default port 5000
