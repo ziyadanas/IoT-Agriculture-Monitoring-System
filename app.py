@@ -13,7 +13,11 @@ def sensor():
 	if request.method == 'POST':
 		sm = request.form.get('sm')
 		ldr = request.form.get('ldr')
-		return render_template('sensor.html',sm=sm)
+		return '''	<form method = "post">
+						<p>Soil Moisture   : {}</p>
+						<p>Light Intensity : {}</p>
+						<p>Enter Website:</p>
+					</form>'''.format(sm,ldr)
 		#return "success receive data"
 #	else:
 #		return "<h2>ERROR</h2>"
