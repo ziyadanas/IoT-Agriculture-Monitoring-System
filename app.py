@@ -1,16 +1,15 @@
 from flask import Flask, redirect, url_for, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 import os
-import requests
 
 app = Flask(__name__,template_folder='templates')
 
 @app.route('/')
 def home():
-	return "<h2>This is Agriculture monitoring system</h2>"
+	return render_template('form.html')
 
-@app.route('/reading', methods = ['POST', 'GET'])
-def reading():
+@app.route('/sensor', methods = ['POST', 'GET'])
+def sensor():
 	if request.method == 'POST':
 		sm = request.form.get('sm')
 		ldr = request.form.get('ldr')
