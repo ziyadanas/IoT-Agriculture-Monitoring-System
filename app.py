@@ -13,9 +13,8 @@ def sensor():
 	if request.method == 'POST':
 		sm = request.form.get('sm')
 		ldr = request.form.get('ldr')
-		return '''
-                  <h1>Soil Moisture		: {}%</h1>
-                  <h1>Light Intensity	: {}%</h1>'''.format(sm, ldr)
+		return """<h1>Soil Moisture		: {}%</h1>
+                  <h1>Light Intensity	: {}%</h1>""".format(sm, ldr)
 		#return "success receive data"
 #	else:
 #		return "<h2>ERROR</h2>"
