@@ -1,8 +1,11 @@
 from flask import Flask, redirect, url_for, request, render_template
 from flask_sqlalchemy import SQLAlchemy
+from logging import FileHandler,WARNING
 import os
 
 app = Flask(__name__, template_folder='templates')
+file_handler = FileHandler('errorlog.txt')
+file_handler.setLevel(WARNING)
 
 @app.route('/')
 def home():
@@ -13,8 +16,8 @@ def sensor():
 	if request.method == 'POST':
 		sm = request.form.get('sm')
 		ldr = request.form.get('ldr')
-		return "{sm} {ldr}"
-#		return render_template('sensor.html', sm=sm, ldr=ldr)
+#		return "{sm} {ldr}"
+		return render_template('sensor.html', sm=sm, ldr=ldr)
 		
 #	else:
 #		return "<h2>ERROR</h2>"
