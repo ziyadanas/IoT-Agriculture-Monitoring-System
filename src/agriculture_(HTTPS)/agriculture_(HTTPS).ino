@@ -51,21 +51,21 @@ void loop(){
   //ldr = (analogRead(ldr_sensor)/1023)*100;
   ldr = random(0,100);
   // check WiFi connection-------------------------------------------------------
-  if((WiFiMulti.run() == WL_CONNECTED)) httpclient();
+  if((WiFiMulti.run() == WL_CONNECTED)) httpsclient();
   else Serial.println("[SETUP] WiFi Disconnected");
   delay(10000);
   //-----------------------------------------------------------------------------
 }
 
-void httpclient(){
+void httpsclient(){
   std::unique_ptr<BearSSL::WiFiClientSecure>client(new BearSSL::WiFiClientSecure);
   client->setInsecure();
   //WiFiClient client;
   HTTPClient http;
-  Serial.print("[HTTP] begin...\n");
+  Serial.print("[HTTPS] begin...\n");
 
   if(http.begin(*client, serverName)){
-    Serial.print("[HTTP] POST...\n");
+    Serial.print("[HTTPS] POST...\n");
     //http.addHeader("Authorization", String(api));
     //http.addHeader("Host", "http://mohdafiqazizi.pythonanywhere.com");
     //http.addHeader("Content-Type", "application/json");
@@ -74,13 +74,13 @@ void httpclient(){
     String httpData = "sm="+String(sm)+"&ldr="+String(ldr);
     int httpResponseCode = http.POST(httpData);
     if (httpResponseCode > 0) { //Check for the returning code
-      Serial.println("[HTTP] POST HTTP code   : "+String(httpResponseCode));
-      Serial.println("[HTTP] Moisture         : "+String(sm)+"%");
-      Serial.println("[HTTP] Light Intensity  : "+String(ldr)+"%");
-      String payload = http.getString();Serial.println("[HTTP]\n\n"+payload+"\n");
+      Serial.println("[HTTPS] POST HTTP code   : "+String(httpResponseCode));
+      Serial.println("[HTTPS] Moisture         : "+String(sm)+"%");
+      Serial.println("[HTTPS] Light Intensity  : "+String(ldr)+"%");
+      String payload = http.getString();Serial.println("[HTTPS]\n\n"+payload+"\n");
     }
     else {
-      Serial.println("[HTTP] Error Code: "+String(httpResponseCode));
+      Serial.println("[HTTPS] Error Code: "+String(httpResponseCode));
     }
   }
   http.end(); //Free the resources

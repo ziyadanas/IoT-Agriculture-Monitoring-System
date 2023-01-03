@@ -38,8 +38,8 @@ db = SQLAlchemy(app)
 class data(db.Model):
     __tablename__ = "data"
     id 	= db.Column(db.Integer, primary_key=True)
-    sm 	= db.Column(db.String(4096))
-    ldr = db.Column(db.String(4096))
+    sm 	= db.Column(db.Integer)
+    ldr = db.Column(db.Integer)
     t	= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 #	def __init__(self,sm,ldr):
 #	self.sm 	= sm
