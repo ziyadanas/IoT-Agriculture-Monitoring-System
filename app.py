@@ -1,12 +1,16 @@
 from flask import Flask, redirect, url_for, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 import sqlalchemy as sa
+from datetime import datetime
+from pytz import timezone
+import time
 import os
 
 app = Flask(__name__, template_folder='templates')
 
 sm	= 0
 ldr	= 0
+reading_time = 0
 
 #PostgreSQL DB config----------------------------------------------
 app.config["DEBUG"] = True
@@ -36,6 +40,7 @@ class data(db.Model):
     id 	= db.Column(db.Integer, primary_key=True)
     sm 	= db.Column(db.String(4096))
     ldr = db.Column(db.String(4096))
+    t	= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 #	def __init__(self,sm,ldr):
 #	self.sm 	= sm
 #	self.ldr	= ldr
@@ -60,10 +65,15 @@ def home():
 def sensor():
 	global sm
 	global ldr
+	global reading_time
 	if request.method == 'POST':
 		sm = request.form.get('sm')
 		ldr = request.form.get('ldr')
-		datadb = data(sm = request.form.get('sm'),ldr = request.form.get('ldr'))
+		datadb = data(
+		sm = request.form.get('sm'),
+		ldr = request.form.get('ldr'),
+		reading_time = datetime.now(tz=timezone('Asia/Kuala_Lumpur'))
+		)
 		db.session.add(datadb)
 		db.session.commit()
 	return render_template('sensor.html', sm=sm, ldr=ldr)

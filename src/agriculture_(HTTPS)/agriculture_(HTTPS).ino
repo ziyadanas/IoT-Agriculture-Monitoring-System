@@ -58,13 +58,13 @@ void loop(){
 }
 
 void httpclient(){
-  //std::unique_ptr<BearSSL::WiFiClientSecure>client(new BearSSL::WiFiClientSecure);
-  //client->setInsecure();
-  WiFiClient client;
+  std::unique_ptr<BearSSL::WiFiClientSecure>client(new BearSSL::WiFiClientSecure);
+  client->setInsecure();
+  //WiFiClient client;
   HTTPClient http;
   Serial.print("[HTTP] begin...\n");
 
-  if(http.begin(client, serverName)){
+  if(http.begin(*client, serverName)){
     Serial.print("[HTTP] POST...\n");
     //http.addHeader("Authorization", String(api));
     //http.addHeader("Host", "http://mohdafiqazizi.pythonanywhere.com");
