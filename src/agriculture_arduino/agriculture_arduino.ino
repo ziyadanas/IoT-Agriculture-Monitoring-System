@@ -2,12 +2,13 @@
 #include <ESP8266WiFiMulti.h>
 #include <ESP8266HTTPClient.h>
 #include <WiFiClient.h>
+#include <Arduino.h>
 #include <WiFiClientSecureBearSSL.h>
 
 // setup -------------------------------------------------------
 //#define ldr_sensor A0
 //#define sm_sensor 5
-#define serverName "http://mohdafiqazizi.pythonanywhere.com/sensor"
+#define serverName "https://agriculture-iot.onrender.com/sensor"
 #define api "Token c217ccce9190ef8cb800aff0235fdaee7f8ebcda"
 #ifndef ssid
 #define ssid "Mi 10T"
@@ -57,11 +58,12 @@ void loop(){
 }
 
 void httpclient(){
-  WiFiClient client;
+  std::unique_ptr<BearSSL::WiFiClientSecure>client(new BearSSL::WiFiClientSecure);
+  client->setInsecure();
   HTTPClient http;
   Serial.print("[HTTP] begin...\n");
 
-  if(http.begin(client, serverName)){
+  if(http.begin(*client, serverName)){
     Serial.print("[HTTP] POST...\n");
     //http.addHeader("Authorization", String(api));
     //http.addHeader("Host", "http://mohdafiqazizi.pythonanywhere.com");
