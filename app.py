@@ -17,7 +17,7 @@ def sensor():
 		sm = request.form.get('sm')
 		ldr = request.form.get('ldr')
 #		return "{sm} {ldr}"
-		return render_template('sensor.html', sm=sm, ldr=ldr)
+	return render_template('sensor.html', sm=sm, ldr=ldr)
 		
 #	else:
 #		return "<h2>ERROR</h2>"
