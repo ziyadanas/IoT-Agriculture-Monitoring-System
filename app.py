@@ -27,9 +27,9 @@ class data(db.Model):
     id 	= db.Column(db.Integer, primary_key=True)
     sm 	= db.Column(db.String(4096))
     ldr = db.Column(db.String(4096))
-    def __init__(self,sm,ldr):
-    self.sm 	= sm
-    self.ldr	= ldr
+	def __init__(self,sm,ldr):
+	self.sm 	= sm
+	self.ldr	= ldr
 
 # Backend Web-------------------------------------------------------
 @app.route('/')
