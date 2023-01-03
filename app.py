@@ -6,7 +6,8 @@ import os
 app = Flask(__name__, template_folder='templates')
 file_handler = FileHandler('errorlog.txt')
 file_handler.setLevel(WARNING)
-
+sm	= 0
+ldr	= 0
 @app.route('/')
 def home():
 	return '<h2>Jaunty Jaugar</h2>'
