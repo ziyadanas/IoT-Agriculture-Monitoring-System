@@ -76,10 +76,10 @@ def sensor():
 		)
 		db.session.add(datadb)
 		db.session.commit()
-	return render_template('sensor.html', sm=sm, ldr=ldr)
+		return render_template('sensor.html', sm=sm, ldr=ldr)
 		
-#	else:
-#		return "<h2>ERROR</h2>"
+	else:
+		return "<h2>ERROR</h2>"
 
 if __name__ == "__main__":
     port = os.environ.get("PORT", 5000)# Get port number of env at runtime, else use default port 5000
