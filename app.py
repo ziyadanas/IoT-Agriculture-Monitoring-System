@@ -42,7 +42,9 @@ def sensor():
 	if request.method == 'POST':
 		sm = request.form.get('sm')
 		ldr = request.form.get('ldr')
-#		return "{sm} {ldr}"
+		datadb = data(sm = request.form.get('sm'),ldr = request.form.get('ldr'))
+		db.session.add(datadb)
+		db.session.commit()
 	return render_template('sensor.html', sm=sm, ldr=ldr)
 		
 #	else:
