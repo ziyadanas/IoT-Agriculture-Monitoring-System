@@ -3,10 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_app import db
 import os
 
-
-
 app = Flask(__name__, template_folder='templates')
-
 
 sm	= 0
 ldr	= 0
