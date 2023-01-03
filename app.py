@@ -14,6 +14,8 @@ def home():
 
 @app.route('/sensor', methods = ['POST', 'GET'])
 def sensor():
+	global sm
+	global ldr
 	if request.method == 'POST':
 		sm = request.form.get('sm')
 		ldr = request.form.get('ldr')
