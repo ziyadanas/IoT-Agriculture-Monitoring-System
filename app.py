@@ -10,7 +10,7 @@ app = Flask(__name__, template_folder='templates')
 
 sm	= 0
 ldr	= 0
-reading_time = 0
+t	= 0
 
 #PostgreSQL DB config----------------------------------------------
 app.config["DEBUG"] = True
@@ -65,14 +65,14 @@ def home():
 def sensor():
 	global sm
 	global ldr
-	global reading_time
+	global t
 	if request.method == 'POST':
 		sm = request.form.get('sm')
 		ldr = request.form.get('ldr')
 		datadb = data(
-		sm = request.form.get('sm'),
-		ldr = request.form.get('ldr'),
-		reading_time = datetime.now(tz=timezone('Asia/Kuala_Lumpur'))
+		sm	= request.form.get('sm'),
+		ldr	= request.form.get('ldr'),
+		t	= datetime.now(tz=timezone('Asia/Kuala_Lumpur'))
 		)
 		db.session.add(datadb)
 		db.session.commit()
