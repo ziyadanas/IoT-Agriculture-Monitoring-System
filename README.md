@@ -21,7 +21,7 @@ The intervention of Internet of Things (IoT) technology in agriculture could fac
 
 [click here to return to the table of contents](#table-of-contents)
 
-![Use case diagram](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/case-diagram-v2.jpg)
+![Use Case Agriculture (3)](https://user-images.githubusercontent.com/117179191/211964029-1f989870-7ccc-443e-8366-bd63ddc81803.jpeg)
 
 #### Use Case Description - Report and Notify Plant Condition
 
