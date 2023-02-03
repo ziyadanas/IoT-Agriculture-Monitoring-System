@@ -29,6 +29,10 @@ app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
 app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
+value		= 0
+timestamp	= 0
+name		= 0
+
 db = SQLAlchemy(app)
 
 class sensor(db.Model):
@@ -56,12 +60,12 @@ def home():
 def data():
 	if request.method == 'POST':
 		dat	= data(
-			value = request.form.get('ldr'),
-			timestamp = datetime.now(tz=timezone('Asia/Kuala_Lumpur'))
-			)
+		value = request.form.get('S1'),
+		timestamp = datetime.now(tz=timezone('Asia/Kuala_Lumpur'))
+		)
 		db.session.add(dat)
 		db.session.commit()
-	return render_template('data.html', s1 = request.form.get('ldr'))
+	return render_template('data.html', s1 = request.form.get('S1'))
 		
 #	else:
 #		return "<h2>ERROR</h2>"

@@ -14,7 +14,7 @@
 #define password "ziyadanas"
 #endif
 // global variable------------------------------------------
-int ldr  = 0;       //light intensity
+int S1  = 0;       //light intensity
 int id  = 1;
 unsigned long lastTime = 0;
 unsigned long timerDelay = 5000; //set timer to 5s
@@ -46,7 +46,7 @@ void setup(){
 void loop(){
   // read input sensor-----------------------------------------------------------
   //sm = digitalRead(sm_sensor);
-  ldr = map(analogRead(ldr_sensor), 0, 1023, 100, 0);
+  S1 = map(analogRead(ldr_sensor), 0, 1023, 100, 0);
   // check WiFi connection-------------------------------------------------------
   if ((millis() - lastTime) > timerDelay) {
     if((WiFiMulti.run() == WL_CONNECTED)) httpsclient();
@@ -67,12 +67,12 @@ void httpsclient(){
     Serial.print("[HTTPS] POST...\n");
     //http.addHeader("Content-Type", "application/json");
     http.addHeader("Content-Type", "application/x-www-form-urlencoded");
-    String httpData = "id="+String(id)+"&ldr="+String(ldr);
+    String httpData = "id="+String(id)+"&S1="+String(S1);
     int httpResponseCode = http.POST(httpData);
     if (httpResponseCode > 0) { //Check for the returning code
       Serial.println("[HTTPS] POST HTTP code    : "+String(httpResponseCode));
       Serial.println("[HTTPS] ID                : "+String(id));
-      Serial.println("[HTTPS] Light Intensity   : "+String(ldr)+"%");
+      Serial.println("[HTTPS] Light Intensity   : "+String(S1)+"%");
       String payload = http.getString();Serial.println("[HTTPS]\n\n"+payload+"\n");
     }
     else {
