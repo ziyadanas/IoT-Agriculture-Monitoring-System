@@ -31,6 +31,10 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 
+value		= 0
+timestamp	= 0
+name		= 0
+
 class sensor(db.Model):
 	__tablename__ = "sensor"
 	id		= db.Column(db.Integer, primary_key=True)
@@ -53,7 +57,7 @@ def home():
 	return '<h2>Jaunty Jaugar</h2>'
 
 @app.route('/read', methods = ['POST', 'GET'])
-def read():
+def read():	
 	if request.method == 'POST':
 		dat	= data(
 		value = request.form.get('S1'),
