@@ -40,7 +40,6 @@ class sensor(db.Model):
     id 	= db.Column(db.Integer, primary_key=True)
     val	= db.Column(db.Integer)
     dat = db.relationship('data',backref='sensor', uselist=False)
-    
     def __init__(self,id,val):
     	self.id	= id
     	self.val	= val
@@ -50,7 +49,6 @@ class data(db.Model):
     id 	= db.Column(db.Integer, primary_key=True)
     t	= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     sensor_id	= db.Column(db.Integer,db.ForeignKey(sensor.id),nullable=False)
-	
 	def __init__(self,t):
 		self.t 	= t
 
