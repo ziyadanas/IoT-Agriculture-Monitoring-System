@@ -1,12 +1,16 @@
 from flask import Flask, redirect, url_for, request, render_template
 from flask_sqlalchemy import SQLAlchemy
-import sqlalchemy as create_engine
+import sqlalchemy as sa
 from datetime import datetime
 from pytz import timezone
 import time
 import os
 
 app = Flask(__name__, template_folder='templates')
+
+sm	= 0
+ldr	= 0
+t	= 0
 
 #PostgreSQL DB config----------------------------------------------
 app.config["DEBUG"] = True
@@ -34,19 +38,24 @@ db = SQLAlchemy(app)
 class sensor(db.Model):
 	__tablename__ = "sensor"
 	id		= db.Column(db.Integer, primary_key=True)
-	name	= db.Column(db.Integer)
+	name	= db.Column(db.String(50), default = 'sensor')
 
 class data(db.Model):
 	__tablename__ = "data"
 	id			= db.Column(db.Integer, primary_key=True)
 	val			= db.Column(db.Integer)
-	timestamp	= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+	timestamp	= db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 
 # Initialize DB manually--------------------------------------------
-engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
-db.drop_all(engine)
-db.create_all(engine)
-app.logger.info('Initialized the database!')
+engine = sa.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
+inspector = sa.inspect(engine)
+if not inspector.has_table("users"):
+	with app.app_context():
+		db.drop_all()
+		db.create_all()
+		app.logger.info('Initialized the database!')
+else:
+	app.logger.info('Database already contains the users table.')
 
 # Backend Web-------------------------------------------------------
 @app.route('/')
@@ -55,14 +64,14 @@ def home():
 
 @app.route('/data', methods = ['POST', 'GET'])
 def data():
-	global s1,timestamp
+	global s1, timestamp
 	if request.method == 'POST':
-		s1			= request.form.get('sm')
+		s1			= request.form.get('s1')
 		timestamp	= datetime.now(tz=timezone('Asia/Kuala_Lumpur'))
-		dat			= data(val=s1, timestamp=timestamp)
+		dat	= data(val = s1, timestamp = timestamp)
 		db.session.add(dat)
 		db.session.commit()
-	return render_template('data.html', s1=s1)
+	return render_template('data.html', s1 = s1)
 		
 #	else:
 #		return "<h2>ERROR</h2>"
