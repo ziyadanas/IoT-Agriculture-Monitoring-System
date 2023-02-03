@@ -48,7 +48,7 @@ class data(db.Model):
     __tablename__ = "data"
     id 	= db.Column(db.Integer, primary_key=True)
     t	= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    sensor_id	= db.Column(db.Integer,db.ForeignKey(sensor.id),nullable=False)
+    sensor_id	= db.Column(db.Integer,db.ForeignKey('sensor.id'),nullable=False)
 	def __init__(self,t):
 		self.t 	= t
 
