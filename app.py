@@ -67,7 +67,7 @@ def data():
 		dat = data(val	= s1, timestamp=timestamp)
 		db.session.add(dat)
 		db.session.commit()
-	return render_template('sensor.html', sm=sm, ldr=ldr)
+	return render_template('data.html', s1=s1)
 		
 #	else:
 #		return "<h2>ERROR</h2>"
