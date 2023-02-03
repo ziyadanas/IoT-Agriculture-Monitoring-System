@@ -61,12 +61,6 @@ if not inspector.has_table("users"):
 else:
 	app.logger.info('Database already contains the users table.')
 
-esp8266 = Sensor(id=1, name='NodeMCU ESP8266')
-esp32	= Sensor(id=2, name='NodeMCU ESP32')
-arduino	= Sensor(id=3, name='Arduino')
-others	= Sensor(id=4, name='others')
-db.session.add_all([esp8266, esp32, arduino, others])
-db.session.commit()
 
 # Backend Web-------------------------------------------------------
 @app.route('/')
@@ -76,7 +70,6 @@ def home():
 @app.route('/sensor', methods = ['POST', 'GET'])
 def sensor():
 	global sensor1
-	def index():
     if request.method == "POST":
         name	= request.form["name"]
         id		= request.form["id"]
@@ -84,7 +77,7 @@ def sensor():
         db.session.add(sensor1)
 		db.session.commit()
         return f"Name: {name}, ID: {id}"
-    return '<form action="/" method="post"><label for="name">Name:</label><input type="text" id="name" name="name"><label for="id">ID:</label><input type="text" id="id" name="id"><input type="submit" value="Submit"></form>'
+    return '<form action="/sensor" method="post"><label for="name">Name:</label><input type="text" id="name" name="name"><label for="id">ID:</label><input type="text" id="id" name="id"><input type="submit" value="Submit"></form>'
 
 
 @app.route('/data', methods = ['POST', 'GET'])
