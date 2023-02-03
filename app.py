@@ -41,16 +41,17 @@ class sensor(db.Model):
     val	= db.Column(db.Integer)
     dat = db.relationship('data',backref='sensor', uselist=False)
     def __init__(self,id,val):
-    	self.id	= id
-    	self.val	= val
+        self.id	= id
+        self.val	= val
 
 class data(db.Model):
     __tablename__ = "data"
     id 	= db.Column(db.Integer, primary_key=True)
     t	= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     sensor_id	= db.Column(db.Integer,db.ForeignKey('sensor.id'),nullable=False)
-	def __init__(self,t):
-		self.t 	= t
+    def __init__(self,sensor_id,t):
+        self.t 	= t
+        self.sensor_id	= sensor_id
 
 # Initialize DB manually--------------------------------------------
 engine = sa.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
