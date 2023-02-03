@@ -72,18 +72,18 @@ def sensor():
 	sensor1	= sensor(name = 'Soil Moisture')
 	sensor2	= sensor(name = 'Light Intensity')
 	if request.method == 'POST':
-		data1	= data(
-		   t = datetime.now(tz=timezone('Asia/Kuala_Lumpur')),
-		    val = request.form.get('sm'),
-		    sensor = sensor1
+		dat1	= data(
+			t = datetime.now(tz=timezone('Asia/Kuala_Lumpur')),
+			val = request.form.get('sm'),
+			sensor_id = 1
 		    )
-		data2	= data(
+		dat2	= data(
 			t = datetime.now(tz=timezone('Asia/Kuala_Lumpur')),
 			val = request.form.get('ldr'),
-			sensor = sensor2
+			sensor_id = 2
 			)    
-		db.session.add_all([sensor1, sensor2, sensor3])
-		db.session.add_all([data1, data2])
+		db.session.add_all([sensor1, sensor2])
+		db.session.add_all([dat1, dat2])
 		db.session.commit()
 	return render_template('sensor.html', sm=sm, ldr=ldr)
 		
