@@ -29,10 +29,6 @@ app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
 app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-value		= 0
-timestamp	= 0
-name		= 0
-
 db = SQLAlchemy(app)
 
 class sensor(db.Model):
@@ -56,8 +52,8 @@ def recreate_db():
 def home():
 	return '<h2>Jaunty Jaugar</h2>'
 
-@app.route('/data', methods = ['POST', 'GET'])
-def data():
+@app.route('/read', methods = ['POST', 'GET'])
+def read():
 	if request.method == 'POST':
 		dat	= data(
 		value = request.form.get('S1'),
