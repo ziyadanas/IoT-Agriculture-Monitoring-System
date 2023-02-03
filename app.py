@@ -54,7 +54,6 @@ def home():
 
 @app.route('/read', methods = ['POST', 'GET'])
 def read():
-	global S1, tstamp
 	if request.method == 'POST':
 		S1		= request.form.get('sm')
 		tstamp	= datetime.now(tz=timezone('Asia/Kuala_Lumpur'))
