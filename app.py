@@ -37,7 +37,7 @@ db = SQLAlchemy(app)
 
 class Sensor(db.Model):
 	__tablename__ = 'sensor'
-	id		= db.Column(db.Integer, primary_key=True, unique = True)
+	id		= db.Column(db.Integer, primary_key=True)
 	name	= db.Column(db.String(50), nullable=False, default = 'Unknown Sensor')
 	data	= db.relationship('Data', back_populates='sensor')
 
@@ -72,9 +72,23 @@ db.session.commit()
 @app.route('/')
 def home():
 	return '<h2>Jaunty Jaugar</h2>'
-
+	
 @app.route('/sensor', methods = ['POST', 'GET'])
 def sensor():
+	global sensor1
+	def index():
+    if request.method == "POST":
+        name	= request.form["name"]
+        id		= request.form["id"]
+        sensor1	= Sensor(id=id, name=name)
+        db.session.add(sensor1)
+		db.session.commit()
+        return f"Name: {name}, ID: {id}"
+    return '<form action="/" method="post"><label for="name">Name:</label><input type="text" id="name" name="name"><label for="id">ID:</label><input type="text" id="id" name="id"><input type="submit" value="Submit"></form>'
+
+
+@app.route('/data', methods = ['POST', 'GET'])
+def data():
 	global sm
 	global ldr
 	global data
@@ -90,8 +104,6 @@ def sensor():
 		db.session.commit()
 	return render_template('sensor.html', sm=sm, ldr=ldr)
 		
-#	else:
-#		return "<h2>ERROR</h2>"
 
 if __name__ == "__main__":
     port = os.environ.get("PORT", 5000)# Get port number of env at runtime, else use default port 5000
