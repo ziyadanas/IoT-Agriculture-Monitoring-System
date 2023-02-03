@@ -8,10 +8,6 @@ import os
 
 app = Flask(__name__, template_folder='templates')
 
-sm	= 0
-ldr	= 0
-t	= 0
-
 #PostgreSQL DB config----------------------------------------------
 app.config["DEBUG"] = True
 SQLALCHEMY_DATABASE_URI = "postgresql://{username}:{password}@{hostname}/{databasename}".format(
@@ -47,16 +43,9 @@ class data(db.Model):
 	timestamp	= db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 
 # Initialize DB manually--------------------------------------------
-engine = sa.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
-inspector = sa.inspect(engine)
-if not inspector.has_table("users"):
-	with app.app_context():
-		db.drop_all()
-		db.create_all()
-		app.logger.info('Initialized the database!')
-else:
-	app.logger.info('Database already contains the users table.')
-
+def recreate_db():
+	db.drop_all()
+	db.create_all()
 # Backend Web-------------------------------------------------------
 @app.route('/')
 def home():
@@ -78,4 +67,5 @@ def data():
 
 if __name__ == "__main__":
     port = os.environ.get("PORT", 5000)# Get port number of env at runtime, else use default port 5000
+    recreate_db()
     app.run(host='0.0.0.0', port=port, debug=True)
