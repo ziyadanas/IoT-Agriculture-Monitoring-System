@@ -60,9 +60,9 @@ def read():
 		val = request.form.get('s1')
 		sid = request.form.get('id')
 		data_entry = data(tstamp=tstamp, val=val, sid=sid)
-		db.session.add(dat)
+		db.session.add(data_entry)
 		db.session.commit()
-	return '<h2>Sensor1	: {{s1}}%</h2><h2>ID	: {{id}}%</h2>'
+	return '<h2>Sensor1	: {{val}}%</h2><h2>ID	: {{sid}}%</h2>'
 
 if __name__ == "__main__":
     port = os.environ.get("PORT", 5000)# Get port number of env at runtime, else use default port 5000
