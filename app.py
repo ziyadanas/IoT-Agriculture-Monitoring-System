@@ -59,11 +59,8 @@ def read():
 	if request.method == 'POST':
 		sm = request.form.get('sm')
 		ldr = request.form.get('ldr')
-		dat = data(
-		sm	= request.form.get('sm'),
-		ldr	= request.form.get('ldr'),
 		t	= datetime.now(tz=timezone('Asia/Kuala_Lumpur'))
-		)
+		dat = data(sm=sm, ldr=ldr, t=t)
 		db.session.add(dat)
 		db.session.commit()
 	return render_template('sensor.html', sm=sm, ldr=ldr)
