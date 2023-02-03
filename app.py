@@ -41,8 +41,8 @@ class data(db.Model):
 	id 	= db.Column(db.Integer, primary_key=True)
 	tstamp	= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 	val 	= db.Column(db.Integer)
-	sensor_id	= db.Column(db.Integer)
-
+	sid		= db.Column(db.Integer)
+	
 # Initialize DB manually--------------------------------------------
 def recreate_db():
     db.drop_all()
@@ -55,15 +55,14 @@ def home():
 
 @app.route('/read', methods = ['POST', 'GET'])
 def read():
-	global sm, ldr, t
 	if request.method == 'POST':
-		sm = request.form.get('s1')
-		ldr = request.form.get('id')
-		t	= datetime.now(tz=timezone('Asia/Kuala_Lumpur'))
-		dat = data(val=sm, tstamp=t, sensor_id=ldr)
+		tstamp = datetime.now()
+		val = request.form.get('s1')
+		sid = request.form.get('id')
+		data_entry = data(tstamp=tstamp, val=val, sid=sid)
 		db.session.add(dat)
 		db.session.commit()
-	return render_template('data.html', s1=sm, id=ldr)
+	return '<h2>Sensor1	: {{s1}}%</h2><h2>ID	: {{id}}%</h2>'
 
 if __name__ == "__main__":
     port = os.environ.get("PORT", 5000)# Get port number of env at runtime, else use default port 5000
