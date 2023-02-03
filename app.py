@@ -32,14 +32,16 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 class sensor(db.Model):
-    id	= db.Column(db.Integer, primary_key=True)
-    nm	= db.Column(db.String(50), default='Sensor')
+	id	= db.Column(db.Integer, primary_key=True)
+	nm	= db.Column(db.String(50), default='Sensor')
+	data = db.relationship('data', back_populates='sensor', uselist=False)
 
 class data(db.Model):
-    id 	= db.Column(db.Integer, primary_key=True)
-    tsp	= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    val	= db.Column(db.Integer)
-    sid	= db.Column(db.Integer)
+	id 	= db.Column(db.Integer, primary_key=True)
+	tsp	= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+	val	= db.Column(db.Integer)
+	sid	= db.Column(db.Integer, db.ForeignKey('sensor.id'))
+	sensor = db.relationship('sensor', back_populates='data', uselist=False)
 
 # Initialize DB manually--------------------------------------------
 engine = sa.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
@@ -70,8 +72,8 @@ def name():
 		return 'stored sensor record success!'
 	return '''
 		<form method="post">
-			<input type="text" name="nm">
-			<input type="text" name="id">
+			<input type="text" name="nm" placeholder="sensor name">
+			<input type="text" name="id" placeholder="sensor id">
 			<input type="submit" value="Submit">
 		</form>
  	'''
