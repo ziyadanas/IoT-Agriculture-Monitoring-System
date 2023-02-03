@@ -36,16 +36,17 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 class sensor(db.Model):
-    __tablename__ = "data"
-    id 	= db.Column(db.Integer, primary_key=True)
-    val	= db.Column(db.Integer)
-    dat = db.relationship('data',backref='sensor', uselist=False)
+	__tablename__ = "sensor"
+	id 	= db.Column(db.Integer, primary_key=True)
+	name= db.Column(db.String('255'))
+	dat = db.relationship('data',backref='sensor', uselist=False)
 
 class data(db.Model):
-    __tablename__ = "datasensor"
-    id 	= db.Column(db.Integer, primary_key=True)
-    t	= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    sensor_id	= db.Column(db.Integer,db.ForeignKey('sensor.id'),nullable=False)
+	__tablename__ = "data"
+	id = db.Column(db.Integer, primary_key=True)
+	t	= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+	val = db.Column(db.Integer)
+	sensor_id	= db.Column(db.Integer,db.ForeignKey('sensor.id'))
 
 # Initialize DB manually--------------------------------------------
 engine = sa.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
@@ -65,16 +66,24 @@ def home():
 
 @app.route('/sensor', methods = ['POST', 'GET'])
 def sensor():
-	global sm
-	global ldr
-	global t
+	global sensor1
+	global sensor2
+	global data1
+	sensor1	= sensor(name = 'Soil Moisture')
+	sensor2	= sensor(name = 'Light Intensity')
 	if request.method == 'POST':
-		sm	= sensor(id = 1, val = request.form.get('sm'))
-		ldr	= sensor(id = 2, val = request.form.get('ldr'))
-		t	= data(t = datetime.now(tz=timezone('Asia/Kuala_Lumpur')), sensor = sensor)
-		db.session.add(t)
-		db.session.add(sm)
-		db.session.add(ldr)
+		data1	= data(
+		   t = datetime.now(tz=timezone('Asia/Kuala_Lumpur')),
+		    val = request.form.get('sm'),
+		    sensor = sensor1
+		    )
+		data2	= data(
+			t = datetime.now(tz=timezone('Asia/Kuala_Lumpur')),
+			val = request.form.get('ldr'),
+			sensor = sensor2
+			)    
+		db.session.add_all([sensor1, sensor2, sensor3])
+		db.session.add_all([data1, data2])
 		db.session.commit()
 	return render_template('sensor.html', sm=sm, ldr=ldr)
 		
