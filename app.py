@@ -56,12 +56,12 @@ def home():
 def data():
 	if request.method == 'POST':
 		dat	= data(
-			value = request.form.get('s1'),
+			value = request.form.get('ldr'),
 			timestamp = datetime.now(tz=timezone('Asia/Kuala_Lumpur'))
 			)
 		db.session.add(dat)
 		db.session.commit()
-	return render_template('data.html', s1 = request.form.get('s1'))
+	return render_template('data.html', s1 = request.form.get('ldr'))
 		
 #	else:
 #		return "<h2>ERROR</h2>"
