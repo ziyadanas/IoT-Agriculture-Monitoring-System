@@ -32,12 +32,10 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 class sensor(db.Model):
-    __tablename__ = "sensor"
     id		= db.Column(db.Integer, primary_key=True)
     name	= db.Column(db.String(50), default='Sensor')
 
 class data(db.Model):
-    __tablename__ = "data"
     id 	= db.Column(db.Integer, primary_key=True)
     val 	= db.Column(db.Integer)
     tstamp	= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
@@ -58,7 +56,7 @@ def read():
 	if request.method == 'POST':
 		sm = request.form.get('s1')
 		ldr = request.form.get('id')
-		t	= datetime.now(tz=timezone('Asia/Kuala_Lumpur'))
+		t	= datetime.now()
 		dat = data(val=sm, tstamp=t)
 		db.session.add(dat)
 		db.session.commit()
