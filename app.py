@@ -56,23 +56,26 @@ else:
 @app.route('/')
 def home():
 	return '<h2>Jaunty Jaugar</h2>'
-"""
+
 @app.route('/name', methods = ['POST', 'GET'])
 def name():
 	nm	= 0
 	id	= 0
 	if request.method == 'POST':
-		my_string = request.form.get('nm')
-		my_string = request.form.get('id')
+		nm = request.form.get('nm')
+		id = request.form.get('id')
+		dat	= sensor(id=id, nm=nm)
+		db.session.add(dat)
+		db.session.commit()
         return 'stored sensor record success!'
 	return '''
 		<form method="post">
 			<input type="text" name="nm">
-			<input type="text" name="sid">
+			<input type="text" name="id">
 			<input type="submit" value="Submit">
 		</form>
  	'''
-"""
+
 @app.route('/read', methods = ['POST', 'GET'])
 def read():
 	val = 0
