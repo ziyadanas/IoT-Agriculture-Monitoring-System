@@ -87,8 +87,8 @@ def read():
 		db.session.commit()
 	return '''
 	<html>
-		<h2>Sensor1 : {val}%</h2>
-		<h2>ID : {sid}</h2>
+		<h2>Sensor1 : {{val}}%</h2>
+		<h2>ID : {{sid}}</h2>
 	</html>
 	'''
 
