@@ -67,7 +67,7 @@ def name():
 		dat	= sensor(id=id, nm=nm)
 		db.session.add(dat)
 		db.session.commit()
-        return 'stored sensor record success!'
+		return 'stored sensor record success!'
 	return '''
 		<form method="post">
 			<input type="text" name="nm">
