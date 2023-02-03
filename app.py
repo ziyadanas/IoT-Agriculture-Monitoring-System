@@ -71,7 +71,7 @@ def home():
 	
 @app.route('/', methods = ['POST', 'GET'])
 def home():
-	global sensor1
+	global sensor1, name, id
 	if request.method == "POST":
 		name	= request.form["name"]
 		id		= request.form["id"]
