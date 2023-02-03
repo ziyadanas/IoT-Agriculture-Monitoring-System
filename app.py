@@ -70,7 +70,7 @@ def home():
 """
 	
 @app.route('/', methods = ['POST', 'GET'])
-def sensor():
+def home():
 	global sensor1
 	if request.method == "POST":
 		name	= request.form["name"]
@@ -82,8 +82,8 @@ def sensor():
     return '<form action="/sensor" method="post"><label for="name">Name:</label><input type="text" id="name" name="name"><label for="id">ID:</label><input type="text" id="id" name="id"><input type="submit" value="Submit"></form>'
 
 
-@app.route('/data', methods = ['POST', 'GET'])
-def data():
+@app.route('/sensor', methods = ['POST', 'GET'])
+def sensor():
 	global sm
 	global ldr
 	global data
