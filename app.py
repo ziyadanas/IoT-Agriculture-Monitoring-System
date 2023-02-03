@@ -36,11 +36,13 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 class Sensor(db.Model):
-	id		= db.Column(db.Integer, primary_key=True)
-	name	= db.Column(db.String(64), unique=True, default = 'sensor')
-	data	= db.relationship('Data',back_populates='sensor')
+	__tablename__ = 'sensor'
+	id		= db.Column(db.Integer, primary_key=True, unique = True)
+	name	= db.Column(db.String(50), nullable=False, default = 'Unknown Sensor')
+	data	= db.relationship('Data', back_populates='sensor')
 
 class Data(db.Model):
+	__tablename__ = 'data'
 	id 			= db.Column(db.Integer, primary_key=True)
 	timestamp	= db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 	sm			= db.Column(db.Integer)
@@ -59,6 +61,13 @@ if not inspector.has_table("users"):
 else:
 	app.logger.info('Database already contains the users table.')
 
+esp8266 = Sensor(id=1, name='NodeMCU ESP8266')
+esp32	= Sensor(id=2, name='NodeMCU ESP32')
+arduino	= Sensor(id=3, name='Arduino')
+others	= Sensor(id=4, name='others')
+db.session.add_all([esp8266, esp32, arduino, others])
+db.session.commit()
+
 # Backend Web-------------------------------------------------------
 @app.route('/')
 def home():
@@ -68,19 +77,18 @@ def home():
 def sensor():
 	global sm
 	global ldr
-	global sensor1
-	global dat
+	global data
+	global sensor_id
+	global timestamp
 	if request.method == 'POST':
-		sensor1	= Sensor(name=request.form.get('name'))
-		dat1	= Data(
-			timestamp	= datetime.now(tz=timezone('Asia/Kuala_Lumpur')),
-			sm			= request.form.get('sm'),
-			ldr			= request.form.get('ldr'),
-			sensor_id	= request.form.get('id')
-		    ) 
-		db.session.add_all([dat1, sensor1])
+		timestamp	= datetime.now(tz=timezone('Asia/Kuala_Lumpur'))
+		sm			= request.form.get('sm')
+		ldr			= request.form.get('ldr')
+		sensor_id	= request.form.get('id')
+		data = Data(timestamp=timestamp, sm=sm, ldr=ldr, sensor_id=sensor_id) 
+		db.session.add(data)
 		db.session.commit()
-	return render_template('sensor.html', sm=request.form.get('sm'), ldr=request.form.get('ldr'))
+	return render_template('sensor.html', sm=sm, ldr=ldr)
 		
 #	else:
 #		return "<h2>ERROR</h2>"
