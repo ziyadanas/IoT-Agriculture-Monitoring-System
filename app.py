@@ -71,8 +71,6 @@ def sensor():
 	global sensor2
 	global dat1
 	global dat2
-	sensor1	= Sensor(name = 'Soil Moisture')
-	sensor2	= Sensor(name = 'Light Intensity')
 	if request.method == 'POST':
 		dat1	= Data(
 			timestamp	= datetime.now(tz=timezone('Asia/Kuala_Lumpur')),
@@ -84,7 +82,6 @@ def sensor():
 			value		= request.form.get('ldr'),
 			sensor_id	= 2
 			)    
-		db.session.add_all([sensor1, sensor2])
 		db.session.add_all([dat1, dat2])
 		db.session.commit()
 	return render_template('sensor.html', sm=request.form.get('sm'), ldr=request.form.get('ldr'))
