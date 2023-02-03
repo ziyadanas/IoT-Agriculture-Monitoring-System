@@ -30,6 +30,9 @@ app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
+tstamp	= 0
+val		= 0
+sid		= 0
 
 class sensor(db.Model):
     id		= db.Column(db.Integer, primary_key=True)
@@ -37,8 +40,9 @@ class sensor(db.Model):
 
 class data(db.Model):
     id 	= db.Column(db.Integer, primary_key=True)
-    val 	= db.Column(db.Integer)
     tstamp	= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    val 	= db.Column(db.Integer)
+    sid		= db.Column(db.Integer)
 
 # Initialize DB manually--------------------------------------------
 engine = sa.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
@@ -58,15 +62,15 @@ def home():
 
 @app.route('/read', methods = ['POST', 'GET'])
 def read():
-	global sm, ldr, t
 	if request.method == 'POST':
-		sm = request.form.get('s1')
-		ldr = request.form.get('id')
-		t	= datetime.now()
-		dat = data(val=sm, tstamp=t)
-		db.session.add(dat)
+		val			= request.form.get('s1')
+		sid			= request.form.get('id')
+		tstamp		= datetime.now()
+		data_entry	= data(tstamp=tstamp, val=val, sid=sid)
+		db.session.add(data_entry)
 		db.session.commit()
-	return '<h2>Sensor1	: {{sm}}%</h2><h2>ID	: {{ldr}}%</h2>'
+	html_string	= "<html><h2>Sensor1 : {{val}}%</h2><h2>ID : {{sid}}%</h2></html>"
+	return render_template_string(html_string)
 
 if __name__ == "__main__":
     port = os.environ.get("PORT", 5000)# Get port number of env at runtime, else use default port 5000
