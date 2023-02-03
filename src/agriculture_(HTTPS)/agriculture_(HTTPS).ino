@@ -8,7 +8,7 @@
 // setup -------------------------------------------------------
 #define ldr_sensor A0
 //#define sm_sensor 5
-#define serverName "https://agriculture-iot.onrender.com/sensor"
+#define serverName "https://agriculture-iot.onrender.com/data"
 #ifndef ssid
 #define ssid "Mi 10T"
 #define password "ziyadanas"

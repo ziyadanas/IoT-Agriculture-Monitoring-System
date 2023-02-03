@@ -33,8 +33,8 @@ db = SQLAlchemy(app)
 
 class sensor(db.Model):
 	__tablename__ = "sensor"
-	id = db.Column(db.Integer, primary_key=True)
-	name = db.Column(db.Integer)
+	id		= db.Column(db.Integer, primary_key=True)
+	name	= db.Column(db.Integer)
 
 class data(db.Model):
 	__tablename__ = "data"
@@ -62,9 +62,9 @@ def home():
 def data():
 	global s1,timestamp
 	if request.method == 'POST':
-		s1 = request.form.get('sm')
-		timestamp = datetime.now(tz=timezone('Asia/Kuala_Lumpur'))
-		dat = data(val = s1, timestamp=timestamp)
+		s1			= request.form.get('sm')
+		timestamp	= datetime.now(tz=timezone('Asia/Kuala_Lumpur'))
+		dat			= data(val=s1, timestamp=timestamp)
 		db.session.add(dat)
 		db.session.commit()
 	return render_template('data.html', s1=s1)
