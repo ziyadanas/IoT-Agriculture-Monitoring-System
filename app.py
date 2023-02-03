@@ -39,13 +39,14 @@ class sensor(db.Model):
 class data(db.Model):
 	__tablename__ = "data"
 	id			= db.Column(db.Integer, primary_key=True)
-	val			= db.Column(db.Integer)
+	value		= db.Column(db.Integer)
 	timestamp	= db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 
 # Initialize DB manually--------------------------------------------
 def recreate_db():
 	db.drop_all()
 	db.create_all()
+
 # Backend Web-------------------------------------------------------
 @app.route('/')
 def home():
@@ -55,7 +56,7 @@ def home():
 def data():
 	if request.method == 'POST':
 		dat	= data(
-			val = request.form.get('s1'),
+			value = request.form.get('s1'),
 			timestamp = datetime.now(tz=timezone('Asia/Kuala_Lumpur'))
 			)
 		db.session.add(dat)
