@@ -38,9 +38,9 @@ class sensor(db.Model):
 
 class data(db.Model):
 	__tablename__ = "data"
-	id = db.Column(db.Integer, primary_key=True)
-    val = db.Column(db.Integer)
-	timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+	id			= db.Column(db.Integer, primary_key=True)
+	val			= db.Column(db.Integer)
+	timestamp	= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
 # Initialize DB manually--------------------------------------------
 engine = sa.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
