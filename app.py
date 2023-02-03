@@ -38,7 +38,7 @@ db = SQLAlchemy(app)
 class sensor(db.Model):
 	__tablename__ = "sensor"
 	id 	= db.Column(db.Integer, primary_key=True)
-	name= db.Column(db.String('255'))
+	name= db.Column(db.String(255))
 	dat = db.relationship('data',backref='sensor', uselist=False)
 
 class data(db.Model):
