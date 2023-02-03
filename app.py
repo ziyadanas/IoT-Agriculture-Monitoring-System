@@ -8,10 +8,6 @@ import os
 
 app = Flask(__name__, template_folder='templates')
 
-sm	= 0
-ldr	= 0
-t	= 0
-
 #PostgreSQL DB config----------------------------------------------
 app.config["DEBUG"] = True
 SQLALCHEMY_DATABASE_URI = "postgresql://{username}:{password}@{hostname}/{databasename}".format(
@@ -35,23 +31,16 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 
-class Sensor(db.Model):
-	__tablename__ = 'sensor'
-	id		= db.Column(db.Integer, primary_key=True)
-	name	= db.Column(db.String(50), nullable=False, default = 'Unknown Sensor')
-	data	= db.relationship('Data', back_populates='sensor')
 
-class Data(db.Model):
-	__tablename__ = 'data'
+class data(db.Model):
+	__tablename__ = "data"
 	id 			= db.Column(db.Integer, primary_key=True)
+	sm 			= db.Column(db.Integer)
+	ldr 		= db.Column(db.Integer)
 	timestamp	= db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
-	sm			= db.Column(db.Integer)
-	ldr			= db.Column(db.Integer)
-	sensor_id	= db.Column(db.Integer,db.ForeignKey('sensor.id'))
-	sensor		= db.relationship('Sensor', back_populates='data')
 
 # Initialize DB manually--------------------------------------------
-engine = sa.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
+engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 inspector = sa.inspect(engine)
 if not inspector.has_table("users"):
 	with app.app_context():
@@ -64,37 +53,17 @@ else:
 
 # Backend Web-------------------------------------------------------
 @app.route('/')
-"""
 def home():
 	return '<h2>Jaunty Jaugar</h2>'
-"""
-	
-@app.route('/', methods = ['POST', 'GET'])
-def home():
-	global sensor1, name, id
-	if request.method == "POST":
-		name	= request.form["name"]
-		id		= request.form["id"]
-		sensor1	= Sensor(id=id, name=name)
-		db.session.add(sensor1)
-		db.session.commit()
-        return f"Name: {name}, ID: {id}"
-    return '<form action="/sensor" method="post"><label for="name">Name:</label><input type="text" id="name" name="name"><label for="id">ID:</label><input type="text" id="id" name="id"><input type="submit" value="Submit"></form>'
-
 
 @app.route('/sensor', methods = ['POST', 'GET'])
 def sensor():
-	global sm
-	global ldr
-	global data
-	global sensor_id
-	global timestamp
+	global sm, ldr, timestamp
 	if request.method == 'POST':
-		timestamp	= datetime.now(tz=timezone('Asia/Kuala_Lumpur'))
 		sm			= request.form.get('sm')
 		ldr			= request.form.get('ldr')
-		sensor_id	= request.form.get('id')
-		data = Data(timestamp=timestamp, sm=sm, ldr=ldr, sensor_id=sensor_id) 
+		timestamp	= datetime.now(tz=timezone('Asia/Kuala_Lumpur'))
+		data = data(sm=sm,ldr=ldr,timestamp=timestamp)
 		db.session.add(data)
 		db.session.commit()
 	return render_template('sensor.html', sm=sm, ldr=ldr)
