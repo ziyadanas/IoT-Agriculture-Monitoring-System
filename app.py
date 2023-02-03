@@ -1,6 +1,6 @@
 from flask import Flask, redirect, url_for, request, render_template
 from flask_sqlalchemy import SQLAlchemy
-import sqlalchemy as sa
+import sqlalchemy as create_engine
 from datetime import datetime
 from pytz import timezone
 import time
@@ -43,15 +43,10 @@ class data(db.Model):
 	timestamp	= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
 # Initialize DB manually--------------------------------------------
-engine = sa.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
-inspector = sa.inspect(engine)
-if not inspector.has_table("users"):
-	with app.app_context():
-		db.drop_all()
-		db.create_all()
-		app.logger.info('Initialized the database!')
-else:
-	app.logger.info('Database already contains the users table.')
+engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
+db.drop_all(engine)
+db.create_all(engine)
+app.logger.info('Initialized the database!')
 
 # Backend Web-------------------------------------------------------
 @app.route('/')
