@@ -31,15 +31,17 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 
+class sensor(db.Model):
+    __tablename__ = "sensor"
+    id		= db.Column(db.Integer, primary_key=True)
+    name	= db.Column(db.String(50), default='Sensor')
+
 class data(db.Model):
     __tablename__ = "data"
     id 	= db.Column(db.Integer, primary_key=True)
     sm 	= db.Column(db.Integer)
     ldr = db.Column(db.Integer)
     t	= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-#	def __init__(self,sm,ldr):
-#	self.sm 	= sm
-#	self.ldr	= ldr
 
 # Initialize DB manually--------------------------------------------
 def recreate_db():
@@ -51,8 +53,8 @@ def recreate_db():
 def home():
 	return '<h2>Jaunty Jaugar</h2>'
 
-@app.route('/sensor', methods = ['POST', 'GET'])
-def sensor():
+@app.route('/read', methods = ['POST', 'GET'])
+def read():
 	global sm, ldr, t
 	if request.method == 'POST':
 		sm = request.form.get('sm')
