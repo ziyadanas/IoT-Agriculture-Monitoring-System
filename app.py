@@ -85,12 +85,13 @@ def read():
 		dat	= data(tsp=tsp, val=val, sid=sid)
 		db.session.add(dat)
 		db.session.commit()
-	return '''
+	html_string = """
 	<html>
-		<h2>Sensor1 : {{val}}%</h2>
-		<h2>ID : {{sid}}</h2>
+		<h2>Sensor1 : {}%</h2>
+		<h2>ID : {}</h2>
 	</html>
-	'''
+	""".format(val,sid)
+	return html_string
 
 if __name__ == "__main__":
     port = os.environ.get("PORT", 5000)# Get port number of env at runtime, else use default port 5000
