@@ -32,15 +32,16 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 class sensor(db.Model):
-    __tablename__ = "sensor"
-    id		= db.Column(db.Integer, primary_key=True)
-    name	= db.Column(db.String(50), default='Sensor')
+	__tablename__ = "sensor"
+	id		= db.Column(db.Integer, primary_key=True)
+	name	= db.Column(db.String(50), default='Sensor')
 
 class data(db.Model):
-    __tablename__ = "data"
-    id 	= db.Column(db.Integer, primary_key=True)
-    val 	= db.Column(db.Integer)
-    tstamp	= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+	__tablename__ = "data"
+	id 	= db.Column(db.Integer, primary_key=True)
+	tstamp	= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+	val 	= db.Column(db.Integer)
+	sensor_id	= db.Column(db.Integer)
 
 # Initialize DB manually--------------------------------------------
 def recreate_db():
@@ -54,13 +55,15 @@ def home():
 
 @app.route('/read', methods = ['POST', 'GET'])
 def read():
+	global sm, ldr, t
 	if request.method == 'POST':
-		S1		= request.form.get('sm')
-		tstamp	= datetime.now(tz=timezone('Asia/Kuala_Lumpur'))
-		dat		= data(val=S1, tstamp=tstamp)
+		sm = request.form.get('s1')
+		ldr = request.form.get('id')
+		t	= datetime.now(tz=timezone('Asia/Kuala_Lumpur'))
+		dat = data(val=sm, tstamp=t, sensor_id=ldr)
 		db.session.add(dat)
 		db.session.commit()
-	return render_template('data.html', S1=request.form.get('sm'))
+	return render_template('data.html', s1=sm, id=ldr)
 
 if __name__ == "__main__":
     port = os.environ.get("PORT", 5000)# Get port number of env at runtime, else use default port 5000
