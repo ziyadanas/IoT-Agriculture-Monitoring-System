@@ -36,13 +36,13 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 class Sensor(db.Model):
-	__tablename__ = "Sensor"
-	id 	= db.Column(db.Integer, primary_key=True)
+#	__tablename__ = "Sensor"
+	id		= db.Column(db.Integer, primary_key=True)
 	name	= db.Column(db.String(64), unique=True, default = 'sensor')
-	data = db.relationship('Data',back_populates='sensor')
+	data	= db.relationship('Data',back_populates='sensor')
 
 class Data(db.Model):
-	__tablename__ = "Data"
+#	__tablename__ = "Data"
 	id 			= db.Column(db.Integer, primary_key=True)
 	timestamp	= db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 	value		= db.Column(db.Integer)
