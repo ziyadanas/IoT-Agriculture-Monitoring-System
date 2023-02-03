@@ -40,17 +40,12 @@ class sensor(db.Model):
     id 	= db.Column(db.Integer, primary_key=True)
     val	= db.Column(db.Integer)
     dat = db.relationship('data',backref='sensor', uselist=False)
-    def __init__(self,id,val):
-        self.id	= id
-        self.val	= val
 
 class data(db.Model):
     __tablename__ = "data"
     id 	= db.Column(db.Integer, primary_key=True)
     t	= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     sensor_id	= db.Column(db.Integer,db.ForeignKey('sensor.id'),nullable=False)
-    def __init__(self,t):
-        self.t 	= t
 
 # Initialize DB manually--------------------------------------------
 engine = sa.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
@@ -74,9 +69,9 @@ def sensor():
 	global ldr
 	global t
 	if request.method == 'POST':
-		sm	= sensor(1, request.form.get('sm'))
-		ldr	= sensor(2, request.form.get('ldr'))
-		t	= data(datetime.now(tz=timezone('Asia/Kuala_Lumpur')))
+		sm	= sensor(id = 1, val = request.form.get('sm'))
+		ldr	= sensor(id = 2, val = request.form.get('ldr'))
+		t	= data(t = datetime.now(tz=timezone('Asia/Kuala_Lumpur')))
 		db.session.add(t)
 		db.session.add(sm)
 		db.session.add(ldr)
