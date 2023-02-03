@@ -39,10 +39,10 @@ class sensor(db.Model):
     __tablename__ = "data"
     id 	= db.Column(db.Integer, primary_key=True)
     val	= db.Column(db.Integer)
-    dat = db.relationship('data',backref='sensor', uselist=False)
+    dat = db.relationship('datasensor',backref='sensor', uselist=False)
 
-class data(db.Model):
-    __tablename__ = "data"
+class datasensor(db.Model):
+    __tablename__ = "datasensor"
     id 	= db.Column(db.Integer, primary_key=True)
     t	= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     sensor_id	= db.Column(db.Integer,db.ForeignKey('sensor.id'),nullable=False)
@@ -71,7 +71,7 @@ def sensor():
 	if request.method == 'POST':
 		sm	= sensor(id = 1, val = request.form.get('sm'))
 		ldr	= sensor(id = 2, val = request.form.get('ldr'))
-		t	= data(t = datetime.now(tz=timezone('Asia/Kuala_Lumpur')))
+		t	= datasensor(t = datetime.now(tz=timezone('Asia/Kuala_Lumpur')))
 		db.session.add(t)
 		db.session.add(sm)
 		db.session.add(ldr)
