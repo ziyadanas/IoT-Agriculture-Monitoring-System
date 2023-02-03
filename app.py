@@ -49,9 +49,8 @@ class data(db.Model):
     id 	= db.Column(db.Integer, primary_key=True)
     t	= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     sensor_id	= db.Column(db.Integer,db.ForeignKey('sensor.id'),nullable=False)
-    def __init__(self,sensor_id,t):
+    def __init__(self,t):
         self.t 	= t
-        self.sensor_id	= sensor_id
 
 # Initialize DB manually--------------------------------------------
 engine = sa.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
