@@ -40,7 +40,7 @@ class data(db.Model):
 	timestamp	= db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 
 # Initialize DB manually--------------------------------------------
-engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
+engine = sa.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 inspector = sa.inspect(engine)
 if not inspector.has_table("users"):
 	with app.app_context():
