@@ -8,10 +8,6 @@ import os
 
 app = Flask(__name__, template_folder='templates')
 
-sm	= 0
-ldr	= 0
-t	= 0
-
 #PostgreSQL DB config----------------------------------------------
 app.config["DEBUG"] = True
 SQLALCHEMY_DATABASE_URI = "postgresql://{username}:{password}@{hostname}/{databasename}".format(
@@ -35,15 +31,16 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 
+class sensor(db.Model):
+	__tablename__ = "sensor"
+	id			= db.Column(db.Integer, primary_key=True)
+	name		= db.Column(db.Integer)
+
 class data(db.Model):
-    __tablename__ = "data"
-    id 	= db.Column(db.Integer, primary_key=True)
-    sm 	= db.Column(db.Integer)
-    ldr = db.Column(db.Integer)
-    t	= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-#	def __init__(self,sm,ldr):
-#	self.sm 	= sm
-#	self.ldr	= ldr
+	__tablename__ = "data"
+	id			= db.Column(db.Integer, primary_key=True)
+    val			= db.Column(db.Integer)
+	timestamp	= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
 # Initialize DB manually--------------------------------------------
 engine = sa.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
@@ -61,20 +58,14 @@ else:
 def home():
 	return '<h2>Jaunty Jaugar</h2>'
 
-@app.route('/sensor', methods = ['POST', 'GET'])
-def sensor():
-	global sm
-	global ldr
-	global t
+@app.route('/data', methods = ['POST', 'GET'])
+def data():
+	global s1,timestamp
 	if request.method == 'POST':
-		sm = request.form.get('sm')
-		ldr = request.form.get('ldr')
-		datadb = data(
-		sm	= request.form.get('sm'),
-		ldr	= request.form.get('ldr'),
-		t	= datetime.now(tz=timezone('Asia/Kuala_Lumpur'))
-		)
-		db.session.add(datadb)
+		s1			= request.form.get('sm')
+		timestamp	= datetime.now(tz=timezone('Asia/Kuala_Lumpur'))
+		dat = data(val	= s1, timestamp=timestamp)
+		db.session.add(dat)
 		db.session.commit()
 	return render_template('sensor.html', sm=sm, ldr=ldr)
 		
