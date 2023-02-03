@@ -41,9 +41,15 @@ class data(db.Model):
     tstamp	= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
 # Initialize DB manually--------------------------------------------
-def recreate_db():
-    db.drop_all()
-    db.create_all()
+engine = sa.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
+inspector = sa.inspect(engine)
+if not inspector.has_table("users"):
+	with app.app_context():
+		db.drop_all()
+		db.create_all()
+		app.logger.info('Initialized the database!')
+else:
+	app.logger.info('Database already contains the users table.')
 
 # Backend Web-------------------------------------------------------
 @app.route('/')
@@ -64,5 +70,4 @@ def read():
 
 if __name__ == "__main__":
     port = os.environ.get("PORT", 5000)# Get port number of env at runtime, else use default port 5000
-    recreate_db()
     app.run(host='0.0.0.0', port=port, debug=True)
