@@ -36,16 +36,15 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 class Sensor(db.Model):
-#	__tablename__ = "Sensor"
 	id		= db.Column(db.Integer, primary_key=True)
 	name	= db.Column(db.String(64), unique=True, default = 'sensor')
 	data	= db.relationship('Data',back_populates='sensor')
 
 class Data(db.Model):
-#	__tablename__ = "Data"
 	id 			= db.Column(db.Integer, primary_key=True)
 	timestamp	= db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
-	value		= db.Column(db.Integer)
+	sm			= db.Column(db.Integer)
+	ldr			= db.Column(db.Integer)
 	sensor_id	= db.Column(db.Integer,db.ForeignKey('sensor.id'))
 	sensor		= db.relationship('Sensor', back_populates='data')
 
@@ -67,22 +66,19 @@ def home():
 
 @app.route('/sensor', methods = ['POST', 'GET'])
 def sensor():
+	global sm
+	global ldr
 	global sensor1
-	global sensor2
-	global dat1
-	global dat2
+	global dat
 	if request.method == 'POST':
+		sensor1	= Sensor(name=request.form.get('name'))
 		dat1	= Data(
 			timestamp	= datetime.now(tz=timezone('Asia/Kuala_Lumpur')),
-			value		= request.form.get('sm'),
-			sensor_id	= 1
-		    )
-		dat2	= Data(
-			timestamp	= datetime.now(tz=timezone('Asia/Kuala_Lumpur')),
-			value		= request.form.get('ldr'),
-			sensor_id	= 2
-			)    
-		db.session.add_all([dat1, dat2])
+			sm			= request.form.get('sm'),
+			ldr			= request.form.get('ldr'),
+			sensor_id	= request.form.get('id')
+		    ) 
+		db.session.add_all([dat1, sensor1])
 		db.session.commit()
 	return render_template('sensor.html', sm=request.form.get('sm'), ldr=request.form.get('ldr'))
 		

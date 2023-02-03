@@ -14,8 +14,10 @@
 #define password "ziyadanas"
 #endif
 // global variable------------------------------------------
-int sm = 0;       //moisture percentage
+int sm  = 0;       //moisture percentage
 int ldr = 0;       //light intensity
+int id  = 1;
+char name[64] = "NodeMCU ESP8266";
 unsigned long lastTime = 0;
 unsigned long timerDelay = 5000; //set timer to 5s
 ESP8266WiFiMulti WiFiMulti;
@@ -70,12 +72,14 @@ void httpsclient(){
     //http.addHeader("Content-Type", "application/json");
     http.addHeader("Content-Type", "application/x-www-form-urlencoded");
     //String httpData = "{\"sm\":\"12\",\"ldr\":\"98\"}";
-    String httpData = "sm="+String(sm)+"&ldr="+String(ldr);
+    String httpData = "id="+String(id)+"name="+String(name)+"sm="+String(sm)+"&ldr="+String(ldr);
     int httpResponseCode = http.POST(httpData);
     if (httpResponseCode > 0) { //Check for the returning code
-      Serial.println("[HTTPS] POST HTTP code   : "+String(httpResponseCode));
-      Serial.println("[HTTPS] Moisture         : "+String(sm)+"%");
-      Serial.println("[HTTPS] Light Intensity  : "+String(ldr)+"%");
+      Serial.println("[HTTPS] POST HTTP code    : "+String(httpResponseCode));
+      Serial.println("[HTTPS] ID                : "+String(id));
+      Serial.println("[HTTPS] Name              : "+String(name));
+      Serial.println("[HTTPS] Moisture          : "+String(sm)+"%");
+      Serial.println("[HTTPS] Light Intensity   : "+String(ldr)+"%");
       String payload = http.getString();Serial.println("[HTTPS]\n\n"+payload+"\n");
     }
     else {
