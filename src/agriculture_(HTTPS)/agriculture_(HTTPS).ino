@@ -8,14 +8,14 @@
 // setup -------------------------------------------------------
 #define ldr_sensor A0
 //#define sm_sensor 5
-#define serverName "https://agriculture-iot.onrender.com/read"
+#define serverName "https://agriculture-iot.onrender.com/sensor"
 #ifndef ssid
 #define ssid "Mi 10T"
 #define password "ziyadanas"
 #endif
 // global variable------------------------------------------
-int S1  = 0;       //light intensity
-int id  = 1;
+int sm = 0;       //moisture percentage
+int ldr = 0;       //light intensity
 unsigned long lastTime = 0;
 unsigned long timerDelay = 5000; //set timer to 5s
 ESP8266WiFiMulti WiFiMulti;
@@ -46,7 +46,9 @@ void setup(){
 void loop(){
   // read input sensor-----------------------------------------------------------
   //sm = digitalRead(sm_sensor);
-  S1 = map(analogRead(ldr_sensor), 0, 1023, 100, 0);
+  sm = map(random(0,1023), 0, 1023, 0, 100);
+  //ldr = (analogRead(ldr_sensor)/1023)*100;
+  ldr = map(analogRead(ldr_sensor), 0, 1023, 100, 0);
   // check WiFi connection-------------------------------------------------------
   if ((millis() - lastTime) > timerDelay) {
     if((WiFiMulti.run() == WL_CONNECTED)) httpsclient();
@@ -67,12 +69,13 @@ void httpsclient(){
     Serial.print("[HTTPS] POST...\n");
     //http.addHeader("Content-Type", "application/json");
     http.addHeader("Content-Type", "application/x-www-form-urlencoded");
-    String httpData = "id="+String(id)+"&S1="+String(S1);
+    //String httpData = "{\"sm\":\"12\",\"ldr\":\"98\"}";
+    String httpData = "sm="+String(sm)+"&ldr="+String(ldr);
     int httpResponseCode = http.POST(httpData);
     if (httpResponseCode > 0) { //Check for the returning code
-      Serial.println("[HTTPS] POST HTTP code    : "+String(httpResponseCode));
-      Serial.println("[HTTPS] ID                : "+String(id));
-      Serial.println("[HTTPS] Light Intensity   : "+String(S1)+"%");
+      Serial.println("[HTTPS] POST HTTP code   : "+String(httpResponseCode));
+      Serial.println("[HTTPS] Moisture         : "+String(sm)+"%");
+      Serial.println("[HTTPS] Light Intensity  : "+String(ldr)+"%");
       String payload = http.getString();Serial.println("[HTTPS]\n\n"+payload+"\n");
     }
     else {
