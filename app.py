@@ -35,15 +35,24 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 
+class sensor(db.Model):
+    __tablename__ = "data"
+    id 	= db.Column(db.Integer, primary_key=True)
+    val	= db.Column(db.Integer)
+    dat = db.relationship('data',backref='sensor', uselist=False)
+    
+    def __init__(self,id,val):
+    	self.id	= id
+    	self.val	= val
+
 class data(db.Model):
     __tablename__ = "data"
     id 	= db.Column(db.Integer, primary_key=True)
-    sm 	= db.Column(db.Integer)
-    ldr = db.Column(db.Integer)
     t	= db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-#	def __init__(self,sm,ldr):
-#	self.sm 	= sm
-#	self.ldr	= ldr
+    sensor_id	= db.Column(db.Integer,db.ForeignKey(sensor.id),nullable=False)
+	
+	def __init__(self,t):
+		self.t 	= t
 
 # Initialize DB manually--------------------------------------------
 engine = sa.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
@@ -67,14 +76,12 @@ def sensor():
 	global ldr
 	global t
 	if request.method == 'POST':
-		sm = request.form.get('sm')
-		ldr = request.form.get('ldr')
-		datadb = data(
-		sm	= request.form.get('sm'),
-		ldr	= request.form.get('ldr'),
-		t	= datetime.now(tz=timezone('Asia/Kuala_Lumpur'))
-		)
-		db.session.add(datadb)
+		sm	= sensor(1, request.form.get('sm'))
+		ldr	= sensor(2, request.form.get('ldr'))
+		t	= data(datetime.now(tz=timezone('Asia/Kuala_Lumpur')))
+		db.session.add(t)
+		db.session.add(sm)
+		db.session.add(ldr)
 		db.session.commit()
 	return render_template('sensor.html', sm=sm, ldr=ldr)
 		
