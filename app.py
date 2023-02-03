@@ -59,7 +59,23 @@ else:
 @app.route('/')
 def home():
 	return '<h2>Jaunty Jaugar</h2>'
-
+"""
+@app.route('/name', methods = ['POST', 'GET'])
+def name():
+	name= 0
+	id	= 0
+	if request.method == 'POST':
+		my_string = request.form.get('name')
+		my_string = request.form.get('id')
+        return 'stored sensor record success!'
+	return '''
+		<form method="post">
+			<input type="text" name="name">
+			<input type="text" name="sid">
+			<input type="submit" value="Submit">
+		</form>
+ 	'''
+"""
 @app.route('/read', methods = ['POST', 'GET'])
 def read():
 	if request.method == 'POST':
@@ -69,7 +85,12 @@ def read():
 		data_entry	= data(tstamp=tstamp, val=val, sid=sid)
 		db.session.add(data_entry)
 		db.session.commit()
-	return "<html><h2>Sensor1 : {{val}}%</h2><h2>ID : {{sid}}%</h2></html>"
+	return '''
+	<html>
+		<h2>Sensor1 : 's1'%</h2>
+		<h2>ID : 'id'%</h2>
+	</html>
+	'''
 
 if __name__ == "__main__":
     port = os.environ.get("PORT", 5000)# Get port number of env at runtime, else use default port 5000
