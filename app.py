@@ -97,20 +97,25 @@ def read():
 	val = 0
 	sid = 0
 	tsp = 0
-	if request.method == 'POST':
-		val	= request.form.get('s1')
-		sid	= request.form.get('id')
-		tsp	= datetime.now()
-		dat	= data(tsp=tsp, val=val, sid=sid)
-		db.session.add(dat)
-		db.session.commit()
-	html_string = """
-	<html>
-		<h2>Sensor1 : {}%</h2>
-		<h2>ID : {}</h2>
-	</html>
-	""".format(val,sid)
-	return html_string
+	sid = request.form.get('id')
+	sensor = sensor.query.filter_by(id=sid).first()
+	if not sensor:
+		return "Device is not registered. Can't send value."
+	else:
+		if request.method == 'POST':
+			val	= request.form.get('s1')
+			sid	= request.form.get('id')
+			tsp	= datetime.now()
+			dat	= data(tsp=tsp, val=val, sid=sid)
+			db.session.add(dat)
+			db.session.commit()
+		html_string = """
+		<html>
+			<h2>Sensor1 : {}%</h2>
+			<h2>ID : {}</h2>
+		</html>
+		""".format(val,sid)
+		return html_string
 
 if __name__ == "__main__":
     port = os.environ.get("PORT", 5000)# Get port number of env at runtime, else use default port 5000
