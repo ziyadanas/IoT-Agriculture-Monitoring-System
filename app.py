@@ -72,9 +72,9 @@ def name():
 	return '''
 		<form method="post">
 			<p>Insert Device Name</p>
-			<p><input type="text" name="nm" placeholder="sensor name"></p>
+			<p><input type="text" name="nm" placeholder="name"></p>
 			<p>Insert Device SID</p>
-			<p><input type="text" name="id" placeholder="sensor id"></p>
+			<p><input type="text" name="id" placeholder="sid"></p>
 			<p><input type="submit" value="Submit"></p>
 		</form>
 		
@@ -82,24 +82,24 @@ def name():
 
 @app.route('/delete', methods=['GET', 'POST'])
 def delete():
-    if request.method == 'POST':
-    	nm	= request.form.get('nm')
-        sid = request.form.get('id')
-        ds 	= sensor.query.filter_by(id=sid).first()
-        if not ds:
-            return "Sensor with id {} not found".format(sid)
-        db.session.delete(ds)
-        db.session.commit()
-        return "Sensor with id {} was deleted".format(sid)
-    return '''
+	if request.method == 'POST':
+		nm	= request.form.get('nm')
+		sid = request.form.get('id')
+		ds 	= sensor.query.filter_by(id=sid).first()
+		if not ds:
+			return "Sensor with id {} not found".format(sid)
+		db.session.delete(ds)
+		db.session.commit()
+		return "Sensor with id {} was deleted".format(sid)
+	return '''
 		<form method="post">
 			<p>Insert Device Name</p>
-			<p><input type="text" name="nm" placeholder="sensor name"></p>
+			<p><input type="text" name="nm" placeholder="name"></p>
 			<p>Insert Device SID</p>
-			<p><input type="text" name="id" placeholder="sensor id"></p>
+			<p><input type="text" name="id" placeholder="sid"></p>
 			<p><input type="submit" value="Delete"></p>
 		</form>
-    '''
+	'''
 
 @app.route('/read', methods = ['POST', 'GET'])
 def read():
@@ -107,7 +107,7 @@ def read():
 	sid	= request.form.get('id')
 	tsp	= datetime.now()
 	idc = sensor.query.filter_by(id=sid).first()
-	html_string = "<html><h2>Sensor1 : {}%</h2><h2>ID : {}</h2></html>".format(val,idc)
+	html_string = "<html><h2>S1 : {}%</h2><h2>ID : {}</h2></html>".format(val,idc)
 #	if idc == None:
 #		return "Device is not registered. Can't send value."
 	if request.method == 'POST':
