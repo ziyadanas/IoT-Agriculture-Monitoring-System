@@ -80,7 +80,7 @@ def name():
  	'''
 
 @app.route('/delete', methods = ['POST', 'GET'])
-def name():
+def delete():
 	nm	= 0
 	id	= 0
 	if request.method == 'POST':
