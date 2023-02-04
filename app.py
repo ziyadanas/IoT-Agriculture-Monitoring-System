@@ -62,34 +62,44 @@ def home():
 
 @app.route('/name', methods = ['POST', 'GET'])
 def name():
-	nm = request.form.get('nm')
-	id = request.form.get('id')
 	if request.method == 'POST':
+		nm = request.form.get('nm')
+		id = request.form.get('id')
 		dat	= sensor(id=id, nm=nm)
 		db.session.add(dat)
 		db.session.commit()
 		return 'stored sensor record success!'
 	return '''
 		<form method="post">
-			<input type="text" name="nm" placeholder="sensor name">
-			<input type="text" name="id" placeholder="sensor id">
-			<input type="submit" value="Submit">
+			<p>Insert Device Name</p>
+			<p><input type="text" name="nm" placeholder="sensor name"></p>
+			<p>Insert Device SID</p>
+			<p><input type="text" name="id" placeholder="sensor id"></p>
+			<p><input type="submit" value="Submit"></p>
 		</form>
 		
  	'''
 
-"""
-@app.route('/delete/id=<int:sid>', methods =["DELETE"])
-def delete(sid):
-	if request.method != "DELETE":
-		return "Method not allowed, use DELETE method"
-	ds = Sensor.query.filter_by(id=sid).first()
-	if not ds:
-		return "Sensor with id {} not found".format(sid)
-	db.session.delete(ds)
-	db.session.commit()
-	return "Sensor with id {} was deleted".format(sid)
-"""	
+@app.route('/delete', methods=['GET', 'POST'])
+def delete():
+    if request.method == 'POST':
+    	nm	= request.form.get('nm')
+        sid = request.form.get('id')
+        ds 	= sensor.query.filter_by(id=sid).first()
+        if not ds:
+            return "Sensor with id {} not found".format(sid)
+        db.session.delete(ds)
+        db.session.commit()
+        return "Sensor with id {} was deleted".format(sid)
+    return '''
+		<form method="post">
+			<p>Insert Device Name</p>
+			<p><input type="text" name="nm" placeholder="sensor name"></p>
+			<p>Insert Device SID</p>
+			<p><input type="text" name="id" placeholder="sensor id"></p>
+			<p><input type="submit" value="Delete"></p>
+		</form>
+    '''
 
 @app.route('/read', methods = ['POST', 'GET'])
 def read():
@@ -98,8 +108,8 @@ def read():
 	tsp	= datetime.now()
 	idc = sensor.query.filter_by(id=sid).first()
 	html_string = "<html><h2>Sensor1 : {}%</h2><h2>ID : {}</h2></html>".format(val,idc)
-	if idc == None:
-		return "Device is not registered. Can't send value."
+#	if idc == None:
+#		return "Device is not registered. Can't send value."
 	if request.method == 'POST':
 		dat	= data(tsp=tsp, val=val, sid=sid)
 		db.session.add(dat)
