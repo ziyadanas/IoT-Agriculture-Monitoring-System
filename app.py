@@ -76,6 +76,25 @@ def name():
 			<input type="text" name="id" placeholder="sensor id">
 			<input type="submit" value="Submit">
 		</form>
+		
+ 	'''
+
+@app.route('/delete', methods = ['POST', 'GET'])
+def name():
+	nm	= 0
+	id	= 0
+	if request.method == 'POST':
+		ds = sensor.query.get('id')
+		db.session.delete(ds)
+		db.session.commit()
+		return 'delete sensor record success!'
+	return '''
+		<form method="post">
+			<input type="text" name="nm" placeholder="sensor name">
+			<input type="text" name="id" placeholder="sensor id">
+			<input type="submit" value="delete">
+		</form>
+		
  	'''
 
 @app.route('/read', methods = ['POST', 'GET'])
