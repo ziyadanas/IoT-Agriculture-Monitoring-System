@@ -78,6 +78,7 @@ def name():
 		
  	'''
 
+"""
 @app.route('/delete/id=<int:sid>', methods =["DELETE"])
 def delete(sid):
 	if request.method != "DELETE":
@@ -88,20 +89,22 @@ def delete(sid):
 	db.session.delete(ds)
 	db.session.commit()
 	return "Sensor with id {} was deleted".format(sid)
-	
+"""	
 
 @app.route('/read', methods = ['POST', 'GET'])
 def read():
-#	val	= request.form.get('s1')
-#	sid	= request.form.get('id')
-#	tsp	= datetime.now()
+	val	= request.form.get('s1')
+	sid	= request.form.get('id')
+	tsp	= datetime.now()
 	idc = sensor.query.filter_by(id=sid).first()
 	html_string = "<html><h2>Sensor1 : {}%</h2><h2>ID : {}</h2></html>".format(val,idc)
-#	if not idc:
-#		return "Device is not registered. Can't send value."
-#	dat	= data(tsp=tsp, val=val, sid=sid)
-#	db.session.add(dat)
-#	db.session.commit()
+	if idc == None:
+		return "Device is not registered. Can't send value."
+	if request.method == 'POST':
+		dat	= data(tsp=tsp, val=val, sid=sid)
+		db.session.add(dat)
+		db.session.commit()
+		return html_string
 	return html_string
 
 if __name__ == "__main__":
