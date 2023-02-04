@@ -84,21 +84,20 @@ def read():
 	sid	= request.form.get('id')
 	tsp	= datetime.now()
 	cid = sensor.query.filter_by(id=sid).first()
-	if not cid:
-		return "<h2>Device is not registered</h2>"
+#	if not cid:
+#		return "<h2>Device is not registered</h2>"
 	if request.method == 'POST':
-		if not sid:
-			return "<h2>Device is not assigned with ID</h2>"
+#		if not sid:
+#			return "<h2>Device is not assigned with ID</h2>"
 		dat	= data(tsp=tsp, val=val, sid=sid)
 		db.session.add(dat)
 		db.session.commit()
-	html_string = """
+	return """
 	<html>
 		<h2>S1 : {}%</h2>
 		<h2>ID : {}</h2>
 	</html>
-	""".format(val,sid)
-	return html_string
+	""".format(cid,sid)
 
 if __name__ == "__main__":
 	port = os.environ.get("PORT", 5000)# Get port number of env at runtime, else use default port 5000
