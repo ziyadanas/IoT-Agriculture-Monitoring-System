@@ -87,7 +87,7 @@ def delete():
 		ds = sensor.query.get('id')
 		db.session.delete(ds)
 		db.session.commit()
-		return 'delete sensor record success!'
+		return redirect(url_for('name'))
 	return '''
 		<form method="post">
 			<input type="text" name="nm" placeholder="sensor name">
