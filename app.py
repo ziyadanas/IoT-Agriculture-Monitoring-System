@@ -58,7 +58,7 @@ else:
 # Backend Web-------------------------------------------------------
 @app.route('/')
 def home():
-	return '<h2>Jaunty Jaugar</h2>'
+	return '<h2>Jaunty Jaguar</h2>'
 
 @app.route('/register', methods = ['POST', 'GET'])
 def register():
@@ -78,6 +78,32 @@ def register():
 			<p><input type="submit" value="Submit"></p>
 		</form>
  	'''
+@app.route('/read', methods = ['POST', 'GET'])
+def read():
+	val	= request.form.get('s1')
+	sid	= request.form.get('id')
+	tsp	= datetime.now()
+	cid = sensor.query.filter_by(id=sid).first()
+	if not cid:
+		return "<h2>Device is not registered</h2>"
+	if request.method == 'POST':
+		if not sid:
+			return "<h2>Device is not assigned with ID</h2>"
+		dat	= data(tsp=tsp, val=val, sid=sid)
+		db.session.add(dat)
+		db.session.commit()
+	html_string = """
+	<html>
+		<h2>S1 : {}%</h2>
+		<h2>ID : {}</h2>
+	</html>
+	""".format(val,sid)
+	return html_string
+
+if __name__ == "__main__":
+	port = os.environ.get("PORT", 5000)# Get port number of env at runtime, else use default port 5000
+	app.run(host='0.0.0.0', port=port, debug=True)
+
 """
 @app.route('/delete', methods=['GET', 'POST'])
 def delete():
@@ -100,26 +126,3 @@ def delete():
 		</form>
 	'''
 """
-@app.route('/read', methods = ['POST', 'GET'])
-def read():
-	val	= request.form.get('s1')
-	sid	= request.form.get('id')
-	tsp	= datetime.now()
-	html_string = """
-	<html>
-		<h2>Sensor1 : {}%</h2>
-		<h2>ID : {}</h2>
-	</html>
-	""".format(val,sid)
-	if request.method == 'POST':
-		if not sid:
-			return "<h2>Device is not assigned with ID</h2>"
-		dat	= data(tsp=tsp, val=val, sid=sid)
-		db.session.add(dat)
-		db.session.commit()
-		return html_string
-	return html_string
-
-if __name__ == "__main__":
-    port = os.environ.get("PORT", 5000)# Get port number of env at runtime, else use default port 5000
-    app.run(host='0.0.0.0', port=port, debug=True)
