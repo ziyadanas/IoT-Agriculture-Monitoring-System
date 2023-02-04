@@ -116,5 +116,6 @@ def delete():
 			<p><input type="text" name="id" placeholder="sid"></p>
 			<p><input type="submit" value="Delete"></p>
 		</form>
+		gogogo
 	'''
 """
