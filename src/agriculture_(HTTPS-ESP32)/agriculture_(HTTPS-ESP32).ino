@@ -1,10 +1,9 @@
 #include <WiFiClientSecure.h>
 #include <ssl_client.h>
-
 #include <WiFi.h>
 #include <WiFiClient.h>
-#include <WiFiClientSecureBearSSL.h>
 #include <WiFiMulti.h>
+#include <HTTPClient.h>
 
 WiFiMulti wifiMulti;
 // setup -------------------------------------------------------
@@ -15,6 +14,7 @@ WiFiMulti wifiMulti;
 #define ssid "Mi 10T"
 #define password "ziyadanas"
 #endif
+WiFiMulti WiFiMulti;
 // global variable------------------------------------------
 int s1 = 0;       //light intensity
 int id  = 2;
@@ -36,13 +36,13 @@ void setup() {
     delay(1000);
   }
   WiFi.mode(WIFI_STA);
-  wifiMulti.addAP(WIFI_SSID, WIFI_PASSWORD);
+  wifiMulti.addAP(ssid, password);
   Serial.println("[SETUP] WiFi connected");
 }
 
 void loop() {
     // read input sensor-----------------------------------------------------------
-  s1 = rand(100);
+  s1 = random(100);
   // check WiFi connection-------------------------------------------------------
   if ((millis() - lastTime) > timerDelay) {
     if((WiFiMulti.run() == WL_CONNECTED)) httpsclient();
@@ -52,7 +52,7 @@ void loop() {
 }
 
 void httpsclient(){
-  std::unique_ptr<BearSSL::WiFiClientSecure>client(new BearSSL::WiFiClientSecure);
+  WiFiClientSecure *client = new WiFiClientSecure;
   client->setInsecure();
   //WiFiClient client;
   HTTPClient http;
