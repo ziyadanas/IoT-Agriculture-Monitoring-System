@@ -82,10 +82,10 @@ def name():
 def delete(sid):
 	ds	= sensor.query.filter_by(id=sid).first()
 	if not ds:
-		return "Sensor with id {} not found".format(id)
+		return "Sensor with id {} not found".format(sid)
 	db.session.delete(ds)
 	db.session.commit()
-	return "Sensor with id {} was deleted".format(id)
+	return "Sensor with id {} was deleted".format(sid)
 	
 
 @app.route('/read', methods = ['POST', 'GET'])
