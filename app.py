@@ -68,7 +68,7 @@ def register():
 		dat	= sensor(id=id, nm=nm)
 		db.session.add(dat)
 		db.session.commit()
-		return 'stored sensor record success!'
+		return redirect('/read')
 	return '''
 		<form method="post">
 			<p>Insert Device Name</p>
@@ -77,9 +77,7 @@ def register():
 			<p><input type="text" name="id" placeholder="sid"></p>
 			<p><input type="submit" value="Submit"></p>
 		</form>
-		<p href="{{ url_for('delete') }}">
-		Want to Delete Device ID?"</p>
-		</form>
+		<p><a href="{{ url_for('delete') }}">Want to Delete Device ID?</a></p>
  	'''
 
 @app.route('/delete', methods=['GET', 'POST'])
@@ -108,8 +106,8 @@ def read():
 	val	= request.form.get('s1')
 	sid	= request.form.get('id')
 	tsp	= datetime.now()
-	idc = sensor.query.filter_by(id=sid).first()
-	html_string = "<html><h2>S1 : {}%</h2><h2>ID : {}</h2></html>".format(val,idc)
+#	idc = sensor.query.filter_by(id=sid).first()
+	html_string = "<html><h2>S1 : {}%</h2><h2>ID : {}</h2></html>".format(val,sid)
 #	if not idc:
 #		return "Device is not registered. Can't send value."
 	if request.method == 'POST':
