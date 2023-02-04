@@ -31,6 +31,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 
+# Create DB with 1-to-1 relationship------------------------------
 class sensor(db.Model):
 	id	= db.Column(db.Integer, primary_key=True)
 	nm	= db.Column(db.String(50), default='Sensor')
@@ -83,7 +84,7 @@ def name():
 def delete(id):
 	nm	= 0
 	id	= 0
-	ds = sensor.query.get('id')
+	ds	= sensor.query.get('id')
 	if ds:
 		db.session.delete(ds)
 		db.session.commit()
@@ -94,21 +95,14 @@ def delete(id):
 
 @app.route('/read', methods = ['POST', 'GET'])
 def read():
-	val = 0
-	sid = 0
-	tsp = 0
-	sid = request.form.get('id')
+	val	= request.form.get('s1')
+	sid	= request.form.get('id')
+	tsp	= datetime.now()
 	sensor = sensor.query.filter_by(id=sid).first()
-	if not sensor:
-		return "Device is not registered. Can't send value."
-	else:
-		if request.method == 'POST':
-			val	= request.form.get('s1')
-			sid	= request.form.get('id')
-			tsp	= datetime.now()
-			dat	= data(tsp=tsp, val=val, sid=sid)
-			db.session.add(dat)
-			db.session.commit()
+	if sensor and request.method == 'POST':
+		dat	= data(tsp=tsp, val=val, sid=sid)
+		db.session.add(dat)
+		db.session.commit()
 		html_string = """
 		<html>
 			<h2>Sensor1 : {}%</h2>
@@ -116,6 +110,8 @@ def read():
 		</html>
 		""".format(val,sid)
 		return html_string
+	else:
+		return "Device is not registered. Can't send value."
 
 if __name__ == "__main__":
     port = os.environ.get("PORT", 5000)# Get port number of env at runtime, else use default port 5000
