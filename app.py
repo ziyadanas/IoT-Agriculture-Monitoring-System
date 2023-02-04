@@ -60,8 +60,8 @@ else:
 def home():
 	return '<h2>Jaunty Jaugar</h2>'
 
-@app.route('/name', methods = ['POST', 'GET'])
-def name():
+@app.route('/register', methods = ['POST', 'GET'])
+def register():
 	if request.method == 'POST':
 		nm = request.form.get('nm')
 		id = request.form.get('id')
@@ -77,8 +77,8 @@ def name():
 			<p><input type="text" name="id" placeholder="sid"></p>
 			<p><input type="submit" value="Submit"></p>
 		</form>
-		<form action="/delete">
-		<p><input type="submit" value="Want to Delete Device ID?"></p>
+		<p href="{{ url_for('delete') }}">
+		Want to Delete Device ID?"</p>
 		</form>
  	'''
 
@@ -105,14 +105,14 @@ def delete():
 
 @app.route('/read', methods = ['POST', 'GET'])
 def read():
+	val	= request.form.get('s1')
+	sid	= request.form.get('id')
+	tsp	= datetime.now()
+	idc = sensor.query.filter_by(id=sid).first()
+	html_string = "<html><h2>S1 : {}%</h2><h2>ID : {}</h2></html>".format(val,idc)
 #	if not idc:
 #		return "Device is not registered. Can't send value."
 	if request.method == 'POST':
-		val	= request.form.get('s1')
-		sid	= request.form.get('id')
-		tsp	= datetime.now()
-		idc = sensor.query.filter_by(id=sid).first()
-		html_string = "<html><h2>S1 : {}%</h2><h2>ID : {}</h2></html>".format(val,idc)
 		dat	= data(tsp=tsp, val=val, sid=sid)
 		db.session.add(dat)
 		db.session.commit()
