@@ -77,7 +77,7 @@ def register():
 			<p><input type="text" name="id" placeholder="sid"></p>
 			<p><input type="submit" value="Submit"></p>
 		</form>
-		<a href="{{ url_for('delete') }}">Want to Delete Device ID?</a>
+		<a href="{{ url_for('/delete') }}">Want to Delete Device ID?</a>
  	'''
 
 @app.route('/delete', methods=['GET', 'POST'])
@@ -106,21 +106,15 @@ def read():
 	val	= request.form.get('s1')
 	sid	= request.form.get('id')
 	tsp	= datetime.now()
-#	idc = sensor.query.filter_by(id=sid).first()
-	html_string = """
-	<html>
-		<h2>Sensor1 : {}%</h2>
-		<h2>ID : {}</h2>
-	</html>
-	""".format(val,sid)
+	idc = sensor.query.filter_by(id=sid).first()
 #	if not idc:
-#		return html_string
+#		return 
 	if request.method == 'POST':
 		dat	= data(tsp=tsp, val=val, sid=sid)
 		db.session.add(dat)
 		db.session.commit()
-		return html_string
-	return html_string
+		return str(idc)
+	return str(idc)
 
 if __name__ == "__main__":
     port = os.environ.get("PORT", 5000)# Get port number of env at runtime, else use default port 5000
