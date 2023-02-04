@@ -94,17 +94,14 @@ def read():
 	val	= request.form.get('s1')
 	sid	= request.form.get('id')
 	tsp	= datetime.now()
-	sensor = sensor.query.filter_by(id=sid).first()
-	if sensor and request.method == 'POST':
+	idc = sensor.query.filter_by(id=sid).first()
+	html_string = "<html><h2>Sensor1 : {}%</h2><h2>ID : {}</h2></html>".format(val,idc)
+	if not idc:
+		return "Device is not registered. Can't send value."
+	if request.method == 'POST':
 		dat	= data(tsp=tsp, val=val, sid=sid)
 		db.session.add(dat)
 		db.session.commit()
-	html_string = """
-		<html>
-			<h2>Sensor1 : {}%</h2>
-			<h2>ID : {}</h2>
-		</html>
-		""".format(val,sensor)
 	return html_string
 
 if __name__ == "__main__":
