@@ -62,11 +62,9 @@ def home():
 
 @app.route('/name', methods = ['POST', 'GET'])
 def name():
-	nm	= 0
-	id	= 0
+	nm = request.form.get('nm')
+	id = request.form.get('id')
 	if request.method == 'POST':
-		nm = request.form.get('nm')
-		id = request.form.get('id')
 		dat	= sensor(id=id, nm=nm)
 		db.session.add(dat)
 		db.session.commit()
@@ -82,8 +80,6 @@ def name():
 
 @app.route('/delete/<int:id>', methods = ['DELETE'])
 def delete(id):
-	nm	= 0
-	id	= 0
 	ds	= sensor.query.get('id')
 	if ds:
 		db.session.delete(ds)
