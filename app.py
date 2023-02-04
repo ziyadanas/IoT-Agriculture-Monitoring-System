@@ -79,23 +79,18 @@ def name():
 		
  	'''
 
-@app.route('/delete', methods = ['POST', 'GET'])
-def delete():
+@app.route('/delete/<int:id>', methods = ['DELETE'])
+def delete(id):
 	nm	= 0
 	id	= 0
-	if request.method == 'POST':
-		ds = sensor.query.get('id')
+	ds = sensor.query.get('id')
+	if ds:
 		db.session.delete(ds)
 		db.session.commit()
-		return redirect(url_for('name'))
-	return '''
-		<form method="post">
-			<input type="text" name="nm" placeholder="sensor name">
-			<input type="text" name="id" placeholder="sensor id">
-			<input type="submit" value="delete">
-		</form>
-		
- 	'''
+		return "Sensor with id {} was deleted".format(id)
+	else:
+		return "Sensor with id {} not found".format(id)
+
 
 @app.route('/read', methods = ['POST', 'GET'])
 def read():
