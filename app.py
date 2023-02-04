@@ -78,8 +78,8 @@ def name():
 		
  	'''
 
-@app.route('/delete/id=<int:id>', methods =["DELETE"])
-def delete(id):
+@app.route('/delete/id=<int:sid>', methods =["DELETE"])
+def delete(sid):
 	ds	= sensor.query.filter_by(id=sid).first()
 	if not ds:
 		return "Sensor with id {} not found".format(id)
