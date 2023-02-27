@@ -30,7 +30,11 @@ A simple IoT project for Software Engineering course (SKEL413) on a Agriculture 
 <p>The intervention of Internet of Things (IoT) technology in agriculture could facilitate farmers in managing their crops by a proper schedule of plant monitoring. They need not to worry about the condition of their crops as the sensor will aid them to monitor the plants. The sensor senses the changes happen to the crops and immediately notify them for any changes occur and they can take action accordingly. This project will focus on the development of IoT-based agriculture monitoring system.</p>
 </div>
 
+### Use Case Diagram
+The following use case diagram illustrates the different actors and their interactions with the IoT agriculture monitoring system:
 ![case diagram](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/case-diagram-v4.png)
+
+### Use Case Requirement
 
 <!--
 | Elements | Description |
