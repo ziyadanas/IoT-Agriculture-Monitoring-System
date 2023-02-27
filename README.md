@@ -53,12 +53,12 @@ A simple IoT project for Software Engineering course (SKEL413) on a Agriculture 
 <div align="justify">
 <p>The proposed IoT agriculture monitoring system architecture comprises three main components: sensor/devices, cloud platform, and dashboard. The sensor/devices component consists of a Nodemcu ESP8266 microcontroller and an LDR sensor module. The Nodemcu ESP8266 will be used to read the data from the LDR sensor module, which will measure the light intensity of the crops.</p>
 
-<p>The data collected by the sensor/devices component will be sent to the cloud platform, which will be hosted on the web using the render.com. The cloud platform will be responsible for receiving, processing, and storing the data collected by the sensor/devices component. To facilitate this, the web framework Flask will be used to develop the backend of the system. The Flask backend will interact with a PostgreSQL database to store the data collected by the sensor/devices component.</p>
+<p>The data collected by the sensor/devices will be sent to the cloud platform, which will be hosted on the web using the render.com. The cloud platform will be responsible for receiving, processing, and storing the data collected by the sensor/devices. To facilitate this, the web framework Flask will be used to develop the backend of the system. The Flask backend will interact with a PostgreSQL database to store the data collected by the sensor/devices.</p>
 
-<p>The dashboard component of the system will be used to visualize the data collected by the sensor/devices component. Grafana will be used to develop the dashboard, which will be connected to the PostgreSQL database used by the cloud platform. The dashboard will enable farmers and administrators to view the light intensity data collected by the sensor/devices in real-time</p>
+<p>The dashboard will be used to visualize the data collected by the sensor/devices. Grafana will be used to develop the dashboard, which will be connected to the PostgreSQL database used by the cloud platform. The dashboard will enable farmers and administrators to view the light intensity data collected by the sensor/devices in real-time</p>
 </div>
 
-![system architecture](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/software-architecture.png)
+![system architecture](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/system-architecture.png)
 
 ### Sensor/Devices
 
@@ -69,7 +69,7 @@ A simple IoT project for Software Engineering course (SKEL413) on a Agriculture 
 
 <div align="center">
  <figure>
-  <img src="https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/hardware-diagram-v2.png" alt="hardware diagram">
+  <img src="https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/hardware-diagram-v5.png" alt="hardware diagram">
  </figure>
  <p></p>
 </div>
@@ -80,14 +80,10 @@ This [video](https://youtu.be/_i5_W27mgAI) shows the result of  web deployment o
 
 
 ### Dashboard
-The prototype dashboard will developed using Grafana Web Application. The dashboard mainly focus on **Graphical-User-Interface (GUI)** approach consist element of:
-- icon - small picture represent sub-application
-- cursor - as interactive between GUI element
-- menu - information or data group together and placed at visible place
+The following diagram illustrate the dashboard's wireframe as low-fidelity representation of the actual dashboard:
 
-<!-- 
 ![Dashboard](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/dashboard.png)
--->
+
 
 ## Stage 3: RDBMS Design
 
