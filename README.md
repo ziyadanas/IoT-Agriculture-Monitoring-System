@@ -1,5 +1,10 @@
-# IoT-Project
+<p align="center">
+	<img src="https://chancellery.utm.my/wp-content/uploads/sites/21/2016/08/LOGO-UTM.png" height="120px"/>
+	<h1 align="center">IoT Agriculture Monitoring System</h1>
+</p>
 A simple IoT project for Software Engineering course (SKEL413) on a Agriculture Monitoring System using NodeMCU ESP8266 with LDR Sensor Module for data acquisition.
+
+<!--
 ## Table of Contents
 
 - [Stage 2: Overview IoT Agriculture Monitoring System](#stage-2-overview-iot-agriculture-monitoring-system)
@@ -11,6 +16,7 @@ A simple IoT project for Software Engineering course (SKEL413) on a Agriculture 
   * [Dashboard](#dashboard)
 - [Stage 3: RDBMS Design](#stage-3-rdbms-design)
 - [Stage 4: Dashboard Design](#stage-4-dashboard-design)
+-->
 
 ## Stage 2: Overview IoT Agriculture Monitoring System
 
