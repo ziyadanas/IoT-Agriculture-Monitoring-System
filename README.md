@@ -57,14 +57,16 @@ A simple IoT project for Software Engineering course (SKEL413) on a Agriculture 
 
 <div align="center">
  <figure>
-  <img src="https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/hardware-diagram.png" alt="hardware diagram">
+  <img src="https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/hardware-diagram-v2.png" alt="hardware diagram">
   <figcaption>Figure 3 - Hardware Diagram for Sensor</figcaption>
  </figure>
  <p></p>
+<!--
  <figure>
   <img src="https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/nodemcu-pinout.png" alt="nodemcu pinout">
   <figcaption>Figure 4 - Pinout for Nodemcu ESP8266</figcaption>
  </figure>
+-->
 </div>
 
 ### Cloud Platform
@@ -77,9 +79,43 @@ The prototype dashboard will developed using Grafana Web Application. The dashbo
 - icon - small picture represent sub-application
 - cursor - as interactive between GUI element
 - menu - information or data group together and placed at visible place
- 
+
+<!-- 
 ![Dashboard](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/dashboard.png)
+-->
 
 ## Stage 3: RDBMS Design
 
+### Database configuration
++ Utilize PostgreSQL since render.com does not support other SQL other than PostgreSQL
++ The configuration of database can be found at [line 11-30](https://github.com/SolaireAstora125/IoT-Project/blob/main/app.py#:~:text=%23PostgreSQL%20DB%20config,%5D%20%3D%20False)
++ the details of database configuration can be obtained in info section of PostgreSQL in Render.com
++ render.com does not support console access for free version. Thus, need to drop and create database manually through python source code at [line 47-56](https://github.com/SolaireAstora125/IoT-Project/blob/main/app.py#:~:text=%23%20Initialize%20DB%20manually,users%20table.%27)
+
+
+### RDBMS implementation
++ describe what is the purpose of each table
++ describe what variable in each table represent
++ describe relationship between table
++ The source code of RDBMS can be found at [line 34-46](https://github.com/SolaireAstora125/IoT-Project/blob/main/app.py#:~:text=%23%20Create%20DB%20with%201%2Dto%2D1,data%27%2C%20uselist%3DFalse)
+
+<div align="center">
+ <figure>
+  <img src="https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/erd-diagram.png" alt="ERD diagram">
+  <figcaption>Figure 7 - ERD Diagram for IoT Agriculture Monitoring System</figcaption>
+ </figure>
+</div>
+
 ## Stage 4: Dashboard Design
+
+<div align="center">
+ <figure>
+  <img src="https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/dashboard-reading-graph.png" alt="dashboard 1">
+  <figcaption>Figure 8 - Dashboard displaying sensor reading in meter and graph form</figcaption>
+ </figure>
+ <p></p>
+ <figure>
+  <img src="https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/dashboard-table.png" alt="dashboard 2">
+  <figcaption>Figure 9 - Dashboard displaying sensor reading in table form</figcaption>
+ </figure>
+</div>
