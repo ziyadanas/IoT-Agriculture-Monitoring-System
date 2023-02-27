@@ -1,10 +1,10 @@
 # IoT-Project
-A simple IoT project for Software Engineering course (SKEL413) on a Agriculture Monitoring System using NodeMCU ESP8266 with Soil Moisture and LDR Sensor Module for data acquisition.
+A simple IoT project for Software Engineering course (SKEL413) on a Agriculture Monitoring System using NodeMCU ESP8266 with LDR Sensor Module for data acquisition.
 ## Table of Contents
 
 - [Stage 2: Overview IoT Agriculture Monitoring System](#stage-2-overview-iot-agriculture-monitoring-system)
   * [Problem Statement](#problem-statement)
-  * [Use Case Description](#use-case-description)
+  * [Use Case Diagram](#use-case-diagram)
   * [System Architecture](#system-architecture)
   * [Sensor](#sensor)
   * [Cloud Platform](#cloud-platform)
@@ -16,17 +16,19 @@ A simple IoT project for Software Engineering course (SKEL413) on a Agriculture 
 
 ### Problem Statement
 
-Food security has been listed in the 17 Sustainable Development Growth (17 SDGs) under 'Zero Hunger'. Agriculture is an important aspect of life as it could source an adequate foodstuff. It contributes to most of the world's food, one of the human's basic need of life. Hence, explains the importance of maintaining the quality of the crops. Cultivation of soil for the growth of crops has become the attention of all farmers. Frequent monitoring is required to ensure plants to grow healthily.
+<div align="justify">
+<p>Food security has been listed in the 17 Sustainable Development Growth (17 SDGs) under 'Zero Hunger'. Agriculture is an important aspect of life as it could source an adequate foodstuff. It contributes to most of the world's food, one of the human's basic need of life. Hence, explains the importance of maintaining the quality of the crops. Cultivation of soil for the growth of crops has become the attention of all farmers. Frequent monitoring is required to ensure plants to grow healthily.</p>
 
-There are a few parameters that need to be monitored in growing a healthy crops which includes soil humidity and light intensity. A soil which is too humid could catalyst the growth of mold and bacteria that cause plants to wilt and become unhealthy whereas plants that does not receive enough lights will also become wilt and eventualy dies.
+<p>There are a few parameters that need to be monitored in growing a healthy crops which includes soil humidity and light intensity. A soil which is too humid could catalyst the growth of mold and bacteria that cause plants to wilt and become unhealthy whereas plants that does not receive enough lights will also become wilt and eventualy dies.</p>
 
-The intervention of Internet of Things (IoT) technology in agriculture could facilitate farmers in managing their crops by a proper schedule of plant monitoring. They need not to worry about the condition of their crops as the sensor will aid them to monitor the plants. The sensor senses the changes happen to the crops and immediately notify them for any changes occur and they can take action accordingly. This project will focus on the development of IoT-based agriculture monitoring system.
+<p>The intervention of Internet of Things (IoT) technology in agriculture could facilitate farmers in managing their crops by a proper schedule of plant monitoring. They need not to worry about the condition of their crops as the sensor will aid them to monitor the plants. The sensor senses the changes happen to the crops and immediately notify them for any changes occur and they can take action accordingly. This project will focus on the development of IoT-based agriculture monitoring system.</p>
+</div>
 
+### Use Case Diagram
 
-### Use Case Description
+![case diagram](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/case-diagram-v4.png)
 
-![case diagram](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/case-diagram-v3.png)
-
+<!--
 | Elements | Description |
 | ------- | ---------------|
 | System | Farms or nursery |
@@ -36,23 +38,34 @@ The intervention of Internet of Things (IoT) technology in agriculture could fac
 | Stimulus | Farms (Sensor location) establish communication link with the user to send and update requested data |
 | Response | The summarized data are sent and displayed to the user for data analysis and user may take action accordingly based on the analyzed data |
 | Comments | The plant's conditions need to be monitored every day. |
+-->
 
 ### System Architecture
 
-This section present an overview of the system architecture of IoT Agriculture Monitoring System. This project use NodeMCU ESP8266 to control, process and transmit moisture and light intensity data received from soil moisture and ldr sensor. NodeMCU will communicate using HTTP data protocol transmission to Flask Web Framework for data ingestion. Then, Flask will store the data to PythonAnywhere Web Hoisting platform and finally update to simple dashboard using Grafana Web Application.
+<div align="justify">
+<p>This section present an overview of the system architecture of IoT Agriculture Monitoring System. This project use NodeMCU ESP8266 to control, process and transmit moisture and light intensity data received from soil moisture and ldr sensor. NodeMCU will communicate using HTTP data protocol transmission to Flask Web Framework for data ingestion. Then, Flask will store the data to PythonAnywhere Web Hoisting platform and finally update to simple dashboard using Grafana Web Application.</p>
+</div>
 
 ![system architecture](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/architechture-stage2-v5.png)
 
 ### Sensor
 
-+ The Nodemcu ESP8266 is a microcontroller board with built-in Wi-Fi capabilities that can be used to collect data from sensors and transmit it wirelessly to a cloud server.
-+ The LDR sensor module can be used to monitor the amount of light received by crops in real-time. By placing the sensor in the field, the sensor can detect the amount of light that reaches the crop and transmit the data to the Nodemcu ESP8266 microcontroller board.
-+ The HTTPS protocol can be used to provide secure data transfer between the Nodemcu ESP8266 and the cloud server. This ensures that the data collected from the LDR sensor module is securely transmitted over the internet and cannot be intercepted or tampered with by unauthorized parties.
++ The Nodemcu ESP8266 is used to collect data from sensors and transmit it wirelessly to a cloud server.
++ The LDR sensor module can be used to monitor the amount of light received by crops in real-time. 
++ The HTTPS protocol is used to provide secure data transfer between the Nodemcu ESP8266 and the cloud server.
++ Arduino source code can be obtained [here](https://github.com/SolaireAstora125/IoT-Project/blob/main/src/agriculture_(HTTPS)/agriculture_(HTTPS).ino)
 
-
-![image](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/hardware-diagram.png "Figure 2: Circuit Diagram for Sensor")
-
-![image](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/nodemcu-pinout.png "Figure 3: Pinout for Nodemcu ESP8266")
+<div align="center">
+ <figure>
+  <img src="https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/hardware-diagram.png" alt="hardware diagram">
+  <figcaption>Figure 3 - Hardware Diagram for Sensor</figcaption>
+ </figure>
+ <p></p>
+ <figure>
+  <img src="https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/nodemcu-pinout.png" alt="nodemcu pinout">
+  <figcaption>Figure 4 - Pinout for Nodemcu ESP8266</figcaption>
+ </figure>
+</div>
 
 ### Cloud Platform
 
