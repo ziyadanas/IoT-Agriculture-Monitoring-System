@@ -52,7 +52,7 @@ A simple IoT project for Software Engineering course (SKEL413) on a Agriculture 
 <p>This section present an overview of the system architecture of IoT Agriculture Monitoring System. This project use NodeMCU ESP8266 to control, process and transmit moisture and light intensity data received from soil moisture and ldr sensor. NodeMCU will communicate using HTTP data protocol transmission to Flask Web Framework for data ingestion. Then, Flask will store the data to PythonAnywhere Web Hoisting platform and finally update to simple dashboard using Grafana Web Application.</p>
 </div>
 
-![system architecture](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/architechture-stage2-v5.png)
+![system architecture](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/software-architecture.png)
 
 ### Sensor
 
