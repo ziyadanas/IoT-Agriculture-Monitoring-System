@@ -94,14 +94,20 @@ The following diagram illustrate the dashboard's wireframe as low-fidelity repre
 
 
 ### RDBMS implementation
-+ describe what is the purpose of each table
-+ describe what variable in each table represent
-+ describe relationship between table
-+ The source code of RDBMS can be found at [line 34-46](https://github.com/SolaireAstora125/IoT-Project/blob/main/app.py#:~:text=%23%20Create%20DB%20with%201%2Dto%2D1,data%27%2C%20uselist%3DFalse)
+- Data table is used to record reading of respective sensor in 1NF:
+  * id - primary key for data table
+  * sid - foreign key that connects to sensor table
+  * tsp - record timestamp value
+  * val - record sensor reading
+- Sensor table is used to register a sensor into the system:
+  * id - primary key for sensor table
+  * nm - store name of the sensor
+- Relationship between data and sensor table is one-to-one relationship
+- The source code of RDBMS can be found at [line 34-46](https://github.com/SolaireAstora125/IoT-Project/blob/main/app.py#:~:text=%23%20Create%20DB%20with%201%2Dto%2D1,data%27%2C%20uselist%3DFalse)
 
 <div align="center">
  <figure>
-  <img src="https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/erd-diagram.png" alt="ERD diagram">
+  <img src="https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/erd-diagram-v2.png" alt="ERD diagram">
  </figure>
 </div>
 
