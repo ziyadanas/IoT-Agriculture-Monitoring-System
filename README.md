@@ -93,8 +93,8 @@ The following diagram illustrate the dashboard's wireframe as low-fidelity repre
 
 ### Database configuration
 + Utilize PostgreSQL since render.com does not support SQL except PostgreSQL
-+ The credential of database can be found at [line 11-30](https://github.com/SolaireAstora125/IoT-Project/blob/main/app.py#:~:text=%23PostgreSQL%20DB%20config,%5D%20%3D%20False)
-+ render.com does not support console access for free version. Thus, need to drop and create database manually through python source code at [line 47-56](https://github.com/SolaireAstora125/IoT-Project/blob/main/app.py#:~:text=%23%20Initialize%20DB%20manually,users%20table.%27)
++ The credential of database can be found at [line 11-33](https://github.com/SolaireAstora125/IoT-Project/blob/main/app.py#L11-L33)
++ render.com does not support console access for free version. Thus, need to drop and create database manually through python source code at [line 47-57](https://github.com/SolaireAstora125/IoT-Project/blob/main/app.py#L47-L57)
 
 
 ### RDBMS implementation
@@ -107,7 +107,7 @@ The following diagram illustrate the dashboard's wireframe as low-fidelity repre
   * id - primary key for sensor table
   * nm - store name of the sensor
 - Relationship between data and sensor table is one-to-one relationship
-- The source code of RDBMS can be found at [line 34-46](https://github.com/SolaireAstora125/IoT-Project/blob/main/app.py#:~:text=%23%20Create%20DB%20with%201%2Dto%2D1,data%27%2C%20uselist%3DFalse)
+- The source code of RDBMS can be found at [line 34-46](https://github.com/SolaireAstora125/IoT-Project/blob/main/app.py#L34-L46)
 
 <div align="center">
  <figure>
@@ -119,7 +119,7 @@ The following diagram illustrate the dashboard's wireframe as low-fidelity repre
 
 ### Dashboard Configuration
 
-- Insert database credential as in [line 11-30](https://github.com/SolaireAstora125/IoT-Project/blob/main/app.py#:~:text=%23PostgreSQL%20DB%20config,%5D%20%3D%20False) into Configuration/Data Source/PostgreSQL tab
+- Insert database credential as in [line 11-33](https://github.com/SolaireAstora125/IoT-Project/blob/main/app.py#L11-L33) into Configuration/Data Source/PostgreSQL tab
 - Use external database URL instead of internal database URL to avoid data transmission failure
 - all configuration other than database credential is remain default
 
