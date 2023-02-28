@@ -153,7 +153,7 @@ LIMIT 50
 ### Dashboard Table
 
 - Used to display the recent and previous data queries in table of 2NF
-- DataDB represent the data table while SensorDB represent sensor table as design in RDBMS design section.
+- DataDB represent the data table while SensorDB represent sensor table as design in Stage 3.
 - The SQL code below shows how record is extracted from data and sensor table.
 ```
 SELECT id, tsp, val, sid
