@@ -16,6 +16,8 @@ A simple IoT project for Software Engineering course (SKEL413) on a Agriculture 
   * [Database Configuration](#database-configuration)
   * [RDBMS Implementation](#rdbms-implementation)
 - [Stage 4: Dashboard Implementation](#stage-4-dashboard-implementation)
+  * [Dashboard Configuration](#dashboard-configuration)
+  * [Dashboard Visualization](#dashboard-visualization)
 
 ## Stage 2: Overview IoT Agriculture Monitoring System
 
