@@ -18,6 +18,7 @@ A simple IoT project for Software Engineering course (SKEL413) on a Agriculture 
 - [Stage 4: Dashboard Implementation](#stage-4-dashboard-implementation)
   * [Dashboard Configuration](#dashboard-configuration)
   * [Dashboard Visualization](#dashboard-visualization)
+  * [Dashboard Table](#dashboard-table)
 
 ## Stage 2: Overview IoT Agriculture Monitoring System
 
@@ -147,9 +148,25 @@ LIMIT 50
   <img src="https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/dashboard-reading-graph.png" alt="dashboard 1">
  </figure>
  <p></p>
- <!--
+</div>
+
+### Dashboard Table
+
+- Used to display the recent and previous data queries in table of 2NF
+- DataDB represent the data table while SensorDB represent sensor table as design in RDBMS design section.
+- The SQL code below shows how record is extracted from data and sensor table.
+```
+SELECT id, tsp, val, sid
+FROM data ORDER BY id DESC
+LIMIT 20
+```
+```
+SELECT id, nm
+FROM sensor ORDER BY id DESC
+LIMIT 20
+```
+<div align="center">
  <figure>
   <img src="https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/dashboard-table.png" alt="dashboard 2">
  </figure>
- -->
 </div>
