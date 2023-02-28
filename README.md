@@ -4,30 +4,29 @@
 </p>
 A simple IoT project for Software Engineering course (SKEL413) on a Agriculture Monitoring System using NodeMCU ESP8266 with LDR Sensor Module for data acquisition.
 
-<!--
 ## Table of Contents
 
 - [Stage 2: Overview IoT Agriculture Monitoring System](#stage-2-overview-iot-agriculture-monitoring-system)
   * [Problem Statement](#problem-statement)
-  * [Use Case Diagram](#use-case-diagram)
   * [System Architecture](#system-architecture)
-  * [Sensor](#sensor)
+  * [Sensor/Devices](#sensordevices)
   * [Cloud Platform](#cloud-platform)
   * [Dashboard](#dashboard)
 - [Stage 3: RDBMS Design](#stage-3-rdbms-design)
-- [Stage 4: Dashboard Design](#stage-4-dashboard-design)
--->
+  * [Database Configuration](#database-configuration)
+  * [RDBMS Implementation](#rdbms-implementation)
+- [Stage 4: Dashboard Implementation](#stage-4-dashboard-implementation)
 
 ## Stage 2: Overview IoT Agriculture Monitoring System
 
 ### Problem Statement
 
 <div align="justify">
-<p>The agriculture industry faces many challenges, one of which is optimizing crop growth and yield. Light intensity is a critical factor in plant growth, and monitoring it can help farmers make informed decisions about crop management. However, traditional methods of monitoring light intensity are often time-consuming and require manual intervention.</p>
+<p>Light intensity is a critical factor that affects plant growth, development, and yield in agriculture. The amount and quality of light that plants receive directly affect their photosynthesis and growth rates. Therefore, monitoring and controlling light intensity is crucial for optimizing crop production and ensuring high-quality yields.</p>
 
-<p>To address this issue, an IoT agriculture monitoring system is proposed that will monitor the light intensity of crops in real-time. The system will consist of farmers who will use the data to adjust crop management, an administrator who will manage system configuration, sensors that will collect and send data to a cloud server, and the cloud server itself, which will receive, process, and send data to a dashboard for visualization.</p>
+<p>However, traditional methods of monitoring light intensity in agriculture, such as manual observations, are time-consuming, labor-intensive, and prone to errors. In addition, farmers often lack the necessary expertise to interpret the data accurately, making it difficult to make informed decisions about crop management.</p>
 
-<p>The proposed system will have several use cases, including monitoring data, adjusting crop management based on the data collected, collecting and sending data to the cloud server, receiving and processing data, sending data to a dashboard for visualization, and managing system configuration. The following use case diagram illustrates the different actors and their interactions with the IoT agriculture monitoring system</p>
+<p>To address this issue, an IoT agriculture monitoring system is proposed that will monitor the light intensity of crops in real-time. The system will consist of farmers who will use the data to adjust crop management, an administrator who will manage system configuration, sensors that will collect and send data to a cloud server, and the cloud server itself, which will receive, process, and send data to a dashboard for visualization. The following use case diagram illustrates the different actors and their interactions with the IoT agriculture monitoring system</p>
 
 </div>
 
