@@ -77,7 +77,9 @@ A simple IoT project for Software Engineering course (SKEL413) on a Agriculture 
 
 ### Cloud Platform
 
-This [video](https://youtu.be/_i5_W27mgAI) shows the result of  web deployment on render.com using the flask backend where the web-app link can be found [here](https://agriculture-iot.onrender.com/).
+- This [video](https://youtu.be/_i5_W27mgAI) demonstrate the web deployment on render.com using the flask backend
+- The soure code used for web development can be found [here](https://github.com/SolaireAstora125/IoT-Project/blob/main/app.py)
+- The main page for the web-app link can be access [here](https://agriculture-iot.onrender.com/).
 
 
 ### Dashboard
