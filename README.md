@@ -88,7 +88,7 @@ The following diagram illustrate the dashboard's wireframe as low-fidelity repre
 
 ### Database configuration
 + Utilize PostgreSQL since render.com does not support SQL except PostgreSQL
-+ The configuration of database can be found at [line 11-30](https://github.com/SolaireAstora125/IoT-Project/blob/main/app.py#:~:text=%23PostgreSQL%20DB%20config,%5D%20%3D%20False)
++ The credential of database can be found at [line 11-30](https://github.com/SolaireAstora125/IoT-Project/blob/main/app.py#:~:text=%23PostgreSQL%20DB%20config,%5D%20%3D%20False)
 + render.com does not support console access for free version. Thus, need to drop and create database manually through python source code at [line 47-56](https://github.com/SolaireAstora125/IoT-Project/blob/main/app.py#:~:text=%23%20Initialize%20DB%20manually,users%20table.%27)
 
 
@@ -112,12 +112,40 @@ The following diagram illustrate the dashboard's wireframe as low-fidelity repre
 
 ## Stage 4: Dashboard Implementation
 
+### Dashboard Configuration
+
+- Insert database credential as in [line 11-30](https://github.com/SolaireAstora125/IoT-Project/blob/main/app.py#:~:text=%23PostgreSQL%20DB%20config,%5D%20%3D%20False) into Configuration/Data Source/PostgreSQL tab
+- Use external database URL instead of internal database URL to avoid data transmission failure
+- all configuration other than database credential is remain default
+
+### Dashboard Visualization
+
+- Sensor Gauge is used to display the LDR sensor reading in real-time with fixed threshold.
+- These threshold indicates the level of light intensity.
+- The SQL is used to extract value from data table for Sensor Gauge as shown below.
+```
+SELECT val
+FROM data WHERE sid=1
+ORDER BY id DESC
+LIMIT 1
+```
+- Sensor Graph is used to display the LDR sensor reading in graph form for analysis purpose.
+- The SQL is used to extract value from data table for Sensor Graph as shown below.
+```
+SELECT tsp, val
+FROM data WHERE sid=1
+ORDER BY id DESC
+LIMIT 50
+```
+
 <div align="center">
  <figure>
   <img src="https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/dashboard-reading-graph.png" alt="dashboard 1">
  </figure>
  <p></p>
+ <!--
  <figure>
   <img src="https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/dashboard-table.png" alt="dashboard 2">
  </figure>
+ -->
 </div>
