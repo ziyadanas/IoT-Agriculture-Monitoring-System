@@ -33,7 +33,7 @@ A simple IoT project for Software Engineering course (SKEL413) on a Agriculture 
 
 </div>
 
-![case diagram](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/case-diagram-v3.png)
+![case diagram](https://github.com/ziyadanas/IoT-Project/blob/main/asset/case-diagram-v3.png)
 
 <!--
 ### Use Case Description
@@ -60,18 +60,18 @@ A simple IoT project for Software Engineering course (SKEL413) on a Agriculture 
 <p>The dashboard will be used to visualize the data collected by the sensor/devices. Grafana will be used to develop the dashboard, which will be connected to the PostgreSQL database used by the cloud platform. The dashboard will enable farmers and administrators to view the light intensity data collected by the sensor/devices in real-time</p>
 </div>
 
-![system architecture](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/system-architecture.png)
+![system architecture](https://github.com/ziyadanas/IoT-Project/blob/main/asset/system-architecture.png)
 
 ### Sensor/Devices
 
 + The Nodemcu ESP8266 is used to collect data from sensors and transmit it wirelessly to a cloud server.
 + The LDR sensor module can be used to monitor the amount of light received by crops in real-time. 
 + The HTTPS protocol is used to provide secure data transfer between the Nodemcu ESP8266 and the cloud server.
-+ Arduino source code can be obtained [here](https://github.com/SolaireAstora125/IoT-Project/blob/main/src/agriculture_(HTTPS)/agriculture_(HTTPS).ino)
++ Arduino source code can be obtained [here](https://github.com/ziyadanas/IoT-Project/blob/main/src/agriculture_(HTTPS)/agriculture_(HTTPS).ino)
 
 <div align="center">
  <figure>
-  <img src="https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/hardware-diagram-v5.png" alt="hardware diagram">
+  <img src="https://github.com/ziyadanas/IoT-Project/blob/main/asset/hardware-diagram-v5.png" alt="hardware diagram">
  </figure>
  <p></p>
 </div>
@@ -79,22 +79,22 @@ A simple IoT project for Software Engineering course (SKEL413) on a Agriculture 
 ### Cloud Platform
 
 - This [video](https://youtu.be/Zr87Jr7pMhM) demonstrate the web deployment on render.com using the flask backend
-- The soure code used for web development can be found [here](https://github.com/SolaireAstora125/IoT-Project/blob/main/app.py)
+- The soure code used for web development can be found [here](https://github.com/ziyadanas/IoT-Project/blob/main/app.py)
 - The main page for the web-app link can be access [here](https://agriculture-iot.onrender.com/).
 
 
 ### Dashboard
 The following diagram illustrate the dashboard's wireframe as low-fidelity representation of the actual dashboard:
 
-![Dashboard](https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/dashboard.png)
+![Dashboard](https://github.com/ziyadanas/IoT-Project/blob/main/asset/dashboard.png)
 
 
 ## Stage 3: RDBMS Design
 
 ### Database configuration
 + Utilize PostgreSQL since render.com does not support SQL except PostgreSQL
-+ The credential of database can be found at [line 11-33](https://github.com/SolaireAstora125/IoT-Project/blob/main/app.py#L11-L33)
-+ render.com does not support console access for free version. Thus, need to drop and create database manually through python source code at [line 47-57](https://github.com/SolaireAstora125/IoT-Project/blob/main/app.py#L47-L57)
++ The credential of database can be found at [line 11-33](https://github.com/ziyadanas/IoT-Project/blob/main/app.py#L11-L33)
++ render.com does not support console access for free version. Thus, need to drop and create database manually through python source code at [line 47-57](https://github.com/ziyadanas/IoT-Project/blob/main/app.py#L47-L57)
 
 
 ### RDBMS implementation
@@ -107,11 +107,11 @@ The following diagram illustrate the dashboard's wireframe as low-fidelity repre
   * id - primary key for sensor table
   * nm - store name of the sensor
 - Relationship between data and sensor table is one-to-one relationship
-- The source code of RDBMS can be found at [line 34-46](https://github.com/SolaireAstora125/IoT-Project/blob/main/app.py#L34-L46)
+- The source code of RDBMS can be found at [line 34-46](https://github.com/ziyadanas/IoT-Project/blob/main/app.py#L34-L46)
 
 <div align="center">
  <figure>
-  <img src="https://github.com/SolaireAstora125/IoT-Project/blob/main/asset/erd-diagram-v2.png" alt="ERD diagram">
+  <img src="https://github.com/ziyadanas/IoT-Project/blob/main/asset/erd-diagram-v2.png" alt="ERD diagram">
  </figure>
 </div>
 
@@ -119,7 +119,7 @@ The following diagram illustrate the dashboard's wireframe as low-fidelity repre
 
 ### Dashboard Configuration
 
-- Insert database credential as in [line 11-33](https://github.com/SolaireAstora125/IoT-Project/blob/main/app.py#L11-L33) into Configuration/Data Source/PostgreSQL tab
+- Insert database credential as in [line 11-33](https://github.com/ziyadanas/IoT-Project/blob/main/app.py#L11-L33) into Configuration/Data Source/PostgreSQL tab
 - Use external database URL instead of internal database URL to avoid data transmission failure
 - all configuration other than database credential is remain default
 
