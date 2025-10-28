@@ -1,5 +1,5 @@
 <p align="center">
-	<img src="https://chancellery.utm.my/wp-content/uploads/sites/21/2016/08/LOGO-UTM.png" height="120px"/>
+	<!--<img src="https://chancellery.utm.my/wp-content/uploads/sites/21/2016/08/LOGO-UTM.png" height="120px"/>-->
 	<h1 align="center">IoT Agriculture Monitoring System</h1>
 </p>
 A simple IoT project for Software Engineering course (SKEL413) on a Agriculture Monitoring System using NodeMCU ESP8266 with LDR Sensor Module for data acquisition.
